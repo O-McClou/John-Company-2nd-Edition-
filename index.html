@@ -1419,7 +1419,7 @@ function regionLossRuleBox(suf){
   <li><strong>Offizier-Verluste:</strong> Für jeden Offizier in der Armee (erschöpft oder nicht!) 1W6 – bei 6: zurück in Familienvorrat. (Regimenter müssen nicht würfeln.)</li>
   <li><strong>Gouverneur eliminieren:</strong> Figur zurück, Ämterkarte zu freie Ämter. (Entfällt bei GG.)</li>
   <li><strong>Aufräumen:</strong> Gouverneurs-Plättchen, Kompanie-Schiffe und Unruhe-Marker entfernen.</li>
-  <li><strong>Lokale Autorität wiederherstellen:</strong> Kuppel mit 1 Turmstufe. Kontroll-Marker zurück (Beute-Seite unten). Alle Aufträge schließen → Kettenreaktion prüfen.</li>
+  <li><strong>Lokale Autorität wiederherstellen:</strong> Gouverneurs-Plättchen entfernen. Kuppel mit 1 Turmstufe in der Region platzieren. Kontroll-Marker zurück (Beute-Seite unten). <em>Nur bei Invasionskrise:</em> Flagge des Angreifers auf der Kuppel platzieren. Alle offenen Aufträge schließen → Kettenreaktion prüfen. <em>Bei Rebellion oder Ausländ. Invasion: Aufträge wurden bereits durch das Ereignis selbst geschlossen – hier nicht nochmals schließen!</em></li>
   <li><strong>Ansehen senken:</strong> 1. Region –1 Schritt · 2. Region –2 weitere · 3.+ Region –3 weitere usw.</li>
 </ol>`;
   return `<div class="xref-acc">${acc('rloss-'+suf,'⚠ Region-Verlust – Schritte anzeigen',body)}</div>`;
@@ -1476,8 +1476,8 @@ ${chbtn('⚔','Dominierte Region','Kleine Flagge → Rebellion gegen Souverän',
 ev_anf_sov:{title:'Anführer – Souveräne Region',label:'Ergebnis',render:()=>`
 ${trail('Anführer','Souveräne Region')}
 ${bg('<strong>1 Turmstufe</strong> zur angezeigten Region hinzufügen. Kein Kampf.')}
-${bi('Der Elefant bewegt sich bei diesem Zweig (Turm +1) <strong>nicht</strong>.')}
-<button class="btn btn-d mt" onclick="iGo('el_march')">→ Marsch des Elefanten</button>`},
+${bi('Der Elefant bewegt sich bei diesem Zweig (Turm +1) <strong>nicht</strong>. Das Ereignis endet hier direkt.')}
+<button class="btn btn-d mt" onclick="finishEvent()">Ereignis abschließen ✓</button>`},
 
 ev_anf_reb:{title:'Anführer – Rebellion gegen Souverän',label:'Kampf',render:()=>`
 ${trail('Anführer','Dominierte Region','Rebellion')}
@@ -1498,7 +1498,8 @@ ${cascadeBox('anf-reb-win')}
 ev_anf_reb_lose:{title:'Anführer – Verteidiger siegt',label:'Ergebnis',render:()=>`
 ${trail('Anführer','Rebellion','Verteidiger siegt')}
 ${bw('<strong>Hauptstadt verliert 1 Turmstufe.</strong>')}
-<button class="btn btn-d mt" onclick="iGo('el_march')">→ Marsch des Elefanten</button>`},
+${bi('Der Elefant bewegt sich bei einer gescheiterten Rebellion (Anführer-Ereignis) <strong>nicht</strong>. Das Ereignis endet hier direkt.')}
+<button class="btn btn-d mt" onclick="finishEvent()">Ereignis abschließen ✓</button>`},
 
 ev_frieden:{title:'Frieden (Peace)',label:'Ereignis',render:()=>`
 ${trail('Ereigniskarte','Frieden')}
@@ -1515,7 +1516,7 @@ ${bg('<ul><li>Alle geschlossenen Aufträge dieser Region öffnen.</li><li>Alle U
 
 ev_frie_border:{title:'Frieden – Elefant auf Grenze',label:'Ergebnis',render:()=>`
 ${trail('Frieden','Elefant auf Grenze')}
-${bg('<ul><li>Alle geschlossenen Aufträge öffnen, deren Verbindung über diese Grenze führt.</li><li>Für jede der beiden Regionen, in der ein Turm steht (nicht Kompanie): +1 Turmstufe.</li></ul>')}
+${bg('<ul><li>Alle geschlossenen Aufträge öffnen, deren Verbindung über diese Grenze führt.</li><li>Für jede der beiden an den Elefanten angrenzenden Regionen, die <strong>nicht</strong> von der Kompanie kontrolliert wird: +1 Turmstufe (auch wenn dort aktuell kein Turm steht).</li></ul>')}
 <button class="btn btn-d mt" onclick="iGo('el_march')">→ Marsch des Elefanten</button>`},
 
 ev_krise:{title:'Krise – Elefanten-Position bestimmt',label:'Krise',render:()=>`
@@ -1685,14 +1686,41 @@ ${cb('Stärkemodifikator aus dem 1W6-Wurf + Unruhe-Marker in der Region.','Offiz
 ${kssText()}
 <div class="btn-row mt" style="gap:8px;flex-wrap:wrap">
   <button class="btn btn-g" style="flex:1;min-width:140px" onclick="iGo('fi_co_win')">✓ Kompanie hält stand</button>
-  <button class="btn btn-r" style="flex:1;min-width:140px" onclick="tLoss(true,'fi_co_el_check')">✗ Region verloren</button>
+  <button class="btn btn-r" style="flex:1;min-width:140px" onclick="tLoss(true,'fi_follow')">✗ Region verloren</button>
 </div>
 ${regionLossRuleBox('fi-co')}`},
 
 fi_co_win:{title:'Ausländ. Invasion abgewehrt',label:'Ergebnis',render:()=>`
 ${trail('Ausländ. Invasion','Kompanie siegt')}
 ${bg('<ul><li>Alle Unruhe-Marker entfernen.</li><li>Kommandant erhält <strong>1 Trophäe</strong>.</li></ul>')}
-<button class="btn btn-d mt" onclick="iGo('fi_co_el_check')">→ Elefant prüfen</button>`},
+<button class="btn btn-d mt" onclick="iGo('fi_follow')">→ Folge-Rebellionen prüfen</button>`},
+
+
+fi_follow:{title:'Folge-Rebellionen prüfen',label:'Ausländ. Invasion · Folge',render:()=>`
+${trail('Ausländ. Invasion','Primärkampf abgeschlossen','Folge-Rebellionen')}
+${bi('Auch nach einer Ausländ. Invasion müssen alle anderen Kompanie-Regionen <em>mit Unruhe-Markern</em> kämpfen (Regelwerk S.&nbsp;33). Reihenfolge: <strong>Bombay → Madras → Bengalen</strong>. Primär-Region überspringen.')}
+<p style="margin-top:10px"><strong>Gibt es noch eine andere Kompanie-Region mit Unruhe-Markern?</strong></p>
+<div class="btn-row mt" style="gap:8px;flex-wrap:wrap">
+  <button class="btn btn-r" style="flex:1;min-width:140px" onclick="iGo('fi_follow_combat')">⚔ Ja – Folge-Rebellion</button>
+  <button class="btn btn-g" style="flex:1;min-width:140px" onclick="iGo('fi_co_el_check')">✓ Nein – Weiter zum Elefanten</button>
+</div>`},
+
+fi_follow_combat:{title:'Folge-Rebellion – Kampf',label:'Ausländ. Invasion · Folge-Rebellion',render:()=>`
+${trail('Ausländ. Invasion','Folge-Rebellion')}
+<div class="crisis-badge cr-reb">🔴 FOLGE-REBELLION</div>
+${bi('Erschöpfte Kräfte aus der Primärinvasion bleiben erschöpft! Kommandant kann aber erneut Kräfte erschöpfen.')}
+${cb('Unruhe-Marker in dieser Region.','Offiziere + Regimenter + lokale Allianzen, die der Kommandant erschöpft.','Gleichstand → Kompanie gewinnt.')}
+${kssText()}
+<div class="btn-row mt" style="gap:8px;flex-wrap:wrap">
+  <button class="btn btn-g" style="flex:1;min-width:140px" onclick="iGo('fi_follow_win')">✓ Kompanie siegt</button>
+  <button class="btn btn-r" style="flex:1;min-width:140px" onclick="tLoss(false,'fi_follow')">✗ Region verloren</button>
+</div>
+${regionLossRuleBox('fi-follow-combat')}`},
+
+fi_follow_win:{title:'Folge-Rebellion abgewehrt',label:'Ergebnis',render:()=>`
+${trail('Ausländ. Invasion','Folge-Rebellion','Kompanie siegt')}
+${bg('<ul><li>Alle Unruhe-Marker aus dieser Region entfernen.</li><li>Kommandant erhält <strong>1 Trophäe</strong>.</li></ul>')}
+<button class="btn btn-d mt" onclick="iGo('fi_follow')">→ Nächste Folge-Rebellion prüfen</button>`},
 
 fi_co_el_check:{title:'Elefant – Prüfen',label:'Ausländ. Invasion · Elefant',render:()=>`
 ${trail('Ausländ. Invasion','Elefant prüfen')}
@@ -1710,7 +1738,7 @@ ${bg('<strong>Kreis-Marsch:</strong> Elefant ins Zentrum der angegriffenen Regio
 
 fi_non_co_combat:{title:'Ausländ. Invasion – Externe Region',label:'Kampf',render:()=>`
 ${trail('Ausländ. Invasion','Externe Region')}
-${cb('Stärkemodifikator aus dem 1W6-Wurf.','Turmstufen der angegriffenen Region.','Gleichstand → Verteidiger gewinnt.')}
+${cb('Stärkemodifikator aus dem 1W6-Wurf.','Turmstufen der angegriffenen Region. <em>Ist die Region Teil eines Reichs: alle Turmstufen des gesamten Reichs (Hauptstadt + alle dominierten Regionen).</em>','Gleichstand → Verteidiger gewinnt.')}
 <div class="btn-row mt" style="gap:8px;flex-wrap:wrap">
   <button class="btn btn-r" style="flex:1;min-width:140px" onclick="iGo('fi_non_win')">Invasion erfolgreich</button>
   <button class="btn btn-d" style="flex:1;min-width:140px" onclick="nextStormReg()">Invasion abgewehrt</button>
@@ -1768,7 +1796,7 @@ ${bw('Ansehen ganz links = Kompanie gescheitert! Indien-Events noch zu Ende abha
 el_march:{title:'Marsch des Elefanten',label:'Schritt 3',render:()=>`
 ${trail('Ereignis abgeschlossen','Marsch des Elefanten')}
 <p>Platziere den Elefanten in die Region, die auf der <strong>Oberseite des Nachziehstapels</strong> angezeigt wird. Richte ihn dann aus:</p>
-${bg('<ul><li><strong>Dominierte Region (kleine Flagge):</strong> Auf die Grenze, Kopf zeigt zur Hauptstadt des Souveräns.</li><li><strong>Kompanie-Region:</strong> Mitten in die Region. Selbes Reich dominiert sie? → Im Uhrzeigersinn zur nächsten Grenze zu einem unbetroffenen Land. Alle Nachbarn dominiert? → Grenzsymbol zur Hauptregion des Reichs.</li><li><strong>Souveräne Region (Hauptstadt/keine Flagge):</strong> Auf die Grenze mit dem passenden Symbol, Kopf in die dahinterliegende Region.</li></ul>')}
+${bg('<ul><li><strong>Dominierte Region (kleine Flagge):</strong> Auf die Grenze, Kopf zeigt zur Hauptstadt des Souveräns.</li><li><strong>Kompanie-Region:</strong> Mitten in die Region. Fertig. <em>(Die Uhrzeigersinn- und Vollreich-Sonderregeln gelten ausschließlich für souveräne Regionen.)</em></li><li><strong>Souveräne Region (Hauptstadt/keine Flagge):</strong> Auf die Grenze mit dem passenden Symbol, Kopf in die dahinterliegende Region.</li></ul>')}
 <button class="btn btn-p mt" onclick="finishEvent()">Ereignis abschließen ✓</button>`},
 
 summary:{title:'Indien-Phase abgeschlossen',label:'Fertig',render:()=>`
