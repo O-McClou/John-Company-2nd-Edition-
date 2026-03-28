@@ -1386,7 +1386,7 @@ function startStormInv(regs){IS.stormReg=regs;IS.stormIdx=0;IS.curReg=regs[0];iG
 function nextStormReg(){IS.stormIdx++;if(IS.stormReg&&IS.stormIdx<IS.stormReg.length){IS.curReg=IS.stormReg[IS.stormIdx];iGo('fi_loop');}else{IS.invSuccess=false;IS.stormReg=[];IS.stormIdx=0;IS.curReg='';if(IS.fromStorm){IS.fromStorm=false;IS.evDone=1;IS.step='draw';renderIndia();}else{finishEvent();}}}
 function finishEvent(){IS.invSuccess=false;IS.crType='';IS.temp={};if(IS.evDone<IS.evTotal){IS.evDone++;IS.step='draw';}else{IS.step='summary';}renderIndia();}
 function endIndiaPhase(){$('nav-wrap').classList.remove('hidden');if(indiaStandalone){backToMenu();}else{IS={};saveState();nav(1);}}
-function goToFinalScoring(){const n=steps.findIndex(s=>s.id==='ph10-scoring');if(n>=0){cur=n;render();}}
+function goToFinalScoring(){const n=steps.findIndex(s=>s.id==='ph10-scoring');if(n>=0){IS={};$('nav-wrap').classList.remove('hidden');cur=n;render();}}
 
 function evOverview(){return `<div class="ev-grid">
 <div class="ev-tile" onclick="iGo('ev_tumulte')"><div class="ev-tile-ic">🌪</div><div class="ev-tile-n">Tumulte</div><div class="ev-tile-d">Aufträge schließen, Kettenreaktion</div></div>
@@ -1774,7 +1774,7 @@ ${bg('Oberseite des verbleibenden Nachziehstapels ansehen – diese Region ist d
 region_loss:{title:'Region-Verlust – Schritte',label:'Ergebnis: Region verloren',render:()=>{
 const isForeignInv = (IS._afterLoss === 'fi_co_el_check');
 const step5 = IS.isInv && !isForeignInv
-  ? '<strong>Invasionskrise – Region neu aufbauen:</strong> Flagge des Angreifers auf der Kuppel platzieren. War Verteidiger eine Hauptstadt? → Alle Fahnen des alten Reiches entfernen. Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück in Region (Beute-Seite unten – kein weiteres Loot, Region nicht mehr der Präsidentschaft zugeordnet). <strong>Alle offenen Aufträge schließen → Kettenreaktion prüfen!</strong></p><p style="margin-top:6px;padding:5px 9px;background:rgba(122,88,24,.12);border-left:3px solid var(--gold-d);border-radius:3px;font-size:.82rem;color:var(--ink2)">ℹ Nur bei Invasionskrise – Rebellionen und Ausländ. Invasionen schließen Aufträge bereits durch ihr eigenes Ereignis.'
+  ? '<strong>Invasionskrise – Region neu aufbauen:</strong> Flagge des Angreifers auf der Kuppel platzieren. War Verteidiger eine Hauptstadt? → Alle Fahnen des alten Reiches entfernen. Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück in Region (Beute-Seite unten – kein weiteres Loot, Region nicht mehr der Präsidentschaft zugeordnet). <strong>Alle offenen Aufträge schließen → Kettenreaktion prüfen!</strong><br><span style="display:inline-block;margin-top:5px;font-size:.85rem;color:var(--ink3);font-style:italic">Hinweis: Rebellionen und Ausländ. Invasionen schließen Aufträge bereits durch ihr eigenes Ereignis – dieser Schritt gilt nur bei Invasionskrisen.</span>'
   : isForeignInv
     ? '<strong>Ausländ. Invasion – Region neu aufbauen:</strong> Kuppel zurück in Region (Kompanie verliert Kontrolle, Beute-Seite unten). Kontroll-Marker zurück. <em>Aufträge wurden bereits durch das Invasionsereignis geschlossen – hier nicht nochmals schließen!</em>'
     : '<strong>Rebellion – Region neu aufbauen:</strong> Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück (Beute-Seite unten – kein weiteres Loot). Keine neue Flagge. <em>Aufträge wurden bereits durch das Rebellionsereignis geschlossen – hier nicht nochmals schließen!</em>';
