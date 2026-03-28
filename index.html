@@ -1386,7 +1386,24 @@ function startStormInv(regs){IS.stormReg=regs;IS.stormIdx=0;IS.curReg=regs[0];iG
 function nextStormReg(){IS.stormIdx++;if(IS.stormReg&&IS.stormIdx<IS.stormReg.length){IS.curReg=IS.stormReg[IS.stormIdx];iGo('fi_loop');}else{IS.invSuccess=false;IS.stormReg=[];IS.stormIdx=0;IS.curReg='';if(IS.fromStorm){IS.fromStorm=false;IS.evDone=1;IS.step='draw';renderIndia();}else{finishEvent();}}}
 function finishEvent(){IS.invSuccess=false;IS.crType='';IS.temp={};if(IS.evDone<IS.evTotal){IS.evDone++;IS.step='draw';}else{IS.step='summary';}renderIndia();}
 function endIndiaPhase(){$('nav-wrap').classList.remove('hidden');if(indiaStandalone){backToMenu();}else{IS={};saveState();nav(1);}}
-function goToFinalScoring(){const n=steps.findIndex(s=>s.id==='ph10-scoring');if(n>=0){IS={};$('nav-wrap').classList.remove('hidden');cur=n;render();}}
+function goToFinalScoring(){
+  // Falls steps noch nicht gebaut (z.B. India-Standalone oder PWA-Homescreen):
+  if(!steps || steps.length===0) buildSteps();
+  const n=steps.findIndex(s=>s.id==='ph10-scoring');
+  if(n>=0){
+    IS={};
+    indiaStandalone=false;
+    currentAppMode='full';
+    // Sicherstellung: App-Shell sichtbar, Nav sichtbar
+    $('W').style.display='none';
+    const app=$('A');app.style.display='flex';app.style.flexDirection='column';
+    $('sbar').classList.remove('hidden');
+    $('prog').parentElement.classList.remove('hidden');
+    $('nav-wrap').classList.remove('hidden');
+    cur=n;
+    render();
+  }
+}
 
 function evOverview(){return `<div class="ev-grid">
 <div class="ev-tile" onclick="iGo('ev_tumulte')"><div class="ev-tile-ic">🌪</div><div class="ev-tile-n">Tumulte</div><div class="ev-tile-d">Aufträge schließen, Kettenreaktion</div></div>
