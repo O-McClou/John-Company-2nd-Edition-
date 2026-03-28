@@ -1774,7 +1774,7 @@ ${bg('Oberseite des verbleibenden Nachziehstapels ansehen – diese Region ist d
 region_loss:{title:'Region-Verlust – Schritte',label:'Ergebnis: Region verloren',render:()=>{
 const isForeignInv = (IS._afterLoss === 'fi_co_el_check');
 const step5 = IS.isInv && !isForeignInv
-  ? '<strong>Invasionskrise – Region neu aufbauen:</strong> Flagge des Angreifers auf der Kuppel platzieren. War Verteidiger eine Hauptstadt? → Alle Fahnen des alten Reiches entfernen. Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück in Region (Beute-Seite unten – kein weiteres Loot, Region nicht mehr der Präsidentschaft zugeordnet). <strong>Alle offenen Aufträge schließen → Kettenreaktion prüfen!</strong> <em>(Nur bei Invasionskrise – Ausländ. Invasionen und Rebellionen schließen Aufträge durch ihr eigenes Ereignis.)</em>'
+  ? '<strong>Invasionskrise – Region neu aufbauen:</strong> Flagge des Angreifers auf der Kuppel platzieren. War Verteidiger eine Hauptstadt? → Alle Fahnen des alten Reiches entfernen. Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück in Region (Beute-Seite unten – kein weiteres Loot, Region nicht mehr der Präsidentschaft zugeordnet). <strong>Alle offenen Aufträge schließen → Kettenreaktion prüfen!</strong></p><p style="margin-top:6px;padding:5px 9px;background:rgba(122,88,24,.12);border-left:3px solid var(--gold-d);border-radius:3px;font-size:.82rem;color:var(--ink2)">ℹ Nur bei Invasionskrise – Rebellionen und Ausländ. Invasionen schließen Aufträge bereits durch ihr eigenes Ereignis.'
   : isForeignInv
     ? '<strong>Ausländ. Invasion – Region neu aufbauen:</strong> Kuppel zurück in Region (Kompanie verliert Kontrolle, Beute-Seite unten). Kontroll-Marker zurück. <em>Aufträge wurden bereits durch das Invasionsereignis geschlossen – hier nicht nochmals schließen!</em>'
     : '<strong>Rebellion – Region neu aufbauen:</strong> Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück (Beute-Seite unten – kein weiteres Loot). Keine neue Flagge. <em>Aufträge wurden bereits durch das Rebellionsereignis geschlossen – hier nicht nochmals schließen!</em>';
@@ -1789,7 +1789,11 @@ return `
   '<strong>Ansehen senken:</strong> 1. verlorene Region dieser Runde: –1 Schritt. 2. Region: –2 weitere Schritte. 3.+ Region: –3 weitere Schritte usw.'
 ].map(s=>`<li>${s}</li>`).join('')}</ol></div>
 ${!isForeignInv && IS.isInv ? cascadeBox('rloss') : ''}
-${bw('Ansehen ganz links = Kompanie gescheitert! Indien-Events noch zu Ende abhandeln, dann Schlusswertung.')}
+<div style="background:var(--red-bg);border:2px solid var(--red);border-radius:var(--r-s);padding:12px 14px;margin-top:12px">
+  <p style="font-weight:700;color:var(--red-l);margin-bottom:8px">⚠ Ansehen ganz links = Kompanie gescheitert!</p>
+  <p style="font-size:.88rem;color:var(--ink2);margin-bottom:10px">Indien-Events noch zu Ende abhandeln, dann Schlusswertung.</p>
+  <button class="btn btn-r" onclick="goToFinalScoring()">⚠ Zur Schlusswertung</button>
+</div>
 <button class="btn btn-d mt" onclick="afterLoss()">✓ Alle Verlust-Schritte erledigt → Weiter</button>`;
 }},
 
