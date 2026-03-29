@@ -1555,10 +1555,12 @@ function regionLossRuleBox(suf){
   <li><strong>Offizier-Verluste:</strong> Für jeden Offizier in der Armee (erschöpft oder nicht!) 1W6 – bei 6: zurück in Familienvorrat. (Regimenter müssen nicht würfeln.)</li>
   <li><strong>Gouverneur eliminieren:</strong> Figur zurück, Ämterkarte zu freie Ämter. (Entfällt bei GG.)</li>
   <li><strong>Aufräumen:</strong> Gouverneurs-Plättchen, Kompanie-Schiffe und Unruhe-Marker entfernen.</li>
-  <li><strong>Lokale Autorität wiederherstellen:</strong> Gouverneurs-Plättchen entfernen. Kuppel mit 1 Turmstufe in der Region platzieren. Kontroll-Marker zurück (Beute-Seite unten). <em>Nur bei Invasionskrise:</em> Flagge des Angreifers auf der Kuppel platzieren. Alle offenen Aufträge schließen → Kettenreaktion prüfen. <em>Bei Rebellion oder Ausländ. Invasion: Aufträge wurden bereits durch das Ereignis selbst geschlossen – hier nicht nochmals schließen!</em></li>
+  <li><strong>Lokale Autorität wiederherstellen:</strong> Gouverneurs-Plättchen entfernen. Kuppel mit 1 Turmstufe in der Region platzieren. Kontroll-Marker zurück (Beute-Seite unten).<br>
+  📌 <em>Nur bei <strong>Invasionskrise</strong>:</em> Flagge des Angreifers auf der Kuppel platzieren. Dann alle offenen Aufträge in der Region schließen → Kettenreaktion prüfen (sind jetzt alle geschlossen?).<br>
+  📌 <em>Bei <strong>Rebellion</strong> oder <strong>Ausländ. Invasion</strong>:</em> Das Schließen aller Aufträge + die Kettenreaktion wurden bereits <strong>VOR diesen Region-Verlust-Schritten</strong> ausgeführt (direkt als Folge des Ereignisses) – hier nicht nochmals schließen!</li>
   <li><strong>Ansehen senken:</strong> 1. Region –1 Schritt · 2. Region –2 weitere · 3.+ Region –3 weitere usw.</li>
 </ol>
-${bi('<strong>Errata – Ereignistypen und Auftragsschließung:</strong> Die Aufträge werden je nach Ereignistyp unterschiedlich behandelt. Bei einer <em>Invasionskrise</em> schließt Region-Verlust-Schritt 4 alle Aufträge. Bei <em>Rebellion</em> und <em>Ausländischer Invasion</em> schließt bereits das Ereignis selbst die Aufträge – Schritt 4 überspringt das Schließen. <span class="badge bo" style="font-size:.6rem">ERRATA</span>')}`;
+${bi('<strong>Errata (Regelwerk S. 29):</strong> Das Schließen von Aufträgen und die Kettenreaktion-Prüfung finden bei jedem Ereignistyp statt – aber zu unterschiedlichen Zeitpunkten:<br>• <em>Invasionskrise:</em> Hier in Schritt 5 (Restore Local Authority)<br>• <em>Rebellion &amp; Ausländ. Invasion:</em> Bereits als Teil des Ereignisses selbst – in dieser App im Kampfbildschirm (roter Kasten oben) ausgeführt. <span class="badge bo" style="font-size:.6rem">ERRATA</span>')}`;
 
   return `<div class="xref-acc">${acc('rloss-'+suf,'⚠ Region-Verlust – Schritte anzeigen',body)}</div>`;
 }
@@ -1679,6 +1681,11 @@ ${kssText()}
   <button class="btn btn-r" style="flex:1;min-width:140px" onclick="tLoss(false,'k_follow')">✗ Region verloren</button>
 </div>
 ${bw('Bei Niederlage – Offizier-Verluste: Für jeden Offizier in der Armee (erschöpft oder nicht!) 1W6 – bei 6: zurück in Familienvorrat. Regimenter müssen nicht würfeln. Kommandant: Hälfte Trophäen (aufrunden) abgeben + zurück in Familienvorrat.')}
+<div class="box box-w" style="border-left-color:#b86010;background:#fff8ee;color:#4a2800;margin:8px 0"><strong>⚠ Wenn Region verloren – ZUERST (vor den Region-Verlust-Schritten):</strong><br>
+1. Alle offenen Aufträge in dieser Region schließen (Schreiber → Familienvorrat, Erfüllt-Marker umdrehen).<br>
+2. Sind danach <em>alle</em> Aufträge in der Region geschlossen? → <strong>Kettenreaktion!</strong><br>
+<em style="font-size:.83rem">(Regelwerk S. 29 / Errata: Rebellionen schließen Aufträge als Teil des Ereignisses selbst – nicht erst in Region-Verlust-Schritt 5.)</em></div>
+${cascadeBox('co-reb-pre')}
 ${regionLossRuleBox('co-reb')}`},
 
 k_co_reb_win:{title:'Rebellion abgewehrt',label:'Ergebnis',render:()=>`
@@ -1699,7 +1706,8 @@ ${kssText()}
   <button class="btn btn-r" style="flex:1;min-width:140px" onclick="IS.invSuccess=true;tLoss(true,'k_follow')">✗ Region verloren</button>
 </div>
 ${bw('Bei Niederlage: Flagge des Angreifers in der verlorenen Region platzieren. Offizier-Verluste: Für jeden Offizier in der Armee (erschöpft oder nicht!) 1W6 würfeln – bei 6: zurück in Familienvorrat. Regimenter müssen nicht würfeln. Kommandant: Hälfte Trophäen abgeben + zurück in Vorrat.')}
-${regionLossRuleBox('co-inv')}`},
+${regionLossRuleBox('co-inv')}
+${cascadeBox('co-inv-rloss')}`},
 
 k_co_inv_win:{title:'Invasion abgewehrt',label:'Ergebnis',render:()=>`
 ${trail('Krise','Invasion','Kompanie siegt')}
@@ -1725,6 +1733,11 @@ ${kssText()}
   <button class="btn btn-g" style="flex:1;min-width:140px" onclick="iGo('k_follow_win')">✓ Kompanie siegt</button>
   <button class="btn btn-r" style="flex:1;min-width:140px" onclick="tLoss(false,'k_follow')">✗ Region verloren</button>
 </div>
+<div class="box box-w" style="border-left-color:#b86010;background:#fff8ee;color:#4a2800;margin:8px 0"><strong>⚠ Wenn Region verloren – ZUERST (vor den Region-Verlust-Schritten):</strong><br>
+1. Alle offenen Aufträge in dieser Region schließen (Schreiber → Familienvorrat, Erfüllt-Marker umdrehen).<br>
+2. Sind danach <em>alle</em> Aufträge in der Region geschlossen? → <strong>Kettenreaktion!</strong><br>
+<em style="font-size:.83rem">(Regelwerk S. 29 / Errata: Rebellionen schließen Aufträge als Teil des Ereignisses – nicht erst in Region-Verlust-Schritt 5.)</em></div>
+${cascadeBox('follow-combat-pre')}
 ${regionLossRuleBox('follow-combat')}`},
 
 k_follow_win:{title:'Folge-Rebellion abgewehrt',label:'Ergebnis',render:()=>`
@@ -1827,6 +1840,11 @@ ${kssText()}
   <button class="btn btn-g" style="flex:1;min-width:140px" onclick="iGo('fi_co_win')">✓ Kompanie hält stand</button>
   <button class="btn btn-r" style="flex:1;min-width:140px" onclick="tLoss(true,'fi_follow')">✗ Region verloren</button>
 </div>
+<div class="box box-w" style="border-left-color:#b86010;background:#fff8ee;color:#4a2800;margin:8px 0"><strong>⚠ Wenn Region verloren – ZUERST (vor den Region-Verlust-Schritten):</strong><br>
+1. Alle offenen Aufträge in dieser Region schließen (Schreiber → Familienvorrat, Erfüllt-Marker umdrehen).<br>
+2. Sind danach <em>alle</em> Aufträge in der Region geschlossen? → <strong>Kettenreaktion!</strong><br>
+<em style="font-size:.83rem">(Regelwerk S. 29 / Errata: Ausländ. Invasionen schließen Aufträge als Teil des Ereignisses – nicht erst in Region-Verlust-Schritt 5.)</em></div>
+${cascadeBox('fi-co-pre')}
 ${regionLossRuleBox('fi-co')}`},
 
 fi_co_win:{title:'Ausländ. Invasion abgewehrt',label:'Ergebnis',render:()=>`
@@ -1854,6 +1872,11 @@ ${kssText()}
   <button class="btn btn-g" style="flex:1;min-width:140px" onclick="iGo('fi_follow_win')">✓ Kompanie siegt</button>
   <button class="btn btn-r" style="flex:1;min-width:140px" onclick="tLoss(false,'fi_follow')">✗ Region verloren</button>
 </div>
+<div class="box box-w" style="border-left-color:#b86010;background:#fff8ee;color:#4a2800;margin:8px 0"><strong>⚠ Wenn Region verloren – ZUERST (vor den Region-Verlust-Schritten):</strong><br>
+1. Alle offenen Aufträge in dieser Region schließen (Schreiber → Familienvorrat, Erfüllt-Marker umdrehen).<br>
+2. Sind danach <em>alle</em> Aufträge in der Region geschlossen? → <strong>Kettenreaktion!</strong><br>
+<em style="font-size:.83rem">(Regelwerk S. 29 / Errata: Rebellionen schließen Aufträge als Teil des Ereignisses – nicht erst in Region-Verlust-Schritt 5.)</em></div>
+${cascadeBox('fi-follow-combat-pre')}
 ${regionLossRuleBox('fi-follow-combat')}`},
 
 fi_follow_win:{title:'Folge-Rebellion abgewehrt',label:'Ergebnis',render:()=>`
@@ -1911,12 +1934,13 @@ ${bg('Oberseite des verbleibenden Nachziehstapels ansehen – diese Region ist d
 <button class="btn btn-d mt" onclick="finishEvent()">Ereignis abschließen ✓</button>`},
 
 region_loss:{title:'Region-Verlust – Schritte',label:'Ergebnis: Region verloren',render:()=>{
-const isForeignInv = (IS._afterLoss === 'fi_co_el_check');
-const step5 = IS.isInv && !isForeignInv
-  ? '<strong>Invasionskrise – Region neu aufbauen:</strong> Flagge des Angreifers auf der Kuppel platzieren. War Verteidiger eine Hauptstadt? → Alle Fahnen des alten Reiches entfernen. Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück in Region (Beute-Seite unten – kein weiteres Loot, Region nicht mehr der Präsidentschaft zugeordnet). <strong>Alle offenen Aufträge schließen → Kettenreaktion prüfen!</strong><br><span style="display:inline-block;margin-top:5px;font-size:.85rem;color:var(--ink3);font-style:italic">Errata-Hinweis: Rebellionen und Ausländ. Invasionen schließen Aufträge bereits durch ihr eigenes Ereignis – dieser Schritt gilt nur bei Invasionskrisen (Invasions-Krise). Zusätzlich: Kettenreaktion prüfen, falls alle Aufträge bereits geschlossen.</span>'
+const isForeignInv = IS.isInv && (IS._afterLoss === 'fi_follow' || IS._afterLoss === 'fi_co_el_check');
+const isInvCrisis  = IS.isInv && !isForeignInv;
+const step5 = isInvCrisis
+  ? '<strong>Lokale Autorität wiederherstellen (Invasionskrise):</strong> Flagge des Angreifers auf der Kuppel platzieren. War Verteidiger eine Hauptstadt? → Alle Fahnen des alten Reiches entfernen. Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück in Region (Beute-Seite unten – kein weiteres Loot, Region nicht mehr der Präsidentschaft zugeordnet). <strong>Alle offenen Aufträge schließen → Kettenreaktion prüfen!</strong> (Cascade-Details unten aufklappbar.)'
   : isForeignInv
-    ? '<strong>Ausländ. Invasion – Region neu aufbauen:</strong> Kuppel zurück in Region (Kompanie verliert Kontrolle, Beute-Seite unten). Kontroll-Marker zurück. <em>Aufträge wurden bereits durch das Invasionsereignis geschlossen – hier nicht nochmals schließen!</em>'
-    : '<strong>Rebellion – Region neu aufbauen:</strong> Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück (Beute-Seite unten – kein weiteres Loot). Keine neue Flagge. <em>Aufträge wurden bereits durch das Rebellionsereignis geschlossen – hier nicht nochmals schließen!</em>';
+    ? '<strong>Lokale Autorität wiederherstellen (Ausländ. Invasion):</strong> Kuppel zurück in die Region (Kompanie verliert Kontrolle, Beute-Seite unten). Kontroll-Marker zurück in Region. ✅ <em>Aufträge schließen + Kettenreaktion wurden bereits im Kampfbildschirm ausgeführt (oranger Kasten) – hier nicht nochmals schließen!</em>'
+    : '<strong>Lokale Autorität wiederherstellen (Rebellion):</strong> Kuppel mit 1 Turmstufe in der Region platzieren. Kontroll-Marker zurück in Region (Beute-Seite unten – kein weiteres Loot, Region nicht mehr der Präsidentschaft zugeordnet). Keine neue Flagge. ✅ <em>Aufträge schließen + Kettenreaktion wurden bereits im Kampfbildschirm ausgeführt (oranger Kasten) – hier nicht nochmals schließen!</em>';
 return `
 <p>Führe diese Schritte <strong>genau in dieser Reihenfolge</strong> aus:</p>
 <div class="loss-steps"><ol>${[
@@ -1927,7 +1951,7 @@ return `
   step5,
   '<strong>Ansehen senken:</strong> 1. verlorene Region dieser Runde: –1 Schritt. 2. Region: –2 weitere Schritte. 3.+ Region: –3 weitere Schritte usw.'
 ].map(s=>`<li>${s}</li>`).join('')}</ol></div>
-${!isForeignInv && IS.isInv ? cascadeBox('rloss') : ''}
+${isInvCrisis ? cascadeBox('rloss-inv') : ''}
 <div style="background:var(--red-bg);border:2px solid var(--red);border-radius:var(--r-s);padding:12px 14px;margin-top:12px">
   <p style="font-weight:700;color:var(--red-l);margin-bottom:8px">⚠ Ansehen ganz links = Kompanie gescheitert!</p>
   <p style="font-size:.88rem;color:var(--ink2);margin-bottom:10px">Indien-Events noch zu Ende abhandeln, dann Schlusswertung.</p>
