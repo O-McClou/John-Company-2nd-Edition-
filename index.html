@@ -849,7 +849,7 @@ function s_ph2_family(){return `
 <div class="step-badge"><span class="step-num">Phase II</span><span class="step-phase">Familie</span></div>
 <div class="step-title">Familienaktionen</div>
 <div class="card">
-${bi('<strong>Chancen-Marker (Glasstein):</strong> Jede Familie legt ihren Marker auf die gewählte Aktion. Liegt er dort <em>bereits</em> (gleiche Aktion wie letzte Runde), darf sie <strong>2× ausgeführt werden</strong>. Erst ab Runde 2 möglich.')}
+${bi('<strong>Chancen-Marker (Glasstein):</strong> Jede Familie legt ihren Marker auf die gewählte Aktion. Liegt er dort <em>bereits</em> (gleiche Aktion wie letzte Runde), darf sie <strong>2× ausgeführt werden</strong> – die Kosten fallen dabei für <em>beide</em> Ausführungen voll an! Erst ab Runde 2 möglich.')}
 ${bi('<strong>Extra-Aktionen durch Gesetze:</strong> Manche Gesetze gewähren eine Extra-Aktion. Diese darf <em>nicht</em> durch den Chancen-Marker verdoppelt werden. Es gilt immer nur die zuletzt ausgelegte Gesetzeskarte.')}
 <p>Beginnend mit dem Vorsitzenden im Uhrzeigersinn: <strong>1 Familienaktion</strong> ausführen (bei doppeltem Marker: 2×).</p>
 <h3>Die 6 Aktionen</h3>
@@ -1168,8 +1168,9 @@ ${bi('Selbst nach Notkrediten und Ansehen-Verlust durch Notkredite wird die Mark
 ${bw('Ansehen ganz links = Kompanie gescheitert!')}
 <h3>Schritt 4: Dividenden zahlen (optional)</h3>
 <p>Der <strong>Vorsitzende</strong> kann Dividenden zahlen – dies ist der <em>einzige</em> Weg, das Ansehen zu erhöhen!</p>
+${bw('<strong>Achtung nach Notkrediten:</strong> Das Kompanie-Vermögen wurde auf 0 gesetzt. Da eine Ausschüttung mindestens £1 pro Anteil (inkl. Vorsitzender) kostet, ist bei einem Vermögen von 0 <strong>keine Dividende möglich</strong>.')}
 <p>Pro Ausschüttung: <strong>£1 pro Anteil</strong> (inkl. Vorsitzender) aus dem Kompanie-Vermögen. Darf mehrfach wiederholt werden.</p>
-${bg('<strong>Öffentliche Euphorie:</strong> Wurde mehr Geld als Dividenden ausgezahlt als der Erwartungswert angibt? → <strong>Ansehen +1!</strong>')}
+${bg('<strong>Öffentliche Euphorie:</strong> War die <em>Gesamtsumme</em> der gezahlten Dividenden <strong>höher</strong> als der Erwartungswert (unter dem Ansehens-Marker)? → <strong>Ansehen +1!</strong>')}
 <button class="btn btn-r mt" onclick="goToFinalScoring()">⚠ Kompanie gescheitert → Schlusswertung</button>
 </div>`;}
 
@@ -1421,9 +1422,9 @@ function kssText(){return bi('Kein Kommandant besetzt? → Militärische Belange
 function cascadeBox(suf){
   const body=`<p style="font-size:.9rem;line-height:1.6;margin-bottom:8px">Eine <strong>Kettenreaktion</strong> tritt auf, wenn alle Aufträge einer Region bereits geschlossen sind und trotzdem noch ein weiterer Auftrag in ihr geschlossen werden müsste.</p>
 <ol>
-  <li>Schließe alle offenen Aufträge, die über die Grenze dieser Region direkt mit einer Nachbarregion verbunden sind.</li>
-  <li>Ist der verbundene Auftrag in der Nachbarregion bereits geschlossen? → Stattdessen den <strong>nördlichsten offenen Auftrag</strong> dieser Nachbarregion schließen.</li>
-  <li>Sind <em>alle</em> Aufträge in der Nachbarregion geschlossen? → Diese Nachbarregion löst ihrerseits eine Kettenreaktion aus.</li>
+  <li>Schließe alle offenen Aufträge in Nachbarregionen, die mit einem Auftrag der überlaufenden Region verbunden sind. Liegt auf einem solchen Auftrag ein <strong>Erfüllt-Marker</strong>, wird dieser umgedreht (= Auftrag gilt als geschlossen). Liegt ein <strong>Schreiber</strong> dort, geht er zurück in den Familienvorrat.</li>
+  <li>Ist der verbundene Auftrag in der Nachbarregion bereits geschlossen (kein Erfüllt-Marker, kein offener Auftrag)? → Stattdessen den <strong>nördlichsten offenen Auftrag</strong> dieser Nachbarregion schließen.</li>
+  <li>Sind <em>alle</em> Aufträge in der Nachbarregion nach diesem Schritt geschlossen? → Diese Nachbarregion löst ihrerseits eine Kettenreaktion aus.</li>
 </ol>
 ${bw('<strong>Wichtig:</strong> Jede Region kann pro Ereignis nur 1× eine Kettenreaktion <em>auslösen</em> – sie kann aber gleichzeitig von mehreren anderen Regionen Kettenreaktionen empfangen.')}`;
   return `<div class="xref-acc">${acc('casc-'+suf,'🔗 Kettenreaktion – Regeldetails anzeigen',body)}</div>`;
