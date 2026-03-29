@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>John Company 2E</title>
 <!-- PWA / iOS Homescreen -->
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -74,10 +74,10 @@ header{background:linear-gradient(180deg,#0a0502,#1a0e08,#221408);padding:10px 1
 .h-text{flex:1;min-width:0}
 .h-title{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.85rem;font-weight:700;color:#f2ead8;letter-spacing:1px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.h-phase{font-size:.68rem;color:var(--gold-l);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.h-phase{font-size:.82rem;color:var(--gold-l);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .h-menu-btn{background:transparent;border:1px solid rgba(184,132,42,.5);color:var(--gold-l);
-  padding:6px 10px;border-radius:4px;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.68rem;cursor:pointer;
-  white-space:nowrap;flex-shrink:0;min-height:34px}
+  padding:8px 10px;border-radius:4px;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.78rem;cursor:pointer;
+  white-space:nowrap;flex-shrink:0;min-height:44px}
 .h-menu-btn:active{background:rgba(184,132,42,.15)}
 
 /* ── PROGRESS BAR ── */
@@ -92,16 +92,16 @@ header{background:linear-gradient(180deg,#0a0502,#1a0e08,#221408);padding:10px 1
 /* .tog-grp kept for compatibility (unused) */
 .tog-grp{display:flex;align-items:center;gap:14px;flex:1;flex-wrap:wrap}
 .tog-lbl{display:flex;align-items:center;gap:7px;cursor:pointer;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
-  font-size:.7rem;color:#f0e4c8;letter-spacing:.5px;user-select:none;white-space:nowrap}
-.tog{position:relative;width:38px;height:21px;flex-shrink:0}
+  font-size:.82rem;color:#f0e4c8;letter-spacing:.5px;user-select:none;white-space:nowrap}
+.tog{position:relative;width:40px;height:22px;flex-shrink:0}
 .tog input{opacity:0;width:0;height:0}
 .tog-sl{position:absolute;inset:0;background:#2a1a0a;border-radius:21px;transition:.3s;border:1px solid #4a3a20}
 .tog-sl::before{content:'';position:absolute;width:16px;height:16px;left:2px;top:2px;background:#7a6a48;border-radius:50%;transition:.3s}
 .tog input:checked+.tog-sl{background:var(--gold-d);border-color:var(--gold)}
 .tog input:checked+.tog-sl::before{transform:translateX(17px);background:var(--gold-l)}
 .ref-btn{background:transparent;border:1px solid rgba(184,132,42,.4);color:#f0e4c8;padding:5px 7px;
-  border-radius:4px;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.65rem;cursor:pointer;
-  width:46px;min-width:46px;align-self:stretch;white-space:normal;text-align:center;line-height:1.3;
+  border-radius:4px;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.78rem;cursor:pointer;
+  width:52px;min-width:52px;min-height:44px;align-self:stretch;white-space:normal;text-align:center;line-height:1.3;
   flex-shrink:0;display:flex;align-items:center;justify-content:center;word-break:break-word}
 .ref-btn:active{background:rgba(184,132,42,.12)}
 
@@ -109,8 +109,8 @@ header{background:linear-gradient(180deg,#0a0502,#1a0e08,#221408);padding:10px 1
 .phase-jump{background:#0c0804;border-bottom:1px solid rgba(184,132,42,.15);overflow-x:auto;display:none}
 .phase-jump::-webkit-scrollbar{height:0}
 .pj-inner{display:flex;padding:8px 10px;gap:6px;min-width:max-content}
-.pj-btn{background:transparent;border:1px solid rgba(184,132,42,.3);color:#c8b08a;padding:5px 10px;
-  border-radius:20px;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.62rem;cursor:pointer;white-space:nowrap;
+.pj-btn{background:transparent;border:1px solid rgba(184,132,42,.3);color:#c8b08a;padding:7px 12px;
+  border-radius:20px;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.78rem;cursor:pointer;white-space:nowrap;
   transition:all .2s;letter-spacing:.5px}
 .pj-btn:active,.pj-btn.active{background:var(--gold-d);border-color:var(--gold);color:#fff}
 
@@ -120,9 +120,9 @@ header{background:linear-gradient(180deg,#0a0502,#1a0e08,#221408);padding:10px 1
 /* ── STEP INDICATOR ── */
 .step-badge{display:inline-flex;align-items:center;gap:7px;margin-bottom:6px}
 .step-num{background:linear-gradient(145deg,var(--gold-d),var(--gold));color:#fff;
-  font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.62rem;font-weight:700;padding:2px 9px;border-radius:20px;
+  font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:20px;
   letter-spacing:.5px}
-.step-phase{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.62rem;letter-spacing:2px;color:var(--gold-d);text-transform:uppercase}
+.step-phase{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.78rem;letter-spacing:2px;color:var(--gold-d);text-transform:uppercase}
 .step-title{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:1.25rem;font-weight:700;color:var(--red);
   margin-bottom:14px;line-height:1.2}
 
@@ -357,15 +357,15 @@ ol li::before{content:counter(step);position:absolute;left:0;width:21px;height:2
 .nav-wrap{position:fixed;bottom:0;left:0;right:0;z-index:100;background:linear-gradient(180deg,#1a0e08,#0a0502);
   border-top:2px solid var(--gold-d);box-shadow:0 -4px 18px rgba(0,0,0,.5)}
 .nav-inner{display:flex;align-items:center;gap:9px;padding:9px 14px;max-width:600px;margin:0 auto}
-.nav-btn{padding:10px 14px;border-radius:var(--r-s);font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.75rem;
+.nav-btn{padding:11px 16px;border-radius:var(--r-s);font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.82rem;
   font-weight:600;letter-spacing:.8px;cursor:pointer;border:none;text-transform:uppercase;
-  transition:all .15s;flex-shrink:0;min-height:42px}
+  transition:all .15s;flex-shrink:0;min-height:44px}
 .nav-btn:active{transform:scale(.96)}
 .nav-btn:disabled{opacity:.3;cursor:not-allowed}
 .nb-prev{background:transparent;border:1.5px solid rgba(106,90,56,.8)!important;color:var(--gold-l)}
 .nb-next{background:linear-gradient(150deg,var(--gold-d),var(--gold-l) 50%,var(--gold-d));color:#fff;
   box-shadow:0 2px 8px rgba(184,132,42,.4)}
-.nav-info{flex:1;text-align:center;color:var(--gold-l);font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.68rem;letter-spacing:.8px}
+.nav-info{flex:1;text-align:center;color:var(--gold-l);font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.82rem;letter-spacing:.8px}
 .nav-prog{height:2px;background:#2a1a08;border-radius:1px;margin-top:4px;overflow:hidden}
 .nav-prog-fill{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold-l));border-radius:1px;transition:width .4s}
 
@@ -528,12 +528,102 @@ ol li::before{content:counter(step);position:absolute;left:0;width:21px;height:2
   header { padding: 14px 40px; }
   .mc { max-width: 820px; }
 }
+/* ── DARK MODE ── */
+body.dark {
+  --bg:#1a110a; --bg2:#221508; --surface:#241810; --surface2:#1e1408;
+  --ink:#f5ead5; --ink2:#d8c8a8; --ink3:#a89070;
+  --border:rgba(184,132,42,.38); --border-s:rgba(184,132,42,.22);
+  --shadow:0 2px 12px rgba(0,0,0,.5); --shadow-l:0 4px 24px rgba(0,0,0,.7);
+  --red-bg:rgba(122,24,24,.25); --green-bg:rgba(30,58,18,.25); --blue-bg:rgba(14,42,72,.25);
+  background-image:radial-gradient(ellipse at 15% 5%,rgba(122,88,24,.08),transparent 55%),
+    radial-gradient(ellipse at 85% 90%,rgba(104,72,24,.06),transparent 55%);
+}
+body.dark #W { background: none; }
+body.dark .mc { background: var(--surface); }
+body.dark header { background: linear-gradient(180deg,#050200,#0f0806,#160b04); }
+body.dark .nav-wrap { background: linear-gradient(180deg,#0f0806,#050200); }
+body.dark .sbar { background: #0c0604; }
+body.dark .qr-sheet, body.dark .pj-sheet { background: var(--surface); }
+body.dark .box-i { background: rgba(60,40,0,.6); border-color: var(--gold-d); color: var(--ink2); }
+body.dark .box-w { background: rgba(80,8,8,.4); border-color: var(--red); color: #f8d8d8; }
+body.dark .box-g { background: rgba(10,30,8,.5); border-color: var(--green); color: #c8e8c0; }
+body.dark .box-b { background: rgba(5,18,36,.5); border-color: var(--blue); color: #c0d8f0; }
+body.dark .box-success { background: rgba(10,30,8,.5); }
+body.dark .box-fail { background: rgba(80,8,8,.4); }
+body.dark .pres-cb-hd { background: var(--surface2); }
+body.dark .acc-hd { background: var(--surface2); }
+body.dark .chbtn { background: var(--surface); }
+body.dark .dt { background: var(--surface2); }
+body.dark .dt-k { background: var(--bg2); }
+body.dark .ot { background: var(--surface2); }
+body.dark .ot-slot { background: var(--surface); }
+body.dark p, body.dark ul li, body.dark ol li { color: var(--ink2); }
+body.dark strong { color: var(--ink); }
+
+/* Dark mode toggle button */
+.dm-btn {
+  background: transparent;
+  border: 1px solid rgba(184,132,42,.4);
+  color: #f0e4c8;
+  padding: 0 7px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+.dm-btn:active { background: rgba(184,132,42,.15); }
+
+/* ── SWIPE INDICATOR ── */
+.swipe-hint {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(26,14,4,.85);
+  color: var(--gold-l);
+  font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+  font-size: .72rem;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(184,132,42,.4);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s;
+  z-index: 150;
+  white-space: nowrap;
+}
+.swipe-hint.show { opacity: 1; }
+
+body.dark #W {
+  background: linear-gradient(180deg, rgba(10,6,2,.95), rgba(20,12,4,.95));
+}
+body.dark .w-title { color: var(--ink); }
+body.dark .w-desc { color: var(--ink3); }
+body.dark .w-sub { color: var(--gold-d); }
+body.dark .w-seal { box-shadow: 0 6px 24px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.1), 0 0 0 5px rgba(184,132,42,.08); }
+
+/* ── ERRATA BADGE ── */
+.badge.bo { background: var(--gold-d); color: #f0e4c8; }
+.errata-note { 
+  display: inline-flex; align-items: center; gap: 4px;
+  background: linear-gradient(135deg,#3a2800,#5a3c00);
+  border: 1px solid var(--gold-d); border-radius: 4px;
+  padding: 4px 8px; margin: 6px 0; font-size: .8rem; color: #f0d890;
+  font-style: italic;
+}
+
 </style>
 </head>
 <body>
 
 <!-- WELCOME SCREEN -->
-<div id="W">
+<div id="W" style="position:relative"><button class="dm-btn" id="dm-btn-welcome" onclick="toggleDarkMode()" title="Hell/Dunkel wechseln" style="position:absolute;top:16px;right:16px;background:rgba(0,0,0,.1);">🌙</button>
   <div class="w-seal">⚓</div>
   <h1 class="w-title">John Company</h1>
   <div class="w-sub">Zweite Auflage · Spielführer</div>
@@ -542,22 +632,22 @@ ol li::before{content:counter(step);position:absolute;left:0;width:21px;height:2
   <div class="mc" onclick="startMode('full')">
     <div class="mc-ic">📜</div>
     <div class="mc-t">Vollständiger Spielführer</div>
-    <div class="mc-d">Alle Phasen einer Runde – Schritt für Schritt geführt, übersichtlich und vollständig.</div>
+    <div class="mc-d">Alle Phasen einer Runde – Schritt für Schritt geführt, übersichtlich und vollständig. <em>Für 1–6 Spieler.</em></div>
   </div>
   <div class="mc" style="--before-color:#1a3a5c" onclick="startMode('setup')">
     <div class="mc-ic">🎲</div>
     <div class="mc-t">Setup & Spielvorbereitung</div>
-    <div class="mc-d">Szenario wählen, Spielplan aufbauen, Familien einrichten – alles erklärt.</div>
+    <div class="mc-d">Szenario wählen, Spielplan aufbauen, Familien einrichten – alles erklärt. <em>Vor der ersten Runde.</em></div>
   </div>
   <div class="mc" onclick="startMode('india')">
     <div class="mc-ic">🐘</div>
     <div class="mc-t">Nur Ereignisse in Indien</div>
-    <div class="mc-d">Direkt zu Stürmen, Krisen und dem Marsch des Elefanten springen.</div>
+    <div class="mc-d">Direkt zu Stürmen, Krisen und dem Marsch des Elefanten springen. <em>Für Phase VII.</em></div>
   </div>
   <div class="mc" onclick="startMode('ref')">
     <div class="mc-ic">📖</div>
     <div class="mc-t">Schnellreferenz</div>
-    <div class="mc-d">Erfolgstest, Verhandlungen, wichtige Begriffe – immer griffbereit.</div>
+    <div class="mc-d">Erfolgstest, Verhandlungen, wichtige Begriffe – immer griffbereit. <em>Schneller Regelblick.</em></div>
   </div>
 </div>
 
@@ -571,8 +661,9 @@ ol li::before{content:counter(step);position:absolute;left:0;width:21px;height:2
     </div>
     <button class="h-menu-btn" onclick="openPJ()">☰ Phasen</button>
     <button class="h-menu-btn" style="margin-left:4px" onclick="backToMenu()">← Menü</button>
+    <button class="dm-btn" id="dm-btn" onclick="toggleDarkMode()" title="Hell/Dunkel">🌙</button>
   </header>
-  <div class="prog"><div class="prog-fill" id="prog" style="width:5%"></div></div>
+  <div class="prog" style="display:none"><div class="prog-fill" id="prog" style="width:5%"></div></div>
 
   <div class="sbar" id="sbar">
     <div class="sbar-grid">
@@ -600,12 +691,12 @@ ol li::before{content:counter(step);position:absolute;left:0;width:21px;height:2
 
   <div class="nav-wrap" id="nav-wrap">
     <div class="nav-inner">
-      <button class="nav-btn nb-prev" id="nb-prev" onclick="nav(-1)">◀ Zurück</button>
+      <button class="nav-btn nb-prev" id="nb-prev" onclick="nav(-1)" aria-label="Vorheriger Schritt">◀ Zurück</button>
       <div class="nav-info">
         <div id="nav-lbl">Phase I · 1/9</div>
         <div class="nav-prog"><div class="nav-prog-fill" id="nav-prog" style="width:5%"></div></div>
       </div>
-      <button class="nav-btn nb-next" id="nb-next" onclick="nav(1)">Weiter ▶</button>
+      <button class="nav-btn nb-next" id="nb-next" onclick="nav(1)" aria-label="Nächster Schritt">Weiter ▶</button>
     </div>
   </div>
 </div>
@@ -981,10 +1072,10 @@ function s_ph4_shipping(){return `
 <div class="card">
 ${bw('<strong>Pflicht:</strong> Es muss so viel Geld ausgegeben werden, bis maximal <strong>£2</strong> in der Schatulle übrig bleiben!')}
 <p>Drei Optionen (beliebig kombinierbar, solange Mittel vorhanden):</p>
-<h3>Option 1: Privates Schiff ausrüsten (blau) – £3</h3>
-<p>Schiff von einer beliebigen Werft in eine Seeregion platzieren. <strong>Zustimmung des Werftbesitzers ist nicht erforderlich!</strong></p>
-<h3>Option 2: Charterschiff mieten (schwarz) – £2</h3>
+<h3>Option 1: Charterschiff mieten (schwarz) – £2 <span class="badge bo">ERRATA</span></h3>
 <p>1 Charterschiff aus dem allgemeinen Vorrat in eine Seeregion setzen. Wird in der <strong>Auffrisch-Phase automatisch zurückgelegt</strong>.</p>
+<h3>Option 2: Privates Schiff ausrüsten (blau) – £3</h3>
+<p>Schiff von einer beliebigen Werft in eine Seeregion platzieren. <strong>Zustimmung des Werftbesitzers ist nicht erforderlich!</strong></p>
 <h3>Option 3: Kompanie-Schiff kaufen (rot) – £5</h3>
 ${bw('<strong>Nur möglich, wenn es aktuell KEIN blaues Schiff auf einer Werft gibt!</strong>')}
 <p>1 Kompanie-Schiff aus dem Vorrat direkt in eine Seeregion platzieren.</p>
@@ -1065,7 +1156,7 @@ ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter f
       <p><strong>Schritt 1 – Zielregion wählen:</strong></p>
       <ul>
         <li>Erlaubt: Heimatregion der Präsidentschaft, assoziierte Regionen, angrenzende Regionen.</li>
-        <li><em>Nicht erlaubt:</em> Heimatregion einer anderen Präsidentschaft.</li>
+        <li><em>Nicht erlaubt:</em> Heimatregion einer anderen Präsidentschaft oder eine Kompanie-Region, die einer anderen Präsidentschaft zugeordnet ist. <span class="badge bo" style="font-size:.6rem">ERRATA</span></li>
         <li>Kompanie-Regionen: nur bei mind. 1 geschlossenem Auftrag <em>oder</em> 1 Unruhe-Marker.</li>
       </ul>
       <p><strong>Schritt 2 – Erfolgstest:</strong> 1 Würfel pro erschöpftem Offizier oder Regiment. Lokale Allianzen: +Stärke laut Aufdruck. <strong>Abzug:</strong> –1 Würfel pro Turmstufe der Zielregion (bei Reich: Summe <em>aller</em> Turmstufen im Reich).</p>
@@ -1202,6 +1293,7 @@ ${bw('Wird eine <strong>Dilemma-Karte</strong> gezogen, stoppt das Ziehen sofort
 <ul>
   <li>Beginnend mit PM: £1 aus Familienvermögen = 1 Stimme; oder Karten mit Stimm-Symbol erschöpfen.</li>
   <li>PM darf <strong>nicht</strong> gegen das eigene Gesetz stimmen.</li>
+  <li><em>Errata: Ausnahme beim Deregulierungsgesetz – der PM darf dabei gegen die Deregulierung stimmen.</em></li>
   <li>Nach Abstimmungsrunde: PM kann eine weitere Runde einleiten.</li>
 </ul>
 ${acc('ph8-opp','Opposition & Koalitionen',`
@@ -1399,8 +1491,7 @@ function goToFinalScoring(){
     $('W').style.display='none';
     const app=$('A');app.style.display='flex';app.style.flexDirection='column';
     $('sbar').classList.remove('hidden');
-    $('prog').parentElement.classList.remove('hidden');
-    $('nav-wrap').classList.remove('hidden');
+        $('nav-wrap').classList.remove('hidden');
     cur=n;
     render();
   }
@@ -1684,6 +1775,7 @@ ${bw('Der Elefant marschiert zur <strong>Hauptstadt des Angreifers</strong> – 
   <li>Über die Grenze ausrichten, die dem Symbol auf der Ereignisscheibe entspricht.</li>
   <li>Ist diese Nachbarregion vom Reich dominiert? → Im Uhrzeigersinn zur nächsten Grenze.</li>
   <li>Alle Nachbarregionen dominiert? → Elefant auf Grenz-Symbol, Kopf zeigt nach innen zur Hauptstadt.</li>
+  <li><em class="badge bo" style="font-size:.62rem;font-style:normal">ERRATA:</em> Zeigt der Elefant auf eine Region, die bereits vom Angreifer dominiert wird, stattdessen die erste Region im Uhrzeigersinn nehmen, bei der das nicht der Fall ist.</li>
 </ol>
 <button class="btn btn-p mt" onclick="finishEvent()">Ereignis abschließen ✓</button>`},
 
@@ -1792,7 +1884,7 @@ ${bg('Oberseite des verbleibenden Nachziehstapels ansehen – diese Region ist d
 region_loss:{title:'Region-Verlust – Schritte',label:'Ergebnis: Region verloren',render:()=>{
 const isForeignInv = (IS._afterLoss === 'fi_co_el_check');
 const step5 = IS.isInv && !isForeignInv
-  ? '<strong>Invasionskrise – Region neu aufbauen:</strong> Flagge des Angreifers auf der Kuppel platzieren. War Verteidiger eine Hauptstadt? → Alle Fahnen des alten Reiches entfernen. Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück in Region (Beute-Seite unten – kein weiteres Loot, Region nicht mehr der Präsidentschaft zugeordnet). <strong>Alle offenen Aufträge schließen → Kettenreaktion prüfen!</strong><br><span style="display:inline-block;margin-top:5px;font-size:.85rem;color:var(--ink3);font-style:italic">Hinweis: Rebellionen und Ausländ. Invasionen schließen Aufträge bereits durch ihr eigenes Ereignis – dieser Schritt gilt nur bei Invasionskrisen.</span>'
+  ? '<strong>Invasionskrise – Region neu aufbauen:</strong> Flagge des Angreifers auf der Kuppel platzieren. War Verteidiger eine Hauptstadt? → Alle Fahnen des alten Reiches entfernen. Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück in Region (Beute-Seite unten – kein weiteres Loot, Region nicht mehr der Präsidentschaft zugeordnet). <strong>Alle offenen Aufträge schließen → Kettenreaktion prüfen!</strong><br><span style="display:inline-block;margin-top:5px;font-size:.85rem;color:var(--ink3);font-style:italic">Errata-Hinweis: Rebellionen und Ausländ. Invasionen schließen Aufträge bereits durch ihr eigenes Ereignis – dieser Schritt gilt nur bei Invasionskrisen (Invasions-Krise). Zusätzlich: Kettenreaktion prüfen, falls alle Aufträge bereits geschlossen.</span>'
   : isForeignInv
     ? '<strong>Ausländ. Invasion – Region neu aufbauen:</strong> Kuppel zurück in Region (Kompanie verliert Kontrolle, Beute-Seite unten). Kontroll-Marker zurück. <em>Aufträge wurden bereits durch das Invasionsereignis geschlossen – hier nicht nochmals schließen!</em>'
     : '<strong>Rebellion – Region neu aufbauen:</strong> Kuppel mit 1 Turmstufe in Region platzieren. Kontroll-Marker zurück (Beute-Seite unten – kein weiteres Loot). Keine neue Flagge. <em>Aufträge wurden bereits durch das Rebellionsereignis geschlossen – hier nicht nochmals schließen!</em>';
@@ -1818,7 +1910,7 @@ ${!isForeignInv && IS.isInv ? cascadeBox('rloss') : ''}
 el_march:{title:'Marsch des Elefanten',label:'Schritt 3',render:()=>`
 ${trail('Ereignis abgeschlossen','Marsch des Elefanten')}
 <p>Platziere den Elefanten in die Region, die auf der <strong>Oberseite des Nachziehstapels</strong> angezeigt wird. Richte ihn dann aus:</p>
-${bg('<ul><li><strong>Dominierte Region (kleine Flagge):</strong> Auf die Grenze, Kopf zeigt zur Hauptstadt des Souveräns.</li><li><strong>Kompanie-Region:</strong> Mitten in die Region. Fertig. <em>(Die Uhrzeigersinn- und Vollreich-Sonderregeln gelten ausschließlich für souveräne Regionen.)</em></li><li><strong>Souveräne Region (Hauptstadt/keine Flagge):</strong> Auf die Grenze mit dem passenden Symbol, Kopf in die dahinterliegende Region.</li></ul>')}
+${bg('<ul><li><strong>Dominierte Region (kleine Flagge):</strong> Auf die Grenze, Kopf zeigt zur Hauptstadt des Souveräns.</li><li><strong>Kompanie-Region:</strong> Mitten in die Region. Fertig. <em>(Die Uhrzeigersinn- und Vollreich-Sonderregeln gelten ausschließlich für souveräne Regionen.)</em></li><li><strong>Souveräne Region (Hauptstadt/keine Flagge):</strong> Auf die Grenze mit dem passenden Symbol, Kopf in die dahinterliegende Region. <em>(Errata: Zeigt der Elefant auf eine bereits dominierte Region, die erste Region im Uhrzeigersinn nehmen, wo das nicht zutrifft.)</em></li></ul>')}
 <button class="btn btn-p mt" onclick="finishEvent()">Ereignis abschließen ✓</button>`},
 
 summary:{title:'Indien-Phase abgeschlossen',label:'Fertig',render:()=>`
@@ -1894,7 +1986,6 @@ function startMode(mode){
   if(mode==='india'){
     indiaStandalone=true;
     $('sbar').classList.add('hidden');
-    $('prog').parentElement.classList.add('hidden');
     startIndia();
   } else if(mode==='setup'){
     indiaStandalone=false;
@@ -1909,8 +2000,7 @@ function startMode(mode){
   } else {
     indiaStandalone=false;
     $('sbar').classList.remove('hidden');
-    $('prog').parentElement.classList.remove('hidden');
-    buildSteps();cur=0;render();
+        buildSteps();cur=0;render();
   }
 }
 
@@ -1921,11 +2011,77 @@ function backToMenu(){
   $('qr-overlay').classList.remove('open');
   $('pj-overlay').classList.remove('open');
   $('sbar').classList.remove('hidden');
-  $('prog').parentElement.classList.remove('hidden');
-  $('nav-wrap').classList.remove('hidden');
+    $('nav-wrap').classList.remove('hidden');
   indiaStandalone=false;IS={};
   clearState();
 }
+
+/* ── DARK MODE ── */
+function toggleDarkMode(){
+  const isDark = document.body.classList.toggle('dark');
+  const icon = isDark ? '☀️' : '🌙';
+  [$('dm-btn'), $('dm-btn-welcome')].forEach(b => { if(b) b.textContent = icon; });
+  try{ localStorage.setItem('jc2e_darkmode', isDark ? '1' : '0'); }catch(e){}
+}
+(function initDarkMode(){
+  try{
+    if(localStorage.getItem('jc2e_darkmode')==='1'){
+      document.body.classList.add('dark');
+      window.addEventListener('load',()=>{
+        [$('dm-btn'),$('dm-btn-welcome')].forEach(b=>{if(b)b.textContent='☀️';});
+      });
+    }
+  }catch(e){}
+})();
+
+/* ── SWIPE GESTEN ── */
+(function initSwipe(){
+  let startX=0, startY=0, startT=0;
+  let hintTimer=null;
+
+  function showHint(){
+    const h=$('swipe-hint');
+    if(!h)return;
+    h.classList.add('show');
+    clearTimeout(hintTimer);
+    hintTimer=setTimeout(()=>h.classList.remove('show'),2000);
+  }
+
+  document.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    startT = Date.now();
+  }, {passive:true});
+
+  document.addEventListener('touchend', e => {
+    if(!$('A') || $('A').style.display==='none') return;
+    // Block if overlay open
+    if($('qr-overlay')?.classList.contains('open')) return;
+    if($('pj-overlay')?.classList.contains('open')) return;
+
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    const dt = Date.now() - startT;
+
+    // Must be fast enough, horizontal enough, and long enough
+    if(dt > 600) return;
+    if(Math.abs(dy) > Math.abs(dx) * 0.7) return;
+    if(Math.abs(dx) < 50) return;
+
+    // In india mode use its own nav
+    if(indiaStandalone || (typeof IS !== 'undefined' && IS && IS.step && IS.step !== '')) return;
+
+    if(dx < 0) {
+      // Swipe left → next
+      nav(1);
+      showHint();
+    } else {
+      // Swipe right → back
+      nav(-1);
+      showHint();
+    }
+  }, {passive:true});
+})();
 
 /* ── AUTO-RESTORE NACH iOS TAB-RELOAD ── */
 window.addEventListener('load',()=>{
@@ -1945,8 +2101,7 @@ window.addEventListener('load',()=>{
       // Indien-Phase wiederherstellen
       currentAppMode='india';
       $('sbar').classList.add('hidden');
-      $('prog').parentElement.classList.add('hidden');
-      renderIndia();
+            renderIndia();
       showBanner();
     } else if(savedMode==='setup'){
       currentAppMode='setup';
@@ -1964,8 +2119,7 @@ window.addEventListener('load',()=>{
       // Vollständiger Spielführer wiederherstellen
       currentAppMode='full';
       $('sbar').classList.remove('hidden');
-      $('prog').parentElement.classList.remove('hidden');
-      buildSteps();
+            buildSteps();
       cur=Math.min(cur,getSteps().length-1);
       render();
       showBanner();
@@ -1973,5 +2127,6 @@ window.addEventListener('load',()=>{
   }
 });
 </script>
+<div class="swipe-hint" id="swipe-hint">← Wischen zum Navigieren →</div>
 </body>
 </html>
