@@ -13,6 +13,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icon.png">
 <link rel="apple-touch-icon" sizes="152x152" href="icon.png">
 <link rel="apple-touch-icon" sizes="120x120" href="icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a0e08">
 <!-- Schriften werden offline aus iOS-Systemfonts geladen – kein externer Netzwerkzugriff nötig -->
 <style>
   /* Cinzel-Ersatz: Palatino ist auf allen Apple-Geräten verfügbar und hat ähnlich klassische Anmutung */
@@ -895,7 +897,11 @@ function s_ph1_retire(){return `
 <div class="step-title">Ruhestand</div>
 <div class="card">
 <h3>Reihenfolge</h3>
-<p>Beginnend mit dem <strong>(ehemaligen) Vorsitzenden</strong>, dann im Uhrzeigersinn.</p>
+<ul>
+  <li>Beginnend mit dem <strong>(ehemaligen) Vorsitzenden</strong>, dann im Uhrzeigersinn.</li>
+  <li>Nur wer in dieser Phase mind. 1 Ruheständler hat, darf einen in Rente schicken.</li>
+  <li>Jeder Ruheständler muss sofort versetzt werden – nicht auf spätere Züge verschieben.</li>
+</ul>
 ${bi('<strong>Wichtig:</strong> Das bezahlte Ruhestandsgeld <em>noch nicht</em> in die Bank – es wird für die Zugreihenfolge der Prestige-Karten benötigt!')}
 <h3>Ablauf</h3>
 <ol>
@@ -924,13 +930,14 @@ function s_ph1_prestige(){return `
 <h3>Karten-Typen</h3>
 ${acc('pr-types','Ehegatten, Unternehmen, Erpressungskarten',`
 <ul>
-<li><strong>Ehegatten:</strong> SP-Bringer, oft mit Einschränkungen. Rabatte nur 1× pro Saison. <em>Nicht tauschbar.</em></li>
-<li><strong>Unternehmen:</strong> Fähigkeiten, Macht, politischer Einfluss, Parlamentsstimmen. <em>Tauschbar.</em></li>
-<li><strong>Erpressungskarten:</strong> Einmalige Aktionen. Verdeckt in der Auslage, nach dem Spielen offen – dann nicht mehr tauschbar. Verdeckte dürfen vor dem Tausch angesehen werden.</li>
+<li><strong>Ehegatten:</strong> Bringen SP, meist mit einer dauerhaften Einschränkung (z. B. nur bestimmte Belohnungen erlaubt). Ehegatten-Rabatte wirken nur 1× pro Londoner Season. <em>Nicht tauschbar.</em></li>
+<li><strong>Unternehmen auf Prestige-Karten:</strong> Fähigkeiten, Parlamentsstimmen, Macht. Gelten als Unternehmen ihres Typs und können von Gesetzen beeinflusst werden. <em>Tauschbar.</em></li>
+<li><strong>Erpressungskarten:</strong> Einmalige Sondereffekte. Vor dem Spielen: verdeckt (darf vor Tausch angesehen werden). Nach dem Spielen: offen im Spielbereich – dann nicht mehr tauschbar. Zählen bei Schlusswertung für Macht, egal ob offen oder verdeckt.</li>
 </ul>
 `)}
 <h3>Auslage auffrischen</h3>
 <p>Alle übrigen Karten abwerfen → Auslage mit <strong>3 Karten</strong> auffüllen (Prestige offen, Erpressung verdeckt).</p>
+${bi('<strong>Wird immer aufgefrischt</strong> – auch wenn in dieser Runde keine Karte genommen wurde!')}
 </div>`;}
 
 /* ════════════════════════════════════════════════
@@ -1034,6 +1041,13 @@ ${bi('<strong>Mehr als 3×?</strong> Nur mit Zustimmung der Mehrheit aller Kolle
 <h3>Schritt 2: Vermögen verteilen (Pflicht)</h3>
 <p>Das <strong>gesamte</strong> Kompanie-Vermögen auf beliebige Amtsschatullen verteilen. Das Vermögen muss vollständig verteilt werden – es bleibt nichts auf der Vermögensleiste.</p>
 ${bw('<strong>Kein Bestechungsgeld:</strong> Amtsvermögen und privates Familienvermögen bleiben immer strikt getrennt.')}
+${acc('ch-xref','🔗 Querverweise – Schulden & Vermögen',`
+<ul>
+<li><strong>Notkredite (Phase VI):</strong> Wenn die Kompanie Ausgaben nicht decken kann, werden automatisch Notkredite aufgenommen. Jeder erhöht den Schuldenmarker und fügt £5 hinzu – auch wenn der Marker bereits am Maximum ist.</li>
+<li><strong>Anteile → Schulden:</strong> Neue Anteile entstehen, wenn Familienmitglieder auf der Börsenleiste zu Kollegiums-Anteilen werden, um Schulden zu tilgen (Phase II, Schritt 2).</li>
+<li><strong>Dividenden (Phase VI):</strong> Einziger Weg, Ansehen zu erhöhen. Kosten: £1 pro Anteil (inkl. Vorsitzender) pro Ausschüttung.</li>
+</ul>
+`)}
 </div>`;}
 
 function s_ph4_director(gg){
@@ -1289,12 +1303,14 @@ ${bw('Wird eine <strong>Dilemma-Karte</strong> gezogen, stoppt das Ziehen sofort
 <h3>2. Politik bestimmen</h3>
 <p>PM dreht den Zeiger der PM-Scheibe auf das angegebene Feld (im oder gegen den Uhrzeigersinn).</p>
 <h3>3. Abstimmung</h3>
-<p>PM markiert die <strong>anfängliche Unterstützung</strong> laut PM-Scheibe auf der Stimmen-Leiste.</p>
+<p>PM markiert die <strong>anfängliche Unterstützung</strong> laut Gesetzkarte auf der Stimmen-Leiste.</p>
 <ul>
-  <li>Beginnend mit PM: £1 aus Familienvermögen = 1 Stimme; oder Karten mit Stimm-Symbol erschöpfen.</li>
-  <li>PM darf <strong>nicht</strong> gegen das eigene Gesetz stimmen.</li>
-  <li><em>Errata: Ausnahme beim Deregulierungsgesetz – der PM darf dabei gegen die Deregulierung stimmen.</em></li>
-  <li>Nach Abstimmungsrunde: PM kann eine weitere Runde einleiten.</li>
+  <li>Beginnend mit dem PM, dann im Uhrzeigersinn: jeder Spieler kann abstimmen.</li>
+  <li><strong>Für das Gesetz stimmen:</strong> £1 aus dem Familienvermögen = 1 Stimme; oder Karten mit Stimm-Symbol erschöpfen (1 Stimme pro Symbol).</li>
+  <li><strong>Gegen das Gesetz stimmen:</strong> Gleiche Ressourcen → Stimmen-Marker sinkt statt zu steigen.</li>
+  <li>PM darf <strong>nicht</strong> gegen das aktuelle Gesetz stimmen – außer beim Deregulierungsgesetz. <span class="badge bo" style="font-size:.6rem">ERRATA</span></li>
+  <li>Nach einer vollständigen Runde: PM entscheidet, ob eine weitere Abstimmungsrunde stattfindet.</li>
+  <li>Werden in einer Runde 0 Stimmen insgesamt abgegeben, muss abgerechnet werden.</li>
 </ul>
 ${acc('ph8-opp','Opposition & Koalitionen',`
 <ul>
@@ -1305,14 +1321,25 @@ ${acc('ph8-opp','Opposition & Koalitionen',`
 </ul>
 `)}
 <h3>4. Ergebnis</h3>
-${bw('<strong>< 0 Stimmen (abgelehnt):</strong> Oppositionsführer wird neuer PM. Er dreht den Zeiger 1 Position und führt die Folgen der Politik aus.')}
-${bg('<strong>≥ 0 Stimmen (beschlossen):</strong> PM erhält 1 „Beschlossenes Gesetz"-Marker (+1 Macht). Soforteffekte des Gesetzes ausführen, dann Folgen der Politik.')}
+<ul>
+  <li><strong>Abgelehnt (< 0 Stimmen):</strong> Gesetz wird verworfen. Oppositionsführer wird neuer PM. Er dreht den Zeiger 1 Position und führt die Folgen der Politik aus.</li>
+  <li><strong>Beschlossen (≥ 0 Stimmen):</strong> PM erhält 1 Beschlossenes-Gesetz-Marker (+1 Macht). Soforteffekte, dann Folgen der Politik ausführen.</li>
+</ul>
+${bw('<strong>Legislativer Kollaps:</strong> Führt ein Gesetz zum Scheitern der Kompanie (z. B. durch Steuer), endet das Spiel sofort nach der Abstimmung. Schlusswertung folgt.')}
 ${acc('ph8-pol','Folgen der Politik (3 Typen)',`
 ${dt([
   ['STEUER','Jede Familie zahlt £1 pro Zielobjekt. Kann nicht gezahlt werden → Objekt zurück in Vorrat. Ausgerüstete Schiffe bleiben, nur Werft zurück.'],
   ['BONUS','Jede Familie erhält £1 pro Zielobjekt aus der Bank.'],
   ['MACHT','Macht-Marker des Ziels mit dem nächsthöheren tauschen. Bereits höchster Marker? → Zwei beliebige andere Marker tauschen.']
 ])}
+`)}
+${acc('ph8-xref','🔗 Querverweise – Regeln für verwandte Mechanismen',`
+<ul>
+<li><strong>Deregulierung:</strong> Besondere Abstimmung vor Phase I möglich (wenn Ansehen oder Schulden auf gestricheltem Feld). PM darf hierbei gegen das eigene Gesetz stimmen. <span class="badge bo" style="font-size:.6rem">ERRATA</span></li>
+<li><strong>Fenstersteuer:</strong> Manche Steuer-Politikfelder haben ein Fenster-Symbol. Dann zahlen alle Spieler zusätzlich: £ = Anzahl Fenster-Symbole ihrer Familienmitglieder auf Belohnungen + Unternehmen.</li>
+<li><strong>Stimmkauf:</strong> Spieler können beliebig viel Geld für Stimmen ausgeben. Es gibt keine Obergrenze.</li>
+<li><strong>Karten-Stimmen rotieren zurück</strong> nach der Abstimmung – erschöpfte Karten werden wieder aufgerichtet.</li>
+</ul>
 `)}
 </div>`;}
 
@@ -1530,7 +1557,9 @@ function regionLossRuleBox(suf){
   <li><strong>Aufräumen:</strong> Gouverneurs-Plättchen, Kompanie-Schiffe und Unruhe-Marker entfernen.</li>
   <li><strong>Lokale Autorität wiederherstellen:</strong> Gouverneurs-Plättchen entfernen. Kuppel mit 1 Turmstufe in der Region platzieren. Kontroll-Marker zurück (Beute-Seite unten). <em>Nur bei Invasionskrise:</em> Flagge des Angreifers auf der Kuppel platzieren. Alle offenen Aufträge schließen → Kettenreaktion prüfen. <em>Bei Rebellion oder Ausländ. Invasion: Aufträge wurden bereits durch das Ereignis selbst geschlossen – hier nicht nochmals schließen!</em></li>
   <li><strong>Ansehen senken:</strong> 1. Region –1 Schritt · 2. Region –2 weitere · 3.+ Region –3 weitere usw.</li>
-</ol>`;
+</ol>
+${bi('<strong>Errata – Ereignistypen und Auftragsschließung:</strong> Die Aufträge werden je nach Ereignistyp unterschiedlich behandelt. Bei einer <em>Invasionskrise</em> schließt Region-Verlust-Schritt 4 alle Aufträge. Bei <em>Rebellion</em> und <em>Ausländischer Invasion</em> schließt bereits das Ereignis selbst die Aufträge – Schritt 4 überspringt das Schließen. <span class="badge bo" style="font-size:.6rem">ERRATA</span>')}`;
+
   return `<div class="xref-acc">${acc('rloss-'+suf,'⚠ Region-Verlust – Schritte anzeigen',body)}</div>`;
 }
 
@@ -2128,5 +2157,45 @@ window.addEventListener('load',()=>{
 });
 </script>
 <div class="swipe-hint" id="swipe-hint">← Wischen zum Navigieren →</div>
+
+<script>
+/* ── SERVICE WORKER REGISTRIERUNG ── */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => {
+        console.log('[PWA] Service Worker registriert:', reg.scope);
+
+        // Auf Update prüfen
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // Neuer SW verfügbar – Update-Banner zeigen
+              showUpdateBanner();
+            }
+          });
+        });
+      })
+      .catch(err => console.warn('[PWA] Service Worker Fehler:', err));
+
+    // Reload wenn neuer SW aktiviert wird
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) { refreshing = true; window.location.reload(); }
+    });
+  });
+}
+
+function showUpdateBanner() {
+  if (document.getElementById('sw-update-banner')) return;
+  const banner = document.createElement('div');
+  banner.id = 'sw-update-banner';
+  banner.style.cssText = 'position:fixed;bottom:80px;left:0;right:0;z-index:600;background:#1e3a12;color:#d8ecc8;text-align:center;padding:11px 16px;font-size:.85rem;font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 -2px 12px rgba(0,0,0,.3)';
+  banner.innerHTML = '🔄 App-Update verfügbar – <button onclick="navigator.serviceWorker.controller&&navigator.serviceWorker.controller.postMessage({type:\'SKIP_WAITING\'})" style="background:#2e5a1a;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-size:.82rem">Jetzt aktualisieren</button> <button onclick="this.parentElement.remove()" style="background:transparent;color:#9ab;border:none;padding:5px;cursor:pointer">✕</button>';
+  document.body.appendChild(banner);
+  setTimeout(() => banner.remove(), 12000);
+}
+</script>
 </body>
 </html>
