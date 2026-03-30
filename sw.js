@@ -1,14 +1,10 @@
 /* ═══════════════════════════════════════════════════════
    John Company 2E – Spielführer
-   Service Worker v1.4
+   Service Worker v1.5
    Strategie: Cache First mit Netzwerk-Fallback
 ═══════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'jc2e-v1.4';
-// ↑ WICHTIG: Version erhöht von v1.3 → v1.4
-// Erzwingt neuen Cache und bricht den Deployment-Deadlock:
-// Altes sw.js (v1.3) ist auf iPhones aktiv und bedient alte kaputte Dateien.
-// Neue Cache-Version stellt sicher, dass alle Assets neu geladen werden.
+const CACHE_NAME = 'jc2e-v1.5';
 
 // Alle Dateien, die offline verfügbar sein sollen
 const STATIC_ASSETS = [
@@ -30,24 +26,12 @@ self.addEventListener('install', event => {
       })
       .then(() => {
         console.log('[SW] Installation abgeschlossen');
-        // Bug 6 Fix: skipWaiting() ist zurück – jetzt aber SICHER.
-        //
-        // Warum war es vorher gefährlich?
-        //   skipWaiting() → SW aktiviert → controllerchange feuert → index.html
-        //   rief window.location.reload() → iOS-PWA fror ein (Blank Screen).
-        //
-        // Warum ist es jetzt sicher?
-        //   index.html prüft hadControllerOnLoad VOR dem load-Event (bei
-        //   Script-Parse-Zeit). Nur wenn beim Seitenaufruf bereits ein
-        //   Controller aktiv war (= echter Update-Fall), wird reload()
-        //   aufgerufen. Beim Erst-Install ist controller=null →
-        //   hadControllerOnLoad=false → kein reload → kein Einfrieren.
-        //
-        // Warum brauchen wir es?
-        //   Ohne skipWaiting() landet der neue SW im Wartezustand. Da der
-        //   "Jetzt aktualisieren"-Button in der alten Version kaputt war
-        //   (sendete an den falschen SW), kommen Nutzer nie aus dem alten
-        //   kaputten Code heraus – Deployment-Deadlock.
+        // skipWaiting: Neuer SW übernimmt sofort.
+        // Sicher, weil index.html KEINEN controllerchange→reload-Handler mehr hat.
+        // window.location.reload() in iOS PWA Standalone-Modus friert Touch-Events
+        // dauerhaft ein – deshalb wurde dieser Handler komplett entfernt.
+        // Updates wirken beim nächsten App-Öffnen automatisch (skipWaiting stellt
+        // sicher, dass der neue SW nie im Wartezustand bleibt).
         self.skipWaiting();
       })
       .catch(err => {
@@ -72,11 +56,10 @@ self.addEventListener('activate', event => {
       })
       .then(() => {
         console.log('[SW] Aktivierung abgeschlossen');
-        // Bug 4 Fix: clients.claim() wurde entfernt.
-        // clients.claim() löst beim Erst-Install sofort ein controllerchange-Event aus,
-        // weil kein vorheriger SW vorhanden ist und der neue SW die Wartephase überspringt.
-        // Dieses controllerchange friert iOS-PWAs ein – selbst ohne skipWaiting().
-        // Der SW übernimmt neue Clients jetzt beim nächsten Seitenaufruf automatisch.
+        // clients.claim() wurde entfernt:
+        // Es würde beim Erst-Install sofort controllerchange auslösen →
+        // reload → iOS friert ein. Ohne claim() übernimmt der SW
+        // neue Clients beim nächsten Seitenaufruf automatisch.
       })
   );
 });
@@ -96,14 +79,13 @@ self.addEventListener('fetch', event => {
         if (cachedResponse) {
           // Cache-Hit: sofort zurückgeben
           // Im Hintergrund aktualisieren (Stale-While-Revalidate)
-          const fetchPromise = fetch(event.request)
+          fetch(event.request)
             .then(networkResponse => {
               if (networkResponse && networkResponse.status === 200) {
                 const responseClone = networkResponse.clone();
                 caches.open(CACHE_NAME)
                   .then(cache => cache.put(event.request, responseClone));
               }
-              return networkResponse;
             })
             .catch(() => {
               // Netzwerk nicht verfügbar – kein Problem, Cache wird verwendet

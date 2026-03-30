@@ -2403,39 +2403,20 @@ window.addEventListener('load',()=>{
 <script>
 /* ── SERVICE WORKER REGISTRIERUNG ── */
 if ('serviceWorker' in navigator) {
-  // Bug 5 Fix (Teil 1): hadControllerOnLoad VOR dem load-Event erfassen.
-  // navigator.serviceWorker.controller ist beim Skript-Parse-Zeitpunkt bereits bekannt.
-  // Innerhalb von window.addEventListener('load', ...) ist es zu spät –
-  // der Wert kann sich bis dahin verändert haben.
-  const hadControllerOnLoad = !!navigator.serviceWorker.controller;
-
-  // Bug 5 Fix (Teil 2): controllerchange SOFORT registrieren, nicht erst im load-Event.
-  // iOS feuert controllerchange bevor load abgeschlossen ist → der Handler käme sonst zu spät.
-  // Reload NUR wenn beim Seitenaufruf bereits ein Controller aktiv war (= echter Update-Fall).
-  // Beim Erst-Install gibt es keinen vorherigen Controller → hadControllerOnLoad ist false
-  // → kein Reload → App friert nicht ein.
-  let refreshing = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!refreshing && hadControllerOnLoad) {
-      refreshing = true;
-      window.location.reload();
-    }
-  });
-
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
       .then(reg => {
         console.log('[PWA] Service Worker registriert:', reg.scope);
 
-        // Auf Update prüfen
+        // Auf Update prüfen und Banner zeigen
         reg.addEventListener('updatefound', () => {
           const newWorker = reg.installing;
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // Bug 5 Fix (Teil 3): Wartenden SW in window._swWaiting speichern.
-              // navigator.serviceWorker.controller zeigt auf den AKTIVEN (alten) SW.
-              // SKIP_WAITING muss aber an den WARTENDEN (neuen) SW gesendet werden –
-              // sonst landet die Nachricht im Leeren und Updates werden nie angewendet.
+              // Neuer SW wartet – Banner anzeigen.
+              // Der wartende SW wird beim nächsten App-Öffnen durch skipWaiting()
+              // automatisch aktiv. Kein window.location.reload() hier:
+              // reload() in iOS PWA Standalone-Modus friert Touch-Events dauerhaft ein.
               window._swWaiting = newWorker;
               showUpdateBanner();
             }
@@ -2443,6 +2424,12 @@ if ('serviceWorker' in navigator) {
         });
       })
       .catch(err => console.warn('[PWA] Service Worker Fehler:', err));
+
+    // KEIN controllerchange→reload-Handler.
+    // window.location.reload() in iOS PWA Standalone-Modus ist die Ursache
+    // des Einfrierens: Die Seite rendert, aber Touch-Events werden dauerhaft
+    // blockiert. Updates wirken durch skipWaiting() automatisch beim
+    // nächsten App-Öffnen – kein forcierter Reload nötig.
   });
 }
 
@@ -2451,10 +2438,9 @@ function showUpdateBanner() {
   const banner = document.createElement('div');
   banner.id = 'sw-update-banner';
   banner.style.cssText = 'position:fixed;bottom:80px;left:0;right:0;z-index:600;background:#1e3a12;color:#d8ecc8;text-align:center;padding:11px 16px;font-size:.85rem;font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 -2px 12px rgba(0,0,0,.3)';
-  // Bug 5 Fix (Teil 4): Button sendet SKIP_WAITING an window._swWaiting (wartender SW),
-  // NICHT an navigator.serviceWorker.controller (aktiver SW). Danach sofort reload,
-  // damit die neue Version geladen wird sobald der SW aktiviert ist.
-  banner.innerHTML = '🔄 App-Update verfügbar – <button onclick="if(window._swWaiting){window._swWaiting.postMessage({type:\'SKIP_WAITING\'});}window.location.reload();" style="background:#2e5a1a;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-size:.82rem">Jetzt aktualisieren</button> <button onclick="this.parentElement.remove()" style="background:transparent;color:#9ab;border:none;padding:5px;cursor:pointer">✕</button>';
+  // "Jetzt aktualisieren" schickt SKIP_WAITING an den WARTENDEN (neuen) SW,
+  // dann navigiert die App zur selben URL – das ist auf iOS sicherer als reload().
+  banner.innerHTML = '🔄 App-Update verfügbar – <button onclick="if(window._swWaiting){window._swWaiting.postMessage({type:\'SKIP_WAITING\'});} setTimeout(()=>{window.location.href=window.location.href;},300);" style="background:#2e5a1a;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-size:.82rem">Jetzt aktualisieren</button> <button onclick="this.parentElement.remove()" style="background:transparent;color:#9ab;border:none;padding:5px;cursor:pointer">✕</button>';
   document.body.appendChild(banner);
   setTimeout(() => banner.remove(), 12000);
 }
