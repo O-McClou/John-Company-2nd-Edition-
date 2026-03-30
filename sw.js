@@ -54,8 +54,11 @@ self.addEventListener('activate', event => {
       })
       .then(() => {
         console.log('[SW] Aktivierung abgeschlossen');
-        // Sofort alle Clients übernehmen
-        return self.clients.claim();
+        // Bug 4 Fix: clients.claim() wurde entfernt.
+        // clients.claim() löst beim Erst-Install sofort ein controllerchange-Event aus,
+        // weil kein vorheriger SW vorhanden ist und der neue SW die Wartephase überspringt.
+        // Dieses controllerchange friert iOS-PWAs ein – selbst ohne skipWaiting().
+        // Der SW übernimmt neue Clients jetzt beim nächsten Seitenaufruf automatisch.
       })
   );
 });
