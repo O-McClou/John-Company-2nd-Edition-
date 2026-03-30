@@ -1,10 +1,14 @@
 /* ═══════════════════════════════════════════════════════
    John Company 2E – Spielführer
-   Service Worker v1.2
+   Service Worker v1.4
    Strategie: Cache First mit Netzwerk-Fallback
 ═══════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'jc2e-v1.3';
+const CACHE_NAME = 'jc2e-v1.4';
+// ↑ WICHTIG: Version erhöht von v1.3 → v1.4
+// Erzwingt neuen Cache und bricht den Deployment-Deadlock:
+// Altes sw.js (v1.3) ist auf iPhones aktiv und bedient alte kaputte Dateien.
+// Neue Cache-Version stellt sicher, dass alle Assets neu geladen werden.
 
 // Alle Dateien, die offline verfügbar sein sollen
 const STATIC_ASSETS = [
@@ -26,11 +30,25 @@ self.addEventListener('install', event => {
       })
       .then(() => {
         console.log('[SW] Installation abgeschlossen');
-        // Bug 1 Fix: skipWaiting() wurde hier entfernt.
-        // Der neue SW wartet jetzt, bis der Nutzer explizit über den
-        // Update-Banner auf "Jetzt aktualisieren" tippt (SKIP_WAITING-Message).
-        // Dadurch wird beim Erst-Start kein controllerchange ausgelöst,
-        // der die iOS-PWA in einen leeren Zustand neu laden würde.
+        // Bug 6 Fix: skipWaiting() ist zurück – jetzt aber SICHER.
+        //
+        // Warum war es vorher gefährlich?
+        //   skipWaiting() → SW aktiviert → controllerchange feuert → index.html
+        //   rief window.location.reload() → iOS-PWA fror ein (Blank Screen).
+        //
+        // Warum ist es jetzt sicher?
+        //   index.html prüft hadControllerOnLoad VOR dem load-Event (bei
+        //   Script-Parse-Zeit). Nur wenn beim Seitenaufruf bereits ein
+        //   Controller aktiv war (= echter Update-Fall), wird reload()
+        //   aufgerufen. Beim Erst-Install ist controller=null →
+        //   hadControllerOnLoad=false → kein reload → kein Einfrieren.
+        //
+        // Warum brauchen wir es?
+        //   Ohne skipWaiting() landet der neue SW im Wartezustand. Da der
+        //   "Jetzt aktualisieren"-Button in der alten Version kaputt war
+        //   (sendete an den falschen SW), kommen Nutzer nie aus dem alten
+        //   kaputten Code heraus – Deployment-Deadlock.
+        self.skipWaiting();
       })
       .catch(err => {
         console.warn('[SW] Cache-Fehler beim Install:', err);
