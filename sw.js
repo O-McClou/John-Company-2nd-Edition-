@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════
    John Company 2E – Spielführer
-   Service Worker v1.5
+   Service Worker v1.2
    Strategie: Cache First mit Netzwerk-Fallback
 ═══════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'jc2e-v1.5';
+const CACHE_NAME = 'jc2e-v1.3';
 
 // Alle Dateien, die offline verfügbar sein sollen
 const STATIC_ASSETS = [
@@ -26,13 +26,11 @@ self.addEventListener('install', event => {
       })
       .then(() => {
         console.log('[SW] Installation abgeschlossen');
-        // skipWaiting: Neuer SW übernimmt sofort.
-        // Sicher, weil index.html KEINEN controllerchange→reload-Handler mehr hat.
-        // window.location.reload() in iOS PWA Standalone-Modus friert Touch-Events
-        // dauerhaft ein – deshalb wurde dieser Handler komplett entfernt.
-        // Updates wirken beim nächsten App-Öffnen automatisch (skipWaiting stellt
-        // sicher, dass der neue SW nie im Wartezustand bleibt).
-        self.skipWaiting();
+        // Bug 1 Fix: skipWaiting() wurde hier entfernt.
+        // Der neue SW wartet jetzt, bis der Nutzer explizit über den
+        // Update-Banner auf "Jetzt aktualisieren" tippt (SKIP_WAITING-Message).
+        // Dadurch wird beim Erst-Start kein controllerchange ausgelöst,
+        // der die iOS-PWA in einen leeren Zustand neu laden würde.
       })
       .catch(err => {
         console.warn('[SW] Cache-Fehler beim Install:', err);
@@ -56,10 +54,11 @@ self.addEventListener('activate', event => {
       })
       .then(() => {
         console.log('[SW] Aktivierung abgeschlossen');
-        // clients.claim() wurde entfernt:
-        // Es würde beim Erst-Install sofort controllerchange auslösen →
-        // reload → iOS friert ein. Ohne claim() übernimmt der SW
-        // neue Clients beim nächsten Seitenaufruf automatisch.
+        // Bug 4 Fix: clients.claim() wurde entfernt.
+        // clients.claim() löst beim Erst-Install sofort ein controllerchange-Event aus,
+        // weil kein vorheriger SW vorhanden ist und der neue SW die Wartephase überspringt.
+        // Dieses controllerchange friert iOS-PWAs ein – selbst ohne skipWaiting().
+        // Der SW übernimmt neue Clients jetzt beim nächsten Seitenaufruf automatisch.
       })
   );
 });
@@ -79,13 +78,14 @@ self.addEventListener('fetch', event => {
         if (cachedResponse) {
           // Cache-Hit: sofort zurückgeben
           // Im Hintergrund aktualisieren (Stale-While-Revalidate)
-          fetch(event.request)
+          const fetchPromise = fetch(event.request)
             .then(networkResponse => {
               if (networkResponse && networkResponse.status === 200) {
                 const responseClone = networkResponse.clone();
                 caches.open(CACHE_NAME)
                   .then(cache => cache.put(event.request, responseClone));
               }
+              return networkResponse;
             })
             .catch(() => {
               // Netzwerk nicht verfügbar – kein Problem, Cache wird verwendet
