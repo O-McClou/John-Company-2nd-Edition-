@@ -96,6 +96,14 @@ header{background:linear-gradient(180deg,#0a0502,#1a0e08,#221408);padding:10px 1
 .sbar{background:#140c06;padding:7px 14px;display:flex;align-items:center;gap:12px;
   border-bottom:1px solid rgba(184,132,42,.2)}
 .sbar-grid{display:grid;grid-template-columns:auto auto;gap:5px 18px;flex:1;min-width:0}
+/* Dark mode chip adjustments */
+body.dark .chip-p { background: #8a1010; }
+body.dark .chip-o { background: #1a4a10; }
+body.dark .chip-b { background: #0e2848; }
+body.dark .q-sum { background: linear-gradient(135deg,#0e2008,#162a10); border-color: var(--green-l); }
+body.dark .q-sum ul li { color: #a0d098; }
+body.dark .ph4-road-wrap { background: var(--surface2); }
+
 /* .tog-grp kept for compatibility (unused) */
 .tog-grp{display:flex;align-items:center;gap:14px;flex:1;flex-wrap:wrap}
 .tog-lbl{display:flex;align-items:center;gap:7px;cursor:pointer;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
@@ -636,6 +644,60 @@ body.dark .w-seal { box-shadow: 0 6px 24px rgba(0,0,0,.7), inset 0 1px 0 rgba(25
   font-style: italic;
 }
 
+/* ── SCHNELL-MODUS ── */
+body.quick .acc-bd { display:none !important; }
+body.quick .acc.open .acc-bd { display:none !important; }
+body.quick .acc-hd { opacity:.65; font-size:.75rem; }
+body.quick .q-detail { display:none !important; }
+body.quick .box-i { display:none !important; }
+body.quick .box-b { display:none !important; }
+.q-sum { display:none; }
+body.quick .q-sum { display:block !important; }
+.q-sum {
+  background:linear-gradient(135deg,#eef8e8,#e0f0d8);
+  border:1px solid var(--green);border-left:4px solid var(--green-l);
+  border-radius:var(--r-s);padding:12px 14px;margin:0 0 10px;
+}
+body.dark .q-sum { background:linear-gradient(135deg,#0e2008,#162a10); }
+.q-sum-title { font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green-l);margin-bottom:7px; }
+.q-sum ul { margin:0; }
+.q-sum ul li { font-size:.88rem;color:var(--green);line-height:1.6; }
+.q-sum ul li::before { color:var(--green-l); }
+.q-sum strong { color:var(--green); }
+
+/* ── REGEL-CHIPS ── */
+.chip { display:inline-flex;align-items:center;padding:1px 8px;border-radius:12px;font-size:.6rem;font-weight:700;letter-spacing:.8px;margin:0 5px 2px 0;vertical-align:middle;flex-shrink:0; }
+.chip-p { background:var(--red);color:#fff; }
+.chip-o { background:var(--green);color:#d8ecc8; }
+.chip-b { background:var(--blue-l);color:#d0e8f8; }
+.chip-w { background:var(--gold-d);color:#fff; }
+li .chip, p .chip { margin-left:0; }
+
+/* ── PHASE IV MINI-ROADMAP ── */
+.ph4-road {
+  display:flex;gap:3px;overflow-x:auto;padding:8px 0 10px;margin-bottom:10px;
+  scrollbar-width:none;
+}
+.ph4-road::-webkit-scrollbar { display:none; }
+.ph4-rb {
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;padding:5px 6px;border-radius:6px;transition:background .15s;
+  border:1px solid transparent;min-width:52px;
+}
+.ph4-rb:active { background:rgba(184,132,42,.1); }
+.ph4-rb.active { border-color:var(--gold);background:rgba(184,132,42,.08); }
+.ph4-rb-dot {
+  width:26px;height:26px;border-radius:50%;border:2px solid var(--border);
+  background:var(--surface2);display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;transition:all .2s;
+}
+.ph4-rb.active .ph4-rb-dot { background:linear-gradient(145deg,var(--gold-d),var(--gold));border-color:var(--gold);box-shadow:0 2px 8px rgba(184,132,42,.4); }
+.ph4-rb.done .ph4-rb-dot { background:var(--green);border-color:var(--green-l); }
+.ph4-rb-lbl { font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:.58rem;color:var(--ink3);text-align:center;letter-spacing:.3px;line-height:1.2; }
+.ph4-rb.active .ph4-rb-lbl { color:var(--gold-d);font-weight:700; }
+.ph4-road-wrap { background:var(--surface2);border:1px solid var(--border-s);border-radius:var(--r-s);padding:6px 10px 4px;margin-bottom:12px; }
+.ph4-road-ttl { font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:2px; }
+
 </style>
 </head>
 <body>
@@ -703,6 +765,10 @@ body.dark .w-seal { box-shadow: 0 6px 24px rgba(0,0,0,.7), inset 0 1px 0 rgba(25
       <label class="tog-lbl">
         <div class="tog"><input type="checkbox" id="tog-cn" onchange="onSettingChange()"><div class="tog-sl"></div></div>
         China aktiv
+      </label>
+      <label class="tog-lbl" style="grid-column:span 2;border-top:1px solid rgba(184,132,42,.15);padding-top:5px;margin-top:2px">
+        <div class="tog"><input type="checkbox" id="tog-quick" onchange="toggleQuickMode()"><div class="tog-sl"></div></div>
+        <span>⚡ Schnell-Modus <span style="font-size:.7rem;opacity:.7;font-style:italic">(nur Kernschritte)</span></span>
       </label>
     </div>
     <button class="ref-btn" onclick="openQR()" aria-label="Schnellreferenz öffnen">📖 Refe&shy;renz</button>
@@ -815,6 +881,30 @@ const bg = h => box('box-g',h);
 const bb = h => box('box-b',h);
 const dt = rows => `<div class="dt">${rows.map(r=>`<div class="dt-row"><div class="dt-k">${r[0]}</div><div class="dt-v">${r[1]}</div></div>`).join('')}</div>`;
 const acc = (id,t,body,open=false) => `<div class="acc${open?' open':''}" id="acc-${id}"><div class="acc-hd" onclick="tAcc('acc-${id}')"><span>${t}</span><span class="ic">▼</span></div><div class="acc-bd">${body}</div></div>`;
+
+/* ── SCHNELL-MODUS HELPERS ── */
+const chip = (type, label) => `<span class="chip chip-${type}">${label}</span>`;
+const pflicht = () => chip('p','PFLICHT');
+const optional = () => chip('o','OPTIONAL');
+const bedingt = (txt) => chip('b', txt||'BEDINGT');
+const qsum = (items) => `<div class="q-sum"><div class="q-sum-title">⚡ Kern-Schritte</div><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;
+
+function toggleQuickMode(){
+  const on = $('tog-quick') && $('tog-quick').checked;
+  document.body.classList.toggle('quick', !!on);
+  try { localStorage.setItem('jc2e_quickmode', on ? '1' : '0'); } catch(e){}
+}
+(function initQuickMode(){
+  try {
+    if(localStorage.getItem('jc2e_quickmode')==='1'){
+      document.body.classList.add('quick');
+      window.addEventListener('load', ()=>{
+        const t = $('tog-quick');
+        if(t) t.checked = true;
+      });
+    }
+  } catch(e) {}
+})();
 let _clCounter = 0;
 const cl = (items, opts={}) => {
   const id = 'cl-' + (++_clCounter);
@@ -831,6 +921,29 @@ const cl = (items, opts={}) => {
 const chbtn = (ic,t,s,fn) => `<button class="chbtn" onclick="${fn}"><div class="chbtn-ic">${ic}</div><div class="chbtn-body"><div class="chbtn-t">${t}</div>${s?`<div class="chbtn-s">${s}</div>`:''}</div><div class="chbtn-ar">▶</div></button>`;
 const trail = (...p) => `<div class="trail">${p.map((t,i)=>`<span class="trail-i">${t}</span>${i<p.length-1?'<span class="trail-sep">›</span>':''}`).join('')}</div>`;
 const cb = (atk,def,tie) => `<div class="cb"><div class="cb-row"><div class="cb-lbl">⚔ Angreifer</div><div class="cb-val">${atk}</div></div><hr class="cb-div"><div class="cb-row"><div class="cb-lbl">🛡 Verteidiger</div><div class="cb-val">${def}</div></div>${tie?`<div class="cb-tie">🔸 Gleichstand: ${tie}</div>`:''}</div>`;
+
+/* ── PHASE IV MINI-ROADMAP ── */
+const PH4_STEPS = [
+  {idx:7,  ic:'⚖',  lbl:'Vorsitz',    id:'ph4-chairman'},
+  {idx:8,  ic:'📋', lbl:'Dir./GG',     id:'ph4-director'},
+  {idx:9,  ic:'⚓',  lbl:'Flotten-\nverw.', id:'ph4-shipping'},
+  {idx:10, ic:'🎖',  lbl:'Militär',    id:'ph4-mil'},
+  {idx:11, ic:'🏛',  lbl:'Bombay',     id:'ph4-bombay'},
+  {idx:12, ic:'🏛',  lbl:'Madras',     id:'ph4-madras'},
+  {idx:13, ic:'🏛',  lbl:'Bengal.',    id:'ph4-bengal'},
+];
+function ph4Road(){
+  const dots = PH4_STEPS.map(s=>{
+    const isCur = steps[cur] && steps[cur].id===s.id;
+    const idx = steps.findIndex(x=>x.id===s.id);
+    const isDone = idx>=0 && cur>idx;
+    return `<div class="ph4-rb${isCur?' active':''}${isDone?' done':''}" onclick="if(${idx}>=0&&${idx}<steps.length){cur=${idx};render();}">
+      <div class="ph4-rb-dot">${isDone?'✓':s.ic}</div>
+      <div class="ph4-rb-lbl">${s.lbl}</div>
+    </div>`;
+  }).join('');
+  return `<div class="ph4-road-wrap"><div class="ph4-road-ttl">Phase IV · Kompanie agiert</div><div class="ph4-road">${dots}</div></div>`;
+}
 
 function clCheck(listId, idx, cb, storeKey) {
   const li = cb.closest('li');
@@ -951,6 +1064,12 @@ function s_ph1_attrition(){return `
 <div class="step-badge"><span class="step-num">Phase I</span><span class="step-phase">Londoner Season</span></div>
 <div class="step-title">Personalabbau</div>
 <div class="card">
+${qsum([
+  pflicht()+' Für jedes besetzte Amt <strong>1W6</strong> werfen',
+  'Ermattungs-Marker auf Ämterkarte: je +1 auf Wurf',
+  '<strong>1–2:</strong> Nichts &nbsp;<strong>3–4:</strong> +1 Ermattung &nbsp;<strong>5+:</strong> Ruhestand',
+  bedingt('VORSITZ')+' Vorsitzender: Wurf immer +1!',
+])}
 ${bw('<strong>Kein Erfolgstest!</strong> Dies ist ein einfacher W6-Wurf – kein Würfelpool-Kauf. Alle Spieler würfeln <em>gleichzeitig</em> für jedes besetzte Amt.')}
 <p>Wirf für jedes besetzte Amt genau <strong>einen W6</strong>. Ermattungs-Marker auf der Ämterkarte addieren +1 auf das Ergebnis:</p>
 ${dt([
@@ -965,6 +1084,12 @@ function s_ph1_retire(){return `
 <div class="step-badge"><span class="step-num">Phase I</span><span class="step-phase">Londoner Season</span></div>
 <div class="step-title">Ruhestand</div>
 <div class="card">
+${qsum([
+  pflicht()+' Vom Vorsitzenden ausgehend im Uhrzeigersinn',
+  pflicht()+' Nur wer Ruheständler hat, schickt jemanden in Rente',
+  pflicht()+' Belohnung wählen → Kosten zahlen → SP eintragen',
+  'Geld noch NICHT in die Bank (Reihenfolge Prestige!)',
+])}
 <h3>Reihenfolge</h3>
 <ul>
   <li>Beginnend mit dem <strong>(ehemaligen) Vorsitzenden</strong>, dann im Uhrzeigersinn.</li>
@@ -1016,16 +1141,22 @@ function s_ph2_family(){return `
 <div class="step-badge"><span class="step-num">Phase II</span><span class="step-phase">Familie</span></div>
 <div class="step-title">Familienaktionen</div>
 <div class="card">
+${qsum([
+  pflicht()+' Vom Vorsitzenden ausgehend im Uhrzeigersinn',
+  pflicht()+' Jede Familie wählt 1 Aktion (ggf. 2× bei Chancen-Marker)',
+  optional()+' Schreiber · Offizier · Werft (£2) · Luxus (£4, +2SP) · Betrieb (£5) · Anteil',
+  bedingt('CHANCEN')+' Gleiche Aktion wie letzte Runde → 2× ausführbar',
+])}
 ${bi('<strong>Chancen-Marker (Glasstein):</strong> Jede Familie legt ihren Marker auf die gewählte Aktion. Liegt er dort <em>bereits</em> (gleiche Aktion wie letzte Runde), darf sie <strong>2× ausgeführt werden</strong> – die Kosten fallen dabei für <em>beide</em> Ausführungen voll an! Erst ab Runde 2 möglich.')}
 ${bi('<strong>Extra-Aktionen durch Gesetze:</strong> Manche Gesetze gewähren eine Extra-Aktion. Diese darf <em>nicht</em> durch den Chancen-Marker verdoppelt werden. Es gilt immer nur die zuletzt ausgelegte Gesetzeskarte.')}
 <p>Beginnend mit dem Vorsitzenden im Uhrzeigersinn: <strong>1 Familienaktion</strong> ausführen (bei doppeltem Marker: 2×).</p>
 <h3>Die 6 Aktionen</h3>
-${acc('fam-w','Schreiber anheuern',`<p>1 Familienmitglied auf Schreiberposten einer Präsidentschaft. ${bi('<strong>Sonderregel:</strong> Bei 4+ freien Ämtern: kostenlos 1 weiterer Schreiber möglich (max. 3 Schreiber pro Zug).')}</p>`)}
-${acc('fam-o','Offizier rekrutieren',`<p>1 Familienmitglied in das Offiziersanwärter-Feld über „Militärische Belange". Wird in Phase IV.4 zugewiesen.</p>`)}
-${acc('fam-y','Werft kaufen',`<p><strong>£2 zahlen</strong> → Werftkarte nehmen. Schiff wird <em>nicht</em> ausgerüstet. Jedes ausgerüstete Schiff bringt £1/Runde. Im Parlament: 1 Stimme pro Werft.</p>`)}
-${acc('fam-l','Luxusgut kaufen',`<p><strong>£4 zahlen</strong> → Luxusgut-Karte nehmen. Sofort <strong>+2 SP</strong>. ${bw('Fenstersteuer beachten!')}</p>`)}
-${acc('fam-ws','Betrieb kaufen',`<p><strong>£5 zahlen</strong> → Betriebskarte nehmen. Im Parlament: <strong>2 Stimmen</strong>. Scheitert die Kompanie: 1 SP wert. Im Deregulierungsspiel kann er in eine Firma umgewandelt werden.</p>`)}
-${acc('fam-sh','Kompanie-Anteile erlangen',`<p>Familienmitglied auf ein freies Feld der Börsenleiste setzen. Preis des Feldes zahlen. ${bw('<strong>Achtung:</strong> Scheitert die Kompanie, bedeutet jeder Anteil –1 SP!')}</p>`)}
+${acc('fam-w','✍ Schreiber anheuern',`<p>1 Familienmitglied auf Schreiberposten einer Präsidentschaft. ${bi('<strong>Sonderregel:</strong> Bei 4+ freien Ämtern: kostenlos 1 weiterer Schreiber möglich (max. 3 Schreiber pro Zug).')}</p>`)}
+${acc('fam-o','🎖 Offizier rekrutieren',`<p>1 Familienmitglied in das Offiziersanwärter-Feld über „Militärische Belange". Wird in Phase IV.4 zugewiesen.</p>`)}
+${acc('fam-y','⚓ Werft kaufen – £2',`<p><strong>£2 zahlen</strong> → Werftkarte nehmen. Schiff wird <em>nicht</em> ausgerüstet. Jedes ausgerüstete Schiff bringt £1/Runde. Im Parlament: 1 Stimme pro Werft.</p>`)}
+${acc('fam-l','💎 Luxusgut kaufen – £4 · +2SP',`<p><strong>£4 zahlen</strong> → Luxusgut-Karte nehmen. Sofort <strong>+2 SP</strong>. ${bw('Fenstersteuer beachten!')}</p>`)}
+${acc('fam-ws','🏭 Betrieb kaufen – £5',`<p><strong>£5 zahlen</strong> → Betriebskarte nehmen. Im Parlament: <strong>2 Stimmen</strong>. Scheitert die Kompanie: 1 SP wert. Im Deregulierungsspiel kann er in eine Firma umgewandelt werden.</p>`)}
+${acc('fam-sh','📈 Kompanie-Anteile erlangen',`<p>Familienmitglied auf ein freies Feld der Börsenleiste setzen. Preis des Feldes zahlen. ${bw('<strong>Achtung:</strong> Scheitert die Kompanie, bedeutet jeder Anteil –1 SP!')}</p>`)}
 ${bw('<strong>Keine Familienmitglieder mehr übrig?</strong> Wenn ein Mitglied <em>eingesetzt werden muss</em>, aber keines mehr da ist, <strong>muss</strong> eines von einer Belohnung entfernt werden – dabei gehen die dortigen SP sofort verloren.')}
 </div>`;}
 
@@ -1076,19 +1207,25 @@ function s_ph3_hiring(){return `
 <div class="step-badge"><span class="step-num">Phase III</span><span class="step-phase">Ämter besetzen</span></div>
 <div class="step-title">Ämter besetzen</div>
 <div class="card">
+${qsum([
+  pflicht()+' Ämterkarten in aufsteigender Nummerfolge abhandeln',
+  pflicht()+' Alle Ämter MÜSSEN besetzt werden, wenn Kandidaten vorhanden',
+  bedingt('NEPOTISMUS')+' Eigenes Mitglied → Zustimmung aller anderen nötig',
+  '1. Vorsitz (Kollegium) · 2. Direktor/GG (Vorsitzender) · 3. Flottenverw. · 4. Militär · 5. Präsidenten · 6. Gouverneure',
+])}
 ${bw('<strong>Erste Runde:</strong> Diese Phase wird übersprungen!')}
 <p>Ämterkarten im Bereich „freie Ämter" in <strong>aufsteigender Nummerfolge</strong> abhandeln.</p>
 ${bi('<strong>Nepotismus-Regel:</strong> Eigenes Familienmitglied ernennen? Zustimmung aller anderen Familien im Anwärter-Pool nötig. Gilt nicht beim Vorsitz. Nur wenn mehrere Kandidaten vorhanden.')}
 ${bi('<strong>Beförderungen:</strong> Wird ein Mitglied aus einem anderen Amt befördert, wird die alte Ämterkarte getauscht. Ermattungs-Marker übernehmen. Die freigewordene alte Karte sofort in aufsteigender Reihenfolge einordnen und besetzen.')}
 
 <h3>Wer ernennt wen?</h3>
-${acc('hr-chair','Vorsitz',`<p>Gewählt vom <strong>Kollegium</strong> (Figuren auf Börsenleiste + aktueller Vorsitzender). Benötigt Zustimmung von mehr als der Hälfte aller Kollegiums-Mitglieder.</p>${bw('<strong>Kein Konsens?</strong> Der bisherige Vorsitzende wählt selbst – auch sich selbst. Nepotismus gilt hier nicht.')}${bi('<strong>Kollegium leer?</strong> Ehemaliger Vorsitzender setzt sich selbst ein (oder nimmt eine Figur von einer Belohnung).')}`)}
-${acc('hr-dir','Direktor des Handels / General-Gouverneur',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Alle aktuellen Amtsinhaber außer Vorsitz, Gouverneure und Kommandanten.</p>`)}
-${acc('hr-ship','Flottenverwalter',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Schreiber aus allen Präsidentschaften.</p>`)}
-${acc('hr-mil','Militärische Belange',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten (in Prioritätsreihenfolge): Kommandant → Offizier → Offiziersanwärter.</p>`)}
-${acc('hr-super','Superintendent des Handels in China',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Schreiber aus beliebiger Präsidentschaft.</p>`)}
-${acc('hr-pres','Präsidenten',`<p>Vom <strong>Direktor/GG</strong> ernannt. Kandidaten: Schreiber der jeweiligen Präsidentschaft oder Gouverneure dieser Präsidentschaft.</p>`)}
-${acc('hr-gov','Gouverneure',`<p>Vom <strong>jeweiligen Präsidenten</strong> ernannt. Kandidaten: Schreiber oder Offiziere <em>in der Region</em>. <strong>Kommandanten sind keine Offiziere und kommen nicht in Frage!</strong></p>`)}
+${acc('hr-chair','⚖ Vorsitz',`<p>Gewählt vom <strong>Kollegium</strong> (Figuren auf Börsenleiste + aktueller Vorsitzender). Benötigt Zustimmung von mehr als der Hälfte aller Kollegiums-Mitglieder.</p>${bw('<strong>Kein Konsens?</strong> Der bisherige Vorsitzende wählt selbst – auch sich selbst. Nepotismus gilt hier nicht.')}${bi('<strong>Kollegium leer?</strong> Ehemaliger Vorsitzender setzt sich selbst ein (oder nimmt eine Figur von einer Belohnung).')}`)}
+${acc('hr-dir','📋 Direktor des Handels / General-Gouverneur',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Alle aktuellen Amtsinhaber außer Vorsitz, Gouverneure und Kommandanten.</p>`)}
+${acc('hr-ship','⚓ Flottenverwalter',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Schreiber aus allen Präsidentschaften.</p>`)}
+${acc('hr-mil','🎖 Militärische Belange',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten (in Prioritätsreihenfolge): Kommandant → Offizier → Offiziersanwärter.</p>`)}
+${acc('hr-super','🌏 Superintendent des Handels in China',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Schreiber aus beliebiger Präsidentschaft.</p>`)}
+${acc('hr-pres','👑 Präsidenten',`<p>Vom <strong>Direktor/GG</strong> ernannt. Kandidaten: Schreiber der jeweiligen Präsidentschaft oder Gouverneure dieser Präsidentschaft.</p>`)}
+${acc('hr-gov','🏛 Gouverneure',`<p>Vom <strong>jeweiligen Präsidenten</strong> ernannt. Kandidaten: Schreiber oder Offiziere <em>in der Region</em>. <strong>Kommandanten sind keine Offiziere und kommen nicht in Frage!</strong></p>`)}
 ${bw('<strong>Pflicht:</strong> Alle Ämter müssen besetzt werden, wenn Kandidaten vorhanden. Ein vakantes Amt absichtlich leer zu lassen ist nicht erlaubt.')}
 </div>`;}
 
@@ -1098,7 +1235,13 @@ ${bw('<strong>Pflicht:</strong> Alle Ämter müssen besetzt werden, wenn Kandida
 function s_ph4_chairman(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 1</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Vorsitz</div>
+${ph4Road()}
 <div class="card">
+${qsum([
+  optional()+' Schulden erhöhen: bis zu 3× (je +1 Schuld → +£5 Kompanie)',
+  bedingt('MEHR ALS 3×')+' Mehrheit Kollegium muss zustimmen',
+  pflicht()+' Gesamtes Kompanie-Vermögen auf Amtsschatullen verteilen',
+])}
 ${bi('Ämter von <strong>links nach rechts</strong> abhandeln. Ämter ohne Inhaber überspringen. Jede Amtsaktivierung ist <em>optional</em>. Privates Familiengeld darf nicht für Amtszwecke verwendet werden.')}
 <h3>Schritt 1: Schulden erhöhen (optional)</h3>
 <p>Der Vorsitzende <em>kann</em> die Schulden der Kompanie erhöhen – bis zu <strong>3×</strong>. Jeder Schritt:</p>
@@ -1123,7 +1266,13 @@ function s_ph4_director(gg){
 if(!gg) return `
 <div class="step-badge"><span class="step-num">Phase IV · 2</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Direktor des Handels</div>
+${ph4Road()}
 <div class="card">
+${qsum([
+  optional()+' Sondergesandter: £1 = 1 Würfel. Erfolg → Auftrag öffnen ODER China eröffnen',
+  optional()+' Sondergesandter beliebig oft wiederholen',
+  pflicht()+' Danach: bis zu 2 Bewegungen (Schreiber/Schiff zwischen Präsidentschaften)',
+])}
 <h3>Aktion A: Sondergesandter (beliebig oft!)</h3>
 <p>Erfolgstest (Würfelpool): £1 = 1 Würfel, kein Abzug. Darf mehrfach hintereinander ausgeführt werden.</p>
 <p><strong>Bei Erfolg – wähle eine Option:</strong></p>
@@ -1136,7 +1285,14 @@ ${bi('<strong>Mehrere Erfolge pro Aktion?</strong> Nein – pro Sondergesandter-
 return `
 <div class="step-badge"><span class="step-num">Phase IV · 2</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">General-Gouverneur <span class="badge bg2">GG</span></div>
+${ph4Road()}
 <div class="card">
+${qsum([
+  pflicht()+' Sofort: +£3 ins Kompanie-Vermögen pro kontrollierter Region',
+  optional()+' Regieren: £1 = 1 Würfel. Bei Erfolg: £1/Region + 1 Option/Region (Steuer/Regiment/Schiff)',
+  bedingt('MISSERFOLG')+' 1 Unruhe in JEDER kontrollierten Region',
+  bedingt('JEDE 6')+' +1 Unruhe in jeder kontrollierten Region',
+])}
 ${bg('<strong>Soforteffekt beim Inkrafttreten des Gesetzes:</strong><ul><li>Alle Gouverneure werden sofort <strong>zu Ruheständlern</strong> (ins Ruheständler-Feld – nicht zurück in den Familienvorrat). Sie können in der nächsten Londoner Season in Rente gehen.</li><li>Alle Gouverneurs-Plättchen vom Spielplan entfernen.</li><li>Alle halbfertigen Kompanie-Schiffe entfernen.</li><li>Direktor-Karte durch GG-Karte ersetzen. Ermattungs-Marker übernehmen.</li><li><strong>Ab sofort: Keine neuen Gouverneure mehr</strong> – auch wenn weitere Regionen übernommen werden.</li></ul>')}
 <h3>Automatischer Einnahmenbonus</h3>
 <p>Zu Beginn dieser Amtsaktivierung (immer, egal ob Regieren versucht wird):</p>
@@ -1152,7 +1308,14 @@ ${bw('<strong>Bei Misserfolg:</strong> 1 Unruhe-Marker in <em>jeder</em> kontrol
 function s_ph4_shipping(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 3</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Flottenverwalter</div>
+${ph4Road()}
 <div class="card">
+${qsum([
+  pflicht()+' Geld ausgeben bis max. £2 in der Schatulle übrig',
+  optional()+' Charterschiff mieten (schwarz): £2 → temporär',
+  optional()+' Privates Schiff ausrüsten (blau): £3 → Werft nach See',
+  bedingt('KEIN BLAUES SCHIFF')+' Kompanie-Schiff kaufen (rot): £5',
+])}
 ${bw('<strong>Pflicht:</strong> Es muss so viel Geld ausgegeben werden, bis maximal <strong>£2</strong> in der Schatulle übrig bleiben!')}
 <p>Drei Optionen (beliebig kombinierbar, solange Mittel vorhanden):</p>
 <h3>Option 1: Charterschiff mieten (schwarz) – £2 <span class="badge bo">ERRATA</span></h3>
@@ -1168,7 +1331,14 @@ ${bi('Alle Seeregionen inkl. China-Schatulle sind zulässige Ziele, wenn der Sup
 function s_ph4_mil(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 4</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Militärische Belange</div>
+${ph4Road()}
 <div class="card">
+${qsum([
+  optional()+' Bis zu 2 Bewegungen: Offizier/Regiment zwischen Armeen',
+  pflicht()+' Alle Offiziersanwärter einer Armee zuweisen',
+  pflicht()+' Für jede Armee: Neuen Kommandanten ernennen falls nötig',
+  bedingt('GLEICHSTAND')+' Amtsinhaber Mil. Belange entscheidet',
+])}
 <h3>Schritt 1: Bewegungen (optional)</h3>
 <p>Bis zu <strong>2 Bewegungen</strong> zwischen Armeen: Jeweils 1 Offizier oder 1 Regiment von einer Armee in eine andere. Bewegte Figuren bleiben verfügbar (erschöpft nicht).</p>
 <h3>Schritt 2: Offiziersanwärter zuweisen (Pflicht)</h3>
@@ -1186,7 +1356,14 @@ ${bi('Kommandanten sind keine Ämter – die Nepotismus-Regel gilt hier nicht.')
 function s_ph4_pres(name, sea){return `
 <div class="step-badge"><span class="step-num">Phase IV · 5</span><span class="step-phase">Präsidentschaft</span></div>
 <div class="step-title">${name}</div>
+${ph4Road()}
 <div class="card">
+${qsum([
+  pflicht()+` Reihenfolge: Präsident legt fest (Handel vor/nach jedem Amt)`,
+  `👤 Präsident: Handel treiben – 1× erfolgreich/Runde, £1/Würfel`,
+  `⚔ Kommandant: Einsatz – Offiziere/Regimenter erschöpfen, Beute, Region übernehmen`,
+  bedingt('AKTIV')+` Gouverneur(e): Verwalten – absteigender Würfelpool`,
+])}
 ${bi(`<strong>Vollständig abhandeln, dann zur nächsten.</strong> Reihenfolge: Bombay → Madras → Bengalen.<br>Seeregion von ${name}: <strong>${sea}</strong>.`)}
 ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter fest, kann aber selbst weder handeln noch lokale Allianzen genehmigen.')}
 
@@ -1198,81 +1375,6 @@ ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter f
   <div class="pres-cb" id="pcb-president">
     <div class="pres-cb-hd" onclick="togglePresBlock('president')">
       <div class="pres-cb-num">I</div>
-      <div class="pres-cb-info">
-        <div class="pres-cb-title">👤 Präsident – Handel treiben</div>
-        <div class="pres-cb-hint">1× erfolgreich pro Runde · Mehrere Versuche erlaubt</div>
-      </div>
-      <button class="pres-cb-done" id="pslot-president" onclick="event.stopPropagation();tPresSlot('president')" title="Erledigt">○</button>
-      <span class="pres-cb-arrow">▶</span>
-    </div>
-    <div class="pres-cb-body" id="pbbody-president" style="display:none">
-      <h4>Aktion: Handel treiben</h4>
-      <p>Nur <strong>1× pro Runde erfolgreich</strong>. Mehrere Versuche erlaubt, solange Geld vorhanden und kein katastrophaler Misserfolg eintrat.</p>
-      <p><strong>Schritt 1 – Regionen benennen:</strong></p>
-      <ul>
-        <li>Pflicht: Eigene <strong>Heimatregion</strong> einschließen.</li>
-        <li>Optional: weitere Regionen der eigenen Präsidentschaft und/oder angrenzende Regionen.</li>
-        <li><em>Niemals</em> die Heimatregion einer anderen Präsidentschaft!</li>
-        <li>Regionen ohne freien Weg (geschlossene Aufträge) dürfen nicht benannt werden.</li>
-      </ul>
-      <p><strong>Schritt 2 – Erfolgstest:</strong> £1 = 1 Würfel. –1 Würfel pro benannter Region außerhalb der Heimatregion.</p>
-      ${bg('<strong>Bei Erfolg:</strong><ul><li>Pro Schiff in der Seeregion: 1 offenen Auftrag in benannter Region mit Schreiber belegen. Keine Schreiber mehr → Erfüllt-Marker setzen.</li><li>Ersten Schreiber immer auf den <strong>Heimathafen</strong> (dickrandiger Auftrag). Danach: angrenzend an bereits belegten Auftrag.</li><li>Kompanie-Vermögen: +£ laut Auftragswert pro erfülltem Auftrag.</li><li>Präsident persönlich: +£1 pro erfülltem Auftrag.</li><li>Jede Familie: +£1 pro eigenem Schreiber auf einem erfüllten Auftrag.</li></ul>')}
-      ${bi('<strong>Schreiber-Teiler:</strong> Wird ein Schreiber angrenzend zu einem Schreiber einer anderen Präsidentschaft platziert, sofort Präsidentschafts-Teiler auf die Verbindung legen (relevant für Phase IX).')}
-    </div>
-  </div>
-
-  <div class="pres-cb" id="pcb-commander">
-    <div class="pres-cb-hd" onclick="togglePresBlock('commander')">
-      <div class="pres-cb-num">II</div>
-      <div class="pres-cb-info">
-        <div class="pres-cb-title">⚔ Kommandant – Einsatz</div>
-        <div class="pres-cb-hint">Beliebig oft · Beute · Regionen übernehmen</div>
-      </div>
-      <button class="pres-cb-done" id="pslot-commander" onclick="event.stopPropagation();tPresSlot('commander')" title="Erledigt">○</button>
-      <span class="pres-cb-arrow">▶</span>
-    </div>
-    <div class="pres-cb-body" id="pbbody-commander" style="display:none">
-      <h4>Vor dem Einsatz: Lokale Allianzen (optional)</h4>
-      <p>Kommandant kann Geld aus der Präsidentenschatulle anfordern (Zustimmung des Präsidenten nötig), um lokale Allianzen in der eigenen Armee zu kaufen. Kein Präsident vorhanden = kein Genehmigungsbedarf.</p>
-      ${bi('<strong>Lokale Allianzen:</strong> Für Einsatz <em>oder</em> Verteidigung in Phase VII. Stärke unteilbar – komplett für einen einzigen Zweck. Jedes Stück nur 1× pro Runde.')}
-      <h4>Aktion: Einsatz (beliebig oft, solange Mittel und Einheiten vorhanden)</h4>
-      <p><strong>Schritt 1 – Zielregion wählen:</strong></p>
-      <ul>
-        <li>Erlaubt: Heimatregion der Präsidentschaft, assoziierte Regionen, angrenzende Regionen.</li>
-        <li><em>Nicht erlaubt:</em> Heimatregion einer anderen Präsidentschaft oder eine Kompanie-Region, die einer anderen Präsidentschaft zugeordnet ist. <span class="badge bo" style="font-size:.6rem">ERRATA</span></li>
-        <li>Kompanie-Regionen: nur bei mind. 1 geschlossenem Auftrag <em>oder</em> 1 Unruhe-Marker.</li>
-      </ul>
-      <p><strong>Schritt 2 – Erfolgstest:</strong> 1 Würfel pro erschöpftem Offizier oder Regiment. Lokale Allianzen: +Stärke laut Aufdruck. <strong>Abzug:</strong> –1 Würfel pro Turmstufe der Zielregion (bei Reich: Summe <em>aller</em> Turmstufen im Reich).</p>
-      <p style="font-size:.87rem;color:var(--ink3);margin-top:0">Kompanie-Regionen haben Stärke 0 – kein Abzug.</p>
-      ${bg('<strong>Bei Erfolg – diese 5 Schritte:</strong><ol><li><strong>Beute bestimmen:</strong> +£4 pro Turmstufe der Zielregion + Beute-Modifikator (falls Token offen: Wert auf Token). <em>Beute-Minimum:</em> Ist der ermittelte Betrag kleiner als (überlebende Offiziere + 1), wird er aus der Bank auf dieses Minimum aufgestockt.</li><li><strong>Beute verteilen</strong> (Runden, bis Geld aufgebraucht):<ul><li>Runde 1+: Kommandant erhält £1 (Kommandanten-Anteil) + £1 pro eigenem überlebenden Offizier. Dann im Uhrzeigersinn: jeder andere Spieler £1 pro eigenem überlebenden Offizier.</li><li>Dann: je £1 an Bank pro Regiment und lokale Allianz (unabhängig von Stärke).</li><li>Ist danach noch Geld übrig? → Erneut von vorne (Kommandant → im Uhrzeigersinn).</li></ul></li><li><strong>Trophäen nehmen:</strong> Kommandant erhält 1 Trophäe pro Turmstufe der Zielregion. Dann Turm und Kuppel entfernen. War die Region eine Hauptstadt? → Alle zugehörigen Fahnen entfernen.</li><li><strong>Ordnung herstellen:</strong> Alle Aufträge in der Region öffnen. Alle Unruhe-Marker entfernen.</li><li><strong>Gouverneurschaft einrichten</strong> (nur wenn Region noch nicht Kompanie-kontrolliert):<ul><li>Kontroll-Marker des Regions-Tokens in das Feld über dem Präsidentenfeld (Regionssymbol oben).</li><li>Gouverneurs-Plättchen in die Region legen.</li><li>Passende Gouverneurs-Ämterkarte in die freien Ämter legen.</li><li><em>Elefant-Sonderregel:</em> War der Elefant in der übernommenen Region und zeigte auf eine andere? → Elefanten in die Mitte der Region setzen (zeigt nun bevorstehende Rebellion).</li></ul></li></ol>')}
-      ${bw('<strong>Offizier-Verluste (immer nach dem Einsatz):</strong> Für jeden erschöpften Offizier 1W6 – bei einer 6: zurück in Familienvorrat. Regimenter niemals betroffen.')}
-      ${bw('<strong>Katastrophaler Misserfolg (5–6):</strong> Kommandant gibt Hälfte Trophäen (aufrunden) ab → zurück in Familienvorrat.')}
-    </div>
-  </div>
-
-  <div class="pres-cb" id="pcb-governor">
-    <div class="pres-cb-hd" onclick="togglePresBlock('governor')">
-      <div class="pres-cb-num">III</div>
-      <div class="pres-cb-info">
-        <div class="pres-cb-title">🏛 Gouverneur(e) – Verwalten</div>
-        <div class="pres-cb-hint">Verwalten · Steuern · Regiment · Schiff</div>
-      </div>
-      <button class="pres-cb-done" id="pslot-governor" onclick="event.stopPropagation();tPresSlot('governor')" title="Erledigt">○</button>
-      <span class="pres-cb-arrow">▶</span>
-    </div>
-    <div class="pres-cb-body" id="pbbody-governor" style="display:none">
-      <h4>Aktion: Verwalten (wiederholbar, solange Würfel vorhanden)</h4>
-      <p><strong>Ausgangswürfel:</strong> Anzahl laut Ämterkarte. Nach jeder Verwaltungsrunde – Erfolg oder Misserfolg – sinkt der Würfelvorrat um 1. Gouverneur darf jederzeit aufhören.</p>
-      ${bg('<strong>Bei Erfolg:</strong> £1 erhalten (+ £1 extra, wenn der <em>vorherige</em> Wurf ein Misserfolg war). Dann eine Option wählen:<ul><li><strong>Steuern:</strong> +£2 ins Kompanie-Vermögen <em>oder</em> in Präsidentenschatulle. Ab der 2. Steuer in dieser Region in dieser Runde: +1 Unruhe!</li><li><strong>Regiment ausheben:</strong> 1 Regiment in die assoziierte Armee. Regimenter: wie Offiziere im Kampf, Beute → Bank, nicht durch Verlust-Wurf entfernt.</li><li><strong>Kompanie-Schiff bauen (2 Schritte):</strong> 1. Erfolg: Schiff in Region ablegen. 2. Erfolg (spätere Aktion): Schiff → assoziierte Seeregion.</li></ul>')}
-      ${bw('<strong>Bei Misserfolg:</strong> 1 Unruhe in der Region. Würfelvorrat –1. Nochmaliger Versuch möglich.')}
-      ${bw('<strong>Katastrophaler Misserfolg (5–6):</strong> Gouverneur sofort entlassen!')}
-    </div>
-  </div>
-
-  <button class="ot-reset" onclick="resetPresOrder()">↺ Zurücksetzen</button>
-</div>
-</div>`;}
-
 function s_ph4_china(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 6</span><span class="step-phase">China</span></div>
 <div class="step-title">Superintendent des Handels in China</div>
@@ -1296,6 +1398,11 @@ function s_ph5(){return `
 <div class="step-badge"><span class="step-num">Phase V</span><span class="step-phase">Boni</span></div>
 <div class="step-title">Familien-Boni</div>
 <div class="card">
+${qsum([
+  pflicht()+' £1 pro eigener Werft mit ausgerüstetem Schiff (Schiff muss auf See sein!)',
+  pflicht()+' £1 pro eigenem Betrieb (nur Familienversion)',
+  'Geht direkt ins persönliche Familienvermögen',
+])}
 <p>Jede Familie erhält ihr Passiveinkommen:</p>
 ${bg('<ul><li><strong>£1</strong> pro eigener Werft, auf der ein <em>ausgerüstetes</em> Schiff liegt (Schiff muss auf See sein!).</li><li><strong>£1</strong> pro eigenem Betrieb (nur die Familienversion – investierte Betriebe im Deregulierungsspiel zählen nicht!).</li></ul>')}
 ${bi('Dies ist Familiengeld, nicht Amtsgeld – es geht direkt in das persönliche Familienvermögen.')}
@@ -1308,6 +1415,12 @@ function s_ph6_expenses(){return `
 <div class="step-badge"><span class="step-num">Phase VI · 1</span><span class="step-phase">Einkommen</span></div>
 <div class="step-title">Ausgaben & Notkredite</div>
 <div class="card">
+${qsum([
+  pflicht()+' –£1 je: Schuld · Regiment · Offizier (kein Kdt.) · Schiff',
+  bedingt('NICHT DECKBAR')+' Notkredit: Schuld +1 → +£5, danach Kompanie-Vermögen auf 0',
+  bedingt('1–2 NK')+' Ansehen –1 · '+bedingt('3+ NK')+' Ansehen –2',
+  bedingt('ANSEHEN LINKS')+' Kompanie gescheitert → Schlusswertung!',
+])}
 ${$('tog-dr').checked ? bb('<strong>Firmen zahlen ZUERST</strong> <span class="badge bd">DEREG</span><br>Vor den Kompanie-Ausgaben: Firmen zahlen Ausgaben und Dividenden in Reihenfolge ihres Initiativwerts.<br>Firmen-Ausgaben: £1 pro Firmenschiff + (£1 pro Anteil <em>oder</em> Firmenwert – was höher ist).') : ''}
 
 <h3>Schritt 1: Kompanie-Ausgaben abziehen</h3>
@@ -1335,6 +1448,12 @@ function s_ph6_dividends(){return `
 <div class="step-badge"><span class="step-num">Phase VI · 2</span><span class="step-phase">Einkommen</span></div>
 <div class="step-title">Erwartungen & Dividenden</div>
 <div class="card">
+${qsum([
+  pflicht()+' Markterwartung prüfen: Vermögen < Erwartungswert → Ansehen –1',
+  optional()+' Vorsitzender zahlt Dividende: £1/Anteil aus Kompanie-Vermögen',
+  bedingt('SUMME > ERWARTUNG')+' Ansehen +1 (öffentliche Euphorie)',
+  'Einziger Weg Ansehen zu erhöhen!',
+])}
 <h3>Schritt 3: Markterwartungen prüfen</h3>
 <p>Ist das Kompanie-Vermögen nach den Ausgaben und Notkrediten <strong>niedriger als der Erwartungswert</strong> (unter dem aktuellen Ansehen auf der Ansehens-Leiste)?</p>
 <p>→ <strong>Ansehen –1 Schritt</strong>.</p>
@@ -1366,6 +1485,12 @@ function s_ph8(){return `
 <div class="step-badge"><span class="step-num">Phase VIII</span><span class="step-phase">Parlament</span></div>
 <div class="step-title">Parlamentssitzung</div>
 <div class="card">
+${qsum([
+  pflicht()+' PM wählt Gesetz (max. 3 Karten, Dilemma sofort wählen)',
+  pflicht()+' PM dreht Zeiger der PM-Scheibe',
+  pflicht()+' Abstimmung: PM zuerst (muss dafür stimmen), im Uhrzeigersinn',
+  bedingt('< 0 STIMMEN')+' Abgelehnt: Oppositionsführer wird PM · '+bedingt('≥ 0')+' Beschlossen: PM +1 Macht',
+])}
 <h3>1. Gesetz wählen</h3>
 <p>Der PM zieht nacheinander Karten und liest sie vor. Er wählt eine aus (max. 3 Karten).</p>
 ${bw('Wird eine <strong>Dilemma-Karte</strong> gezogen, stoppt das Ziehen sofort. Diese Karte muss ausgewählt werden!')}
@@ -1419,6 +1544,12 @@ function s_ph9(){return `
 <div class="step-badge"><span class="step-num">Phase IX</span><span class="step-phase">Auffrischung</span></div>
 <div class="step-title">Unterhalt & Auffrischung</div>
 <div class="card">
+${qsum([
+  pflicht()+' Unterhalt zahlen (weiße Zahl je Belohnung). Nicht zahlen → Figur weg + SP ab',
+  bedingt('LETZTE RUNDE')+' Schlusswertung (Phase X)',
+  pflicht()+' Schreiber/Marker/Charterschiffe zurück · Offiziere/Regimenter aktivieren',
+  pflicht()+' Lokale Allianzen erschöpfen · Rundenmarker vorrücken',
+])}
 ${cl([
   '<strong>Unterhalt zahlen:</strong> Pro Familienmitglied auf einer Belohnung: Unterhaltskosten zahlen (weiße Zahl). Kann nicht gezahlt werden? → Figur zurück in Familienvorrat + SP sofort abziehen.',
   'Ist dies die letzte Runde des Szenarios? → Zur Schlusswertung (Phase X).',
