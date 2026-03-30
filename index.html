@@ -6,7 +6,7 @@
 <title>John Company 2E</title>
 <!-- PWA / iOS Homescreen -->
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="John Company">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="icon.png">
@@ -1375,87 +1375,6 @@ ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter f
   <div class="pres-cb" id="pcb-president">
     <div class="pres-cb-hd" onclick="togglePresBlock('president')">
       <div class="pres-cb-num">I</div>
-      <div class="pres-cb-info">
-        <div class="pres-cb-title">Präsident – Handel treiben</div>
-        <div class="pres-cb-hint">Erfolgstest · 1× erfolgreich/Runde · £1 pro Würfel</div>
-      </div>
-      <button class="pres-cb-done" id="pslot-president" onclick="event.stopPropagation();tPresSlot('president')" aria-label="Präsident erledigt">○</button>
-      <span class="pres-cb-arrow">▶</span>
-    </div>
-    <div class="pres-cb-body" id="pbbody-president" style="display:none">
-      <h4>Reihenfolge bestimmen</h4>
-      <p style="font-size:.9rem;color:var(--ink2)">Der Präsident legt fest, in welcher Reihenfolge die drei Ämter agieren. <em>Handel treiben</em> darf <strong>vor oder nach</strong> jedem anderen Amt stattfinden – nicht mitten in einer laufenden Amtsaktion.</p>
-      <h4>Handel treiben (Erfolgstest)</h4>
-      <p style="font-size:.9rem;color:var(--ink2)">Kaufe Würfel für <strong>£1 pro Würfel</strong> aus der Präsidentschafts-Schatulle. Mindestens 1 Schiff muss in der Seeregion <strong>${sea}</strong> liegen.</p>
-      ${dt([
-        ['1 – 2', '<strong>Erfolg!</strong> Kompanie-Vermögen: +£1 pro offenem Auftrag mit Schreiber in der Präsidentschaft. Präsident persönlich: +£1 pro eigenem Schreiber auf einem Auftrag.'],
-        ['3 – 4', '<strong>Misserfolg:</strong> Nichts passiert. Darf nochmals Würfel kaufen (alle bisherigen Würfel verloren).'],
-        ['5 – 6', '<strong>Katastrophal:</strong> Präsident sofort entlassen → zurück in Familienvorrat. Ämterkarte verdeckt zu „freie Ämter".'],
-      ])}
-      ${bi('Ermattungs-Marker auf der Ämterkarte addieren je +1 auf das Würfelergebnis. Nur das <strong>niedrigste</strong> Ergebnis zählt.')}
-      <h4>Lokale Allianz genehmigen (optional)</h4>
-      <p style="font-size:.9rem;color:var(--ink2)">Der Präsident kann einer Familie erlauben, eine <strong>Lokale Allianz</strong> in einer Region dieser Präsidentschaft einzusetzen. Kosten: <strong>£3 aus der Präsidentschafts-Schatulle</strong>. Darf nur 1× pro Amtsaktion des Kommandanten genehmigt werden.</p>
-      ${bw('Kein Präsident im Amt → keine Lokalen Allianzen möglich.')}
-    </div>
-  </div>
-
-  <div class="pres-cb" id="pcb-commander">
-    <div class="pres-cb-hd" onclick="togglePresBlock('commander')">
-      <div class="pres-cb-num">II</div>
-      <div class="pres-cb-info">
-        <div class="pres-cb-title">Kommandant – Einsatz</div>
-        <div class="pres-cb-hint">Offiziere &amp; Regimenter erschöpfen · Beute · Region übernehmen</div>
-      </div>
-      <button class="pres-cb-done" id="pslot-commander" onclick="event.stopPropagation();tPresSlot('commander')" aria-label="Kommandant erledigt">○</button>
-      <span class="pres-cb-arrow">▶</span>
-    </div>
-    <div class="pres-cb-body" id="pbbody-commander" style="display:none">
-      <h4>Einsatz – Angriff auf eine Region</h4>
-      <p style="font-size:.9rem;color:var(--ink2)">Der Kommandant kann eine nicht kontrollierte Region angreifen, die an eine Kompanie-Region dieser Präsidentschaft angrenzt.</p>
-      <h4>Angriffswürfel zusammenstellen</h4>
-      <ul style="font-size:.9rem">
-        <li>Für jeden <strong>erschöpften Offizier</strong> in der Armee: +1 Würfel.</li>
-        <li>Für jedes <strong>erschöpfte Regiment</strong> in der Armee: +1 Würfel.</li>
-        <li>Für jede genehmigte <strong>Lokale Allianz</strong>: +1 Würfel.</li>
-      </ul>
-      ${bi('Der Kommandant entscheidet, welche und wie viele Figuren er erschöpft. Erschöpfte Figuren stehen bis zur Auffrischung nicht mehr zur Verfügung.')}
-      <h4>Kampf</h4>
-      ${cb('Angriffswürfel des Kommandanten (niedrigstes Ergebnis zählt).','Turmstufen der angegriffenen Region.','Gleichstand → Verteidiger gewinnt.')}
-      ${bg('<strong>Bei Erfolg (Angriff ≤ Türme):</strong><ul><li><strong>Beute:</strong> £1 pro Turmstufe der Region aus dem Kompanie-Vermögen → Kommandant persönlich.</li><li>Kontroll-Marker auf die Region (Präsidentschaft erhält sie).</li><li>Freies Gouverneurs-Amt entsteht → in Phase III besetzbar.</li><li>Türme der Region bleiben.</li></ul>')}
-      ${bw('<strong>Bei Niederlage (Angriff > Türme):</strong> Kein Effekt. Erschöpfte Figuren bleiben erschöpft.')}
-      <h4>Kein Kommandant?</h4>
-      <p style="font-size:.9rem;color:var(--ink2)">Ist das Kommandanten-Amt vakant, übernimmt der Amtsinhaber von <em>Militärische Belange</em> die Rolle. Ist auch dieses vakant: der Vorsitzende – kann aber weder Figuren erschöpfen noch Beute erhalten.</p>
-    </div>
-  </div>
-
-  <div class="pres-cb" id="pcb-governor">
-    <div class="pres-cb-hd" onclick="togglePresBlock('governor')">
-      <div class="pres-cb-num">III</div>
-      <div class="pres-cb-info">
-        <div class="pres-cb-title">Gouverneur(e) – Verwalten</div>
-        <div class="pres-cb-hint">Absteigender Würfelpool · Erfolgstest pro Region</div>
-      </div>
-      <button class="pres-cb-done" id="pslot-governor" onclick="event.stopPropagation();tPresSlot('governor')" aria-label="Gouverneur erledigt">○</button>
-      <span class="pres-cb-arrow">▶</span>
-    </div>
-    <div class="pres-cb-body" id="pbbody-governor" style="display:none">
-      <h4>Verwalten (Erfolgstest)</h4>
-      <p style="font-size:.9rem;color:var(--ink2)">Jeder Gouverneur verwaltet seine Region. Gouverneure agieren in der vom Präsidenten festgelegten Reihenfolge.</p>
-      <p style="font-size:.9rem;color:var(--ink2)">Würfelpool = <strong>Anzahl offener Aufträge</strong> in der Region, die einen Schreiber tragen (höchstens so viele Würfel wie offene Aufträge mit Schreiber). Kaufe so viele Würfel wie gewünscht für £1/Würfel aus der Präsidentschafts-Schatulle.</p>
-      ${dt([
-        ['1 – 2', '<strong>Erfolg!</strong> Kompanie-Vermögen: +£1 pro offenem Auftrag mit Schreiber in dieser Region. Gouverneur persönlich: +£1 pro eigenem Schreiber auf einem Auftrag.'],
-        ['3 – 4', '<strong>Misserfolg:</strong> Nichts passiert. Darf nochmals Würfel kaufen (alle bisherigen verloren).'],
-        ['5 – 6', '<strong>Katastrophal:</strong> Gouverneur sofort entlassen → zurück in Familienvorrat. Ämterkarte verdeckt zu „freie Ämter".'],
-      ])}
-      ${bi('Ermattungs-Marker addieren je +1 auf das Würfelergebnis. Nur das <strong>niedrigste</strong> Ergebnis im Pool zählt.')}
-      ${bw('Kein Gouverneur in einer Region → diese Region wird in dieser Runde nicht verwaltet. Die Aufträge bleiben offen, bringen aber kein Einkommen.')}
-    </div>
-  </div>
-
-</div>
-<button class="cl-reset" onclick="resetPresOrder()" aria-label="Alle Präsidentschafts-Ämter zurücksetzen" style="margin-top:8px">↺ Alle zurücksetzen</button>
-</div>`;}
-
 function s_ph4_china(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 6</span><span class="step-phase">China</span></div>
 <div class="step-title">Superintendent des Handels in China</div>
@@ -2394,8 +2313,7 @@ function toggleDarkMode(){
   }, {passive:true});
 
   document.addEventListener('touchend', e => {
-    // Nur im App-Modus aktiv – nicht auf dem Willkommens-Bildschirm
-    if(currentAppMode === 'menu') return;
+    if(!$('A') || $('A').style.display==='none') return;
     // Block if overlay open
     if($('qr-overlay')?.classList.contains('open')) return;
     if($('pj-overlay')?.classList.contains('open')) return;
@@ -2426,7 +2344,6 @@ function toggleDarkMode(){
 
 /* ── AUTO-RESTORE NACH iOS TAB-RELOAD ── */
 window.addEventListener('load',()=>{
-  try {
   if(loadState()){
     $('W').style.display='none';
     const app=$('A');app.style.display='flex';app.style.flexDirection='column';
@@ -2467,14 +2384,6 @@ window.addEventListener('load',()=>{
       showBanner();
     }
   }
-  } catch(e) {
-    // Fehler beim Wiederherstellen → Zustand löschen, Willkommens-Bildschirm sauber zeigen
-    console.warn('[JC2E] Auto-Restore Fehler:', e);
-    try { clearState(); } catch(_) {}
-    $('W').style.display='flex';
-    $('A').style.display='none';
-    currentAppMode='menu';
-  }
 });
 </script>
 <div class="swipe-hint" id="swipe-hint">← Wischen zum Navigieren →</div>
@@ -2492,26 +2401,19 @@ if ('serviceWorker' in navigator) {
           const newWorker = reg.installing;
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // Neuer SW ist bereit (im waiting-Zustand) – Update-Banner zeigen
+              // Neuer SW verfügbar – Update-Banner zeigen
               showUpdateBanner();
-            }
-            if (newWorker.state === 'activated') {
-              // Neuer SW ist jetzt aktiv – Seite neu laden
-              window.location.reload();
             }
           });
         });
       })
       .catch(err => console.warn('[PWA] Service Worker Fehler:', err));
 
-    // Reload nur bei echtem Update (nicht beim ersten Installieren)
-    // navigator.serviceWorker.controller ist null beim Erst-Start → kein Reload-Listener nötig
-    if (navigator.serviceWorker.controller) {
-      let refreshing = false;
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!refreshing) { refreshing = true; window.location.reload(); }
-      });
-    }
+    // Reload wenn neuer SW aktiviert wird
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) { refreshing = true; window.location.reload(); }
+    });
   });
 }
 
