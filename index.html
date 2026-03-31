@@ -3006,27 +3006,7 @@ ${trail('Ereigniskarte','Ausländ. Invasion')}
 <div class="btn-row mt" style="gap:8px;flex-wrap:wrap">
   <button class="btn btn-r" id="ausland-start-btn" onclick="auslandStart()">⚔ Invasionen starten</button>
 </div>
-<script>
-function auslandUpdate(){
-  const anyChecked=$('ausb')?.checked||$('ausm')?.checked||$('ause')?.checked;
-  const noStorm=$('ausland-no-storm');
-  if(noStorm)noStorm.style.display=anyChecked?'none':'block';
-}
-function auslandStart(){
-  IS.fromStorm=false;
-  const r=[];
-  if($('ausb')?.checked)r.push('Bombay');
-  if($('ausm')?.checked)r.push('Madras');
-  if($('ause')?.checked)r.push('Bengalen');
-  if(r.length){startStormInv(r);return;}
-  const sel=$('aus-region-sel');
-  const chosen=sel?sel.value:'';
-  if(!chosen){alert('Bitte eine Region auswählen!');return;}
-  startStormInv([chosen]);
-}
-// Init on render
-setTimeout(auslandUpdate,0);
-</script>`},
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onload="auslandUpdate()" style="display:none;">`},
 
 ev_mischen:{title:'Neu Mischen (Reshuffle)',label:'Ereignis',render:()=>`
 ${trail('Ereigniskarte','Neu Mischen')}
@@ -3081,6 +3061,27 @@ ${indiaStandalone
   : `<button class="btn btn-p" onclick="endIndiaPhase()">Weiter zur Parlamentssitzung →</button>`}
 `},
 }; // end IV
+
+/* ══════════════════════════════════════════════════
+   EV_AUSLAND HELPERS
+══════════════════════════════════════════════════ */
+function auslandUpdate(){
+  const anyChecked=$('ausb')?.checked||$('ausm')?.checked||$('ause')?.checked;
+  const noStorm=$('ausland-no-storm');
+  if(noStorm)noStorm.style.display=anyChecked?'none':'block';
+}
+function auslandStart(){
+  IS.fromStorm=false;
+  const r=[];
+  if($('ausb')?.checked)r.push('Bombay');
+  if($('ausm')?.checked)r.push('Madras');
+  if($('ause')?.checked)r.push('Bengalen');
+  if(r.length){startStormInv(r);return;}
+  const sel=$('aus-region-sel');
+  const chosen=sel?sel.value:'';
+  if(!chosen){alert('Bitte eine Region auswählen!');return;}
+  startStormInv([chosen]);
+}
 
 /* ══════════════════════════════════════════════════
    NAVIGATION & STATE
