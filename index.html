@@ -562,7 +562,204 @@ body.dark .ot-slot { background: var(--surface); }
 body.dark p, body.dark ul li, body.dark ol li { color: var(--ink2); }
 body.dark strong { color: var(--ink); }
 
-/* Dark mode toggle button */
+/* ── SETTINGS OVERLAY (⚙ Panel) ── */
+.settings-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(10,6,2,.72);
+  backdrop-filter: blur(3px);
+  display: none; align-items: flex-start; justify-content: center;
+  padding-top: 56px;
+}
+.settings-overlay.open { display: flex; }
+.settings-sheet {
+  background: var(--surface);
+  border: 1px solid var(--gold-d);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-l), 0 0 0 1px rgba(184,132,42,.15);
+  width: calc(100% - 28px);
+  max-width: 420px;
+  overflow: hidden;
+  animation: su .22s ease;
+}
+.settings-hd {
+  background: linear-gradient(180deg,#140c06,#1e1208);
+  padding: 13px 16px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid rgba(184,132,42,.3);
+}
+.settings-hd-title {
+  flex: 1;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .9rem; font-weight: 700; color: #f2ead8; letter-spacing: 1px;
+}
+.settings-close {
+  background: transparent; border: 1px solid rgba(184,132,42,.4);
+  color: var(--gold-l); padding: 5px 11px; border-radius: 4px;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .78rem; cursor: pointer; min-height: 36px;
+}
+.settings-close:active { background: rgba(184,132,42,.12); }
+.settings-body { padding: 14px 16px 16px; }
+.settings-section-lbl {
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .65rem; letter-spacing: 2px; color: var(--gold-d);
+  text-transform: uppercase; margin-bottom: 10px; margin-top: 2px;
+}
+.settings-tog-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin-bottom: 4px;
+}
+.settings-tog-lbl {
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .85rem; color: var(--ink2); user-select: none; white-space: nowrap;
+  padding: 6px 0;
+}
+.settings-hint {
+  font-size: .78rem; color: var(--ink3); font-style: italic; margin-top: 10px;
+  padding-top: 10px; border-top: 1px solid var(--border-s); line-height: 1.5;
+}
+
+/* ── NEUE SBAR: kompakt mit Chips + Profi + Gear ── */
+.sbar-v2 {
+  background: #140c06;
+  padding: 6px 12px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: nowrap;
+  border-bottom: 1px solid rgba(184,132,42,.2);
+  min-height: 46px;
+}
+.sbar-chips {
+  flex: 1; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; min-width: 0;
+}
+.sbar-chip {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .68rem; font-weight: 700; letter-spacing: .5px;
+  padding: 3px 8px; border-radius: 12px; white-space: nowrap;
+  border: 1px solid transparent;
+}
+.chip-r1  { background: rgba(122,88,24,.22); color: #d4a845; border-color: rgba(184,132,42,.4); }
+.chip-dr  { background: rgba(14,42,72,.3);   color: #6aa8d8; border-color: rgba(26,64,112,.5); }
+.chip-gg  { background: rgba(30,58,18,.3);   color: #7acc60; border-color: rgba(46,90,26,.5); }
+.chip-cn  { background: rgba(80,8,8,.3);     color: #e07060; border-color: rgba(122,24,24,.4); }
+.sbar-no-active {
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .72rem; color: #6a5840; font-style: italic;
+}
+
+/* Profi-Toggle im sbar-v2 */
+.sbar-profi-lbl {
+  display: flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .75rem; color: #c8a878; user-select: none; flex-shrink: 0;
+}
+.sbar-profi-lbl .tog { width: 36px; height: 20px; }
+.sbar-profi-lbl .tog-sl::before { width: 14px; height: 14px; }
+.sbar-profi-lbl .tog input:checked + .tog-sl::before { transform: translateX(16px); }
+
+/* ⚙ Gear button */
+.gear-btn {
+  background: transparent;
+  border: 1px solid rgba(184,132,42,.4);
+  color: #d4a845;
+  padding: 0 9px;
+  border-radius: 4px;
+  font-size: .95rem;
+  cursor: pointer;
+  min-height: 36px; min-width: 36px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.gear-btn:active { background: rgba(184,132,42,.15); }
+/* Badge auf dem Gear-Button, wenn Optionen aktiv sind */
+.gear-btn-wrap { position: relative; flex-shrink: 0; }
+.gear-badge {
+  position: absolute; top: -4px; right: -4px;
+  background: var(--gold-d); color: #fff;
+  font-size: .52rem; font-weight: 700;
+  width: 14px; height: 14px; border-radius: 50%;
+  display: none; align-items: center; justify-content: center;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+}
+.gear-badge.show { display: flex; }
+
+/* sbar-v2 separator */
+.sbar-sep {
+  width: 1px; background: rgba(184,132,42,.2); height: 22px; flex-shrink: 0;
+}
+
+/* Dark mode für Settings */
+body.dark .settings-sheet { background: var(--surface); }
+body.dark .settings-tog-lbl { color: var(--ink2); }
+
+/* Profi-toggle-row verstecken wenn sbar-v2 aktiv */
+.profi-toggle-row.merged { display: none !important; }
+
+@media (min-width: 768px) {
+  .settings-sheet { max-width: 480px; }
+  .sbar-v2 { padding: 7px 20px; gap: 12px; }
+}
+
+/* ── CONTENT-TYPEN A / B / C (semantisch einheitlich) ── */
+/* Typ A: Aktion – goldener Akzent (konkrete Handlungsanweisung) */
+.box-action {
+  background: linear-gradient(135deg,#fef8e8,#f8edbe);
+  border: 1px solid var(--gold);
+  border-left: 4px solid var(--gold-l);
+  color: #3a2400;
+  border-radius: var(--r-s); padding: 11px 13px; margin: 8px 0;
+  font-size: .9rem; line-height: 1.6;
+}
+.box-action-lbl {
+  display: block;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .6rem; font-weight: 700; letter-spacing: 1.5px;
+  color: var(--gold-d); margin-bottom: 5px;
+}
+.box-action strong { color: #1c0e00; font-weight: 600; }
+
+/* Typ B: Regeldetail – blaue Bordüre, kleinere Schrift */
+.box-rule {
+  background: var(--blue-bg);
+  border: 1px solid var(--blue);
+  border-left: 4px solid var(--blue-l);
+  color: #0a1e38;
+  font-size: .87rem;
+  border-radius: var(--r-s); padding: 11px 13px; margin: 8px 0; line-height: 1.6;
+}
+.box-rule-lbl {
+  display: block;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .6rem; font-weight: 700; letter-spacing: 1.5px;
+  color: var(--blue-l); margin-bottom: 5px;
+}
+.box-rule strong { color: #050f1c; font-weight: 600; }
+
+/* Typ C: Ausnahme – rote Bordüre (bleibt auch im Profi-Modus sichtbar) */
+.box-except {
+  background: #fff0ee;
+  border: 1px solid var(--red);
+  border-left: 4px solid var(--red-l);
+  color: #5a0808;
+  border-radius: var(--r-s); padding: 11px 13px; margin: 8px 0;
+  font-size: .9rem; line-height: 1.6;
+}
+.box-except-lbl {
+  display: block;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .6rem; font-weight: 700; letter-spacing: 1.5px;
+  color: var(--red-l); margin-bottom: 5px;
+}
+.box-except strong { color: #380000; font-weight: 600; }
+/* Typ C bleibt im Profi-Modus IMMER sichtbar */
+body.profi .box-except { display: block !important; }
+
+/* Dark mode für neue Typen */
+body.dark .box-action { background: rgba(60,40,0,.6); border-color: var(--gold-d); color: var(--ink2); }
+body.dark .box-rule   { background: rgba(5,18,36,.5); border-color: var(--blue); color: #c0d8f0; }
+body.dark .box-except { background: rgba(80,8,8,.4);  border-color: var(--red); color: #f8d8d8; }
+
+/* ── DARK MODE TOGGLE ── */
 .dm-btn {
   background: transparent;
   border: 1px solid rgba(184,132,42,.4);
@@ -865,33 +1062,27 @@ body.dark .details-toggle { color: var(--ink3); border-color: rgba(184,132,42,.2
   </header>
   <div class="prog" style="display:none"><div class="prog-fill" id="prog" style="width:5%"></div></div>
 
-  <div class="sbar" id="sbar">
-    <div class="sbar-grid">
-      <label class="tog-lbl">
-        <div class="tog"><input type="checkbox" id="tog-r1" onchange="onSettingChange()"><div class="tog-sl"></div></div>
-        Erste Runde
-      </label>
-      <label class="tog-lbl">
-        <div class="tog"><input type="checkbox" id="tog-dr" onchange="onSettingChange()"><div class="tog-sl"></div></div>
-        Deregulierung
-      </label>
-      <label class="tog-lbl">
-        <div class="tog"><input type="checkbox" id="tog-gg" onchange="onSettingChange()"><div class="tog-sl"></div></div>
-        General-Gouverneur
-      </label>
-      <label class="tog-lbl">
-        <div class="tog"><input type="checkbox" id="tog-cn" onchange="onSettingChange()"><div class="tog-sl"></div></div>
-        China aktiv
-      </label>
+  <div class="sbar-v2" id="sbar">
+    <!-- Aktive Spielzustand-Chips -->
+    <div class="sbar-chips" id="sbar-chips">
+      <span class="sbar-no-active" id="sbar-no-active">Standard</span>
     </div>
-    <button class="ref-btn" onclick="openQR()">📖 Refe&shy;renz</button>
-  </div>
-  <div class="profi-toggle-row hidden" id="profi-toggle-row">
-    <label class="profi-toggle-lbl" style="cursor:pointer">
+    <!-- Trenner -->
+    <div class="sbar-sep"></div>
+    <!-- Profi-Modus Toggle (direkt in der Bar) -->
+    <label class="sbar-profi-lbl" id="profi-toggle-row" title="Profi-Modus: Nur Checklisten anzeigen">
       <div class="tog"><input type="checkbox" id="tog-profi" onchange="toggleProfi()"><div class="tog-sl"></div></div>
-      ⚡ Profi-Modus
-      <span class="profi-hint" id="profi-hint">Alle Detailregeln sichtbar</span>
+      ⚡ Profi
     </label>
+    <!-- Trenner -->
+    <div class="sbar-sep"></div>
+    <!-- Referenz-Button -->
+    <button class="ref-btn" onclick="openQR()">📖</button>
+    <!-- ⚙ Einstellungen-Button -->
+    <div class="gear-btn-wrap">
+      <button class="gear-btn" onclick="openSettings()" title="Spielzustand einstellen">⚙</button>
+      <span class="gear-badge" id="gear-badge"></span>
+    </div>
   </div>
 
   <div id="M"></div>
@@ -989,16 +1180,92 @@ body.dark .details-toggle { color: var(--ink3); border-color: rgba(184,132,42,.2
   </div>
 </div>
 
+<!-- SETTINGS OVERLAY (⚙ Spielzustand) -->
+<div class="settings-overlay" id="settings-overlay" onclick="if(event.target===this)closeSettings()">
+  <div class="settings-sheet">
+    <div class="settings-hd">
+      <span style="font-size:1.1rem">⚙</span>
+      <span class="settings-hd-title">Spielzustand einstellen</span>
+      <button class="settings-close" onclick="closeSettings()">✕ Schließen</button>
+    </div>
+    <div class="settings-body">
+      <div class="settings-section-lbl">Aktive Spieloptionen</div>
+      <div class="settings-tog-grid">
+        <label class="settings-tog-lbl">
+          <div class="tog"><input type="checkbox" id="tog-r1" onchange="onSettingChange()"><div class="tog-sl"></div></div>
+          Erste Runde
+        </label>
+        <label class="settings-tog-lbl">
+          <div class="tog"><input type="checkbox" id="tog-dr" onchange="onSettingChange()"><div class="tog-sl"></div></div>
+          Deregulierung
+        </label>
+        <label class="settings-tog-lbl">
+          <div class="tog"><input type="checkbox" id="tog-gg" onchange="onSettingChange()"><div class="tog-sl"></div></div>
+          General-Gouverneur
+        </label>
+        <label class="settings-tog-lbl">
+          <div class="tog"><input type="checkbox" id="tog-cn" onchange="onSettingChange()"><div class="tog-sl"></div></div>
+          China aktiv
+        </label>
+      </div>
+      <p class="settings-hint">Aktive Optionen erscheinen als farbige Chips in der oberen Leiste. Änderungen werden sofort übernommen.</p>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ══════════════════════════════════════════════════
-   HELPERS
-══════════════════════════════════════════════════ */
+/* ── SETTINGS OVERLAY ── */
+function openSettings(){ $('settings-overlay').classList.add('open'); }
+function closeSettings(){ $('settings-overlay').classList.remove('open'); }
+
+/* Chips in sbar-v2 aktualisieren */
+function updateSbarChips(){
+  const r1 = $('tog-r1')?.checked;
+  const dr = $('tog-dr')?.checked;
+  const gg = $('tog-gg')?.checked;
+  const cn = $('tog-cn')?.checked;
+  const active = [
+    r1 && {cls:'chip-r1', label:'1.Runde'},
+    dr && {cls:'chip-dr', label:'DEREG'},
+    gg && {cls:'chip-gg', label:'GG'},
+    cn && {cls:'chip-cn', label:'China'},
+  ].filter(Boolean);
+
+  const chips = $('sbar-chips');
+  const noActive = $('sbar-no-active');
+  const badge = $('gear-badge');
+  if(!chips) return;
+
+  // Chips rendern
+  chips.querySelectorAll('.sbar-chip').forEach(c => c.remove());
+  if(active.length === 0){
+    if(noActive) noActive.style.display = '';
+  } else {
+    if(noActive) noActive.style.display = 'none';
+    active.forEach(({cls, label}) => {
+      const span = document.createElement('span');
+      span.className = 'sbar-chip ' + cls;
+      span.textContent = label;
+      chips.appendChild(span);
+    });
+  }
+  // Badge
+  if(badge){
+    badge.textContent = active.length || '';
+    badge.classList.toggle('show', active.length > 0);
+  }
+}
+</script>
 const $ = id => document.getElementById(id);
 const box = (cls,html) => `<div class="box ${cls}">${html}</div>`;
 const bi = h => box('box-i',h);
 const bw = h => box('box-w',h);
 const bg = h => box('box-g',h);
 const bb = h => box('box-b',h);
+/* ── Semantische Content-Typen A/B/C ── */
+const bAction = h => `<div class="box-action"><span class="box-action-lbl">✅ AKTION</span>${h}</div>`;
+const bRule   = h => `<div class="box-rule"><span class="box-rule-lbl">📌 REGELDETAIL</span>${h}</div>`;
+const bExcept = h => `<div class="box-except"><span class="box-except-lbl">⚠️ AUSNAHME</span>${h}</div>`;
 const dt = rows => `<div class="dt">${rows.map(r=>`<div class="dt-row"><div class="dt-k">${r[0]}</div><div class="dt-v">${r[1]}</div></div>`).join('')}</div>`;
 const acc = (id,t,body,open=false) => `<div class="acc${open?' open':''}" id="acc-${id}"><div class="acc-hd" onclick="tAcc('acc-${id}')"><span>${t}</span><span class="ic">▼</span></div><div class="acc-bd">${body}</div></div>`;
 const cl = items => `<ul class="cl">${items.map(i=>`<li><input type="checkbox" onchange="this.closest('li').classList.toggle('done',this.checked)"> <span>${i}</span></li>`).join('')}</ul>`;
@@ -1201,8 +1468,8 @@ function wrapWithChecklist(step, content){
   const items = CHECKLISTS[step.id];
   if(!items) return content;
 
-  // Detailsektion-Sichtbarkeit aus localStorage laden
-  let detailsOpen = true;
+  // Detailsektion-Sichtbarkeit aus localStorage laden (Standard: geschlossen)
+  let detailsOpen = false;
   try{
     const saved = localStorage.getItem('jc2e_det_' + step.id);
     if(saved !== null) detailsOpen = (saved === '1');
@@ -1273,16 +1540,16 @@ function getSteps(){
 ════════════════════════════════════════════════ */
 function s_ph1_attrition(){return `
 <div class="step-badge"><span class="step-num">Phase I</span><span class="step-phase">Londoner Season</span></div>
-<div class="step-title">Personalabbau</div>
+<div class="step-title">Würfeln für alle besetzten Ämter</div>
 <div class="card">
-${bw('<strong>Kein Erfolgstest!</strong> Dies ist ein einfacher W6-Wurf – kein Würfelpool-Kauf. Alle Spieler würfeln <em>gleichzeitig</em> für jedes besetzte Amt.')}
+${bExcept('<strong>Kein Erfolgstest!</strong> Dies ist ein einfacher W6-Wurf – kein Würfelpool-Kauf. Alle Spieler würfeln <em>gleichzeitig</em> für jedes besetzte Amt.')}
 <p>Wirf für jedes besetzte Amt genau <strong>einen W6</strong>. Ermattungs-Marker auf der Ämterkarte addieren +1 auf das Ergebnis:</p>
 ${dt([
   ['1 – 2','Nichts passiert.'],
   ['3 – 4','1 Ermattungs-Marker auf die Ämterkarte legen. Beim nächsten Würfelwurf zählt er als +1.'],
   ['5+','<strong>Ruhestand:</strong> Familienmitglied → Ruheständler-Feld. Ämterkarte → freie Ämter. Ermattungs-Marker zurück in Vorrat.']
 ])}
-${bw('<strong>Beim Vorsitzenden:</strong> Würfelergebnis immer +1! (Unabhängig von Ermattungs-Markern.)')}
+${bExcept('<strong>Beim Vorsitzenden:</strong> Würfelergebnis immer +1! (Unabhängig von Ermattungs-Markern.)')}
 </div>`;}
 
 function s_ph1_retire(){return `
@@ -1295,15 +1562,15 @@ function s_ph1_retire(){return `
   <li>Nur wer in dieser Phase mind. 1 Ruheständler hat, darf einen in Rente schicken.</li>
   <li>Jeder Ruheständler muss sofort versetzt werden – nicht auf spätere Züge verschieben.</li>
 </ul>
-${bi('<strong>Wichtig:</strong> Das bezahlte Ruhestandsgeld <em>noch nicht</em> in die Bank – es wird für die Zugreihenfolge der Prestige-Karten benötigt!')}
+${bRule('<strong>Wichtig:</strong> Das bezahlte Ruhestandsgeld <em>noch nicht</em> in die Bank – es wird für die Zugreihenfolge der Prestige-Karten benötigt!')}
 <h3>Ablauf</h3>
 <ol>
   <li>Belohnung aus dem Angebot (links am Spielplan) wählen.</li>
   <li>Kosten zahlen → Familienmitglied auf die Belohnung legen.</li>
   <li>Siegpunkte sofort eintragen.</li>
 </ol>
-${bi('<strong>Ehegatten-Rabatte:</strong> Können nur <em>1× pro Londoner Season</em> genutzt werden – unabhängig davon, wie viele Ehegatten eine Familie besitzt.')}
-${bw('<strong>Beachten:</strong> Belohnungen verursachen später Unterhalt (weiße Zahl) und ggfs. Fenstersteuer!')}
+${bRule('<strong>Ehegatten-Rabatte:</strong> Können nur <em>1× pro Londoner Season</em> genutzt werden – unabhängig davon, wie viele Ehegatten eine Familie besitzt.')}
+${bExcept('<strong>Beachten:</strong> Belohnungen verursachen später Unterhalt (weiße Zahl) und ggfs. Fenstersteuer!')}
 <h3>Übriggebliebene Ruheständler</h3>
 <p>Nicht verwendete Ruheständler-Marker am Ende dieser Phase zurück in den Familienvorrat.</p>
 </div>`;}
@@ -1340,8 +1607,8 @@ function s_ph2_family(){return `
 <div class="step-badge"><span class="step-num">Phase II</span><span class="step-phase">Familie</span></div>
 <div class="step-title">Familienaktionen</div>
 <div class="card">
-${bi('<strong>Chancen-Marker (Glasstein):</strong> Jede Familie legt ihren Marker auf die gewählte Aktion. Liegt er dort <em>bereits</em> (gleiche Aktion wie letzte Runde), darf sie <strong>2× ausgeführt werden</strong> – die Kosten fallen dabei für <em>beide</em> Ausführungen voll an! Erst ab Runde 2 möglich.')}
-${bi('<strong>Extra-Aktionen durch Gesetze:</strong> Manche Gesetze gewähren eine Extra-Aktion. Diese darf <em>nicht</em> durch den Chancen-Marker verdoppelt werden. Es gilt immer nur die zuletzt ausgelegte Gesetzeskarte.')}
+${bRule('<strong>Chancen-Marker (Glasstein):</strong> Jede Familie legt ihren Marker auf die gewählte Aktion. Liegt er dort <em>bereits</em> (gleiche Aktion wie letzte Runde), darf sie <strong>2× ausgeführt werden</strong> – die Kosten fallen dabei für <em>beide</em> Ausführungen voll an! Erst ab Runde 2 möglich.')}
+${bRule('<strong>Extra-Aktionen durch Gesetze:</strong> Manche Gesetze gewähren eine Extra-Aktion. Diese darf <em>nicht</em> durch den Chancen-Marker verdoppelt werden. Es gilt immer nur die zuletzt ausgelegte Gesetzeskarte.')}
 <p>Beginnend mit dem Vorsitzenden im Uhrzeigersinn: <strong>1 Familienaktion</strong> ausführen (bei doppeltem Marker: 2×).</p>
 <h3>Die 6 Aktionen</h3>
 ${acc('fam-w','Schreiber anheuern',`<p>1 Familienmitglied auf Schreiberposten einer Präsidentschaft. ${bi('<strong>Sonderregel:</strong> Bei 4+ freien Ämtern: kostenlos 1 weiterer Schreiber möglich (max. 3 Schreiber pro Zug).')}</p>`)}
@@ -1350,7 +1617,7 @@ ${acc('fam-y','Werft kaufen',`<p><strong>£2 zahlen</strong> → Werftkarte nehm
 ${acc('fam-l','Luxusgut kaufen',`<p><strong>£4 zahlen</strong> → Luxusgut-Karte nehmen. Sofort <strong>+2 SP</strong>. ${bw('Fenstersteuer beachten!')}</p>`)}
 ${acc('fam-ws','Betrieb kaufen',`<p><strong>£5 zahlen</strong> → Betriebskarte nehmen. Im Parlament: <strong>2 Stimmen</strong>. Scheitert die Kompanie: 1 SP wert. Im Deregulierungsspiel kann er in eine Firma umgewandelt werden.</p>`)}
 ${acc('fam-sh','Kompanie-Anteile erlangen',`<p>Familienmitglied auf ein freies Feld der Börsenleiste setzen. Preis des Feldes zahlen. ${bw('<strong>Achtung:</strong> Scheitert die Kompanie, bedeutet jeder Anteil –1 SP!')}</p>`)}
-${bw('<strong>Keine Familienmitglieder mehr übrig?</strong> Wenn ein Mitglied <em>eingesetzt werden muss</em>, aber keines mehr da ist, <strong>muss</strong> eines von einer Belohnung entfernt werden – dabei gehen die dortigen SP sofort verloren.')}
+${bExcept('<strong>Keine Familienmitglieder mehr übrig?</strong> Wenn ein Mitglied <em>eingesetzt werden muss</em>, aber keines mehr da ist, <strong>muss</strong> eines von einer Belohnung entfernt werden – dabei gehen die dortigen SP sofort verloren.')}
 </div>`;}
 
 function s_ph2_shares(){return `
@@ -1400,10 +1667,10 @@ function s_ph3_hiring(){return `
 <div class="step-badge"><span class="step-num">Phase III</span><span class="step-phase">Ämter besetzen</span></div>
 <div class="step-title">Ämter besetzen</div>
 <div class="card">
-${bw('<strong>Erste Runde:</strong> Diese Phase wird übersprungen!')}
+${bExcept('<strong>Erste Runde:</strong> Diese Phase wird übersprungen!')}
 <p>Ämterkarten im Bereich „freie Ämter" in <strong>aufsteigender Nummerfolge</strong> abhandeln.</p>
-${bi('<strong>Nepotismus-Regel:</strong> Eigenes Familienmitglied ernennen? Zustimmung aller anderen Familien im Anwärter-Pool nötig. Gilt nicht beim Vorsitz. Nur wenn mehrere Kandidaten vorhanden.')}
-${bi('<strong>Beförderungen:</strong> Wird ein Mitglied aus einem anderen Amt befördert, wird die alte Ämterkarte getauscht. Ermattungs-Marker übernehmen. Die freigewordene alte Karte sofort in aufsteigender Reihenfolge einordnen und besetzen.')}
+${bRule('<strong>Nepotismus-Regel:</strong> Eigenes Familienmitglied ernennen? Zustimmung aller anderen Familien im Anwärter-Pool nötig. Gilt nicht beim Vorsitz. Nur wenn mehrere Kandidaten vorhanden.')}
+${bRule('<strong>Beförderungen:</strong> Wird ein Mitglied aus einem anderen Amt befördert, wird die alte Ämterkarte getauscht. Ermattungs-Marker übernehmen. Die freigewordene alte Karte sofort in aufsteigender Reihenfolge einordnen und besetzen.')}
 
 <h3>Wer ernennt wen?</h3>
 ${acc('hr-chair','Vorsitz',`<p>Gewählt vom <strong>Kollegium</strong> (Figuren auf Börsenleiste + aktueller Vorsitzender). Benötigt Zustimmung von mehr als der Hälfte aller Kollegiums-Mitglieder.</p>${bw('<strong>Kein Konsens?</strong> Der bisherige Vorsitzende wählt selbst – auch sich selbst. Nepotismus gilt hier nicht.')}${bi('<strong>Kollegium leer?</strong> Ehemaliger Vorsitzender setzt sich selbst ein (oder nimmt eine Figur von einer Belohnung).')}`)}
@@ -1413,7 +1680,7 @@ ${acc('hr-mil','Militärische Belange',`<p>Vom <strong>Vorsitzenden</strong> ern
 ${acc('hr-super','Superintendent des Handels in China',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Schreiber aus beliebiger Präsidentschaft.</p>`)}
 ${acc('hr-pres','Präsidenten',`<p>Vom <strong>Direktor/GG</strong> ernannt. Kandidaten: Schreiber der jeweiligen Präsidentschaft oder Gouverneure dieser Präsidentschaft.</p>`)}
 ${acc('hr-gov','Gouverneure',`<p>Vom <strong>jeweiligen Präsidenten</strong> ernannt. Kandidaten: Schreiber oder Offiziere <em>in der Region</em>. <strong>Kommandanten sind keine Offiziere und kommen nicht in Frage!</strong></p>`)}
-${bw('<strong>Pflicht:</strong> Alle Ämter müssen besetzt werden, wenn Kandidaten vorhanden. Ein vakantes Amt absichtlich leer zu lassen ist nicht erlaubt.')}
+${bExcept('<strong>Pflicht:</strong> Alle Ämter müssen besetzt werden, wenn Kandidaten vorhanden. Ein vakantes Amt absichtlich leer zu lassen ist nicht erlaubt.')}
 </div>`;}
 
 /* ════════════════════════════════════════════════
@@ -1423,17 +1690,17 @@ function s_ph4_chairman(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 1</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Vorsitz</div>
 <div class="card">
-${bi('Ämter von <strong>links nach rechts</strong> abhandeln. Ämter ohne Inhaber überspringen. Jede Amtsaktivierung ist <em>optional</em>. Privates Familiengeld darf nicht für Amtszwecke verwendet werden.')}
+${bRule('Ämter von <strong>links nach rechts</strong> abhandeln. Ämter ohne Inhaber überspringen. Jede Amtsaktivierung ist <em>optional</em>. Privates Familiengeld darf nicht für Amtszwecke verwendet werden.')}
 <h3>Schritt 1: Schulden erhöhen (optional)</h3>
 <p>Der Vorsitzende <em>kann</em> die Schulden der Kompanie erhöhen – bis zu <strong>3×</strong>. Jeder Schritt:</p>
 <ul>
   <li>Schuldenmarker 1 Schritt nach rechts.</li>
   <li>Kompanie-Vermögen +<strong>£5</strong>.</li>
 </ul>
-${bi('<strong>Mehr als 3×?</strong> Nur mit Zustimmung der Mehrheit aller Kollegiums-Mitglieder (inkl. Vorsitzender).')}
+${bRule('<strong>Mehr als 3×?</strong> Nur mit Zustimmung der Mehrheit aller Kollegiums-Mitglieder (inkl. Vorsitzender).')}
 <h3>Schritt 2: Vermögen verteilen (Pflicht)</h3>
 <p>Das <strong>gesamte</strong> Kompanie-Vermögen auf beliebige Amtsschatullen verteilen. Das Vermögen muss vollständig verteilt werden – es bleibt nichts auf der Vermögensleiste.</p>
-${bw('<strong>Kein Bestechungsgeld:</strong> Amtsvermögen und privates Familienvermögen bleiben immer strikt getrennt.')}
+${bExcept('<strong>Kein Bestechungsgeld:</strong> Amtsvermögen und privates Familienvermögen bleiben immer strikt getrennt.')}
 ${acc('ch-xref','🔗 Querverweise – Schulden & Vermögen',`
 <ul>
 <li><strong>Notkredite (Phase VI):</strong> Wenn die Kompanie Ausgaben nicht decken kann, werden automatisch Notkredite aufgenommen. Jeder erhöht den Schuldenmarker und fügt £5 hinzu – auch wenn der Marker bereits am Maximum ist.</li>
@@ -1452,7 +1719,7 @@ if(!gg) return `
 <p>Erfolgstest (Würfelpool): £1 = 1 Würfel, kein Abzug. Darf mehrfach hintereinander ausgeführt werden.</p>
 <p><strong>Bei Erfolg – wähle eine Option:</strong></p>
 ${bg('<ul><li><strong>Auftrag öffnen:</strong> 1 geschlossenen Auftrag in einer beliebigen Region, die <em>nicht</em> von der Kompanie kontrolliert wird, öffnen (Geschlossen-Plättchen entfernen).</li><li><strong>Handel mit China eröffnen:</strong> Das Superintendent-Amt wird geschaffen. Sofort vom Vorsitzenden besetzen.</li></ul>')}
-${bi('<strong>Mehrere Erfolge pro Aktion?</strong> Nein – pro Sondergesandter-Aktion kann nur <em>eine</em> Option gewählt werden. Für eine weitere Option muss die Aktion nochmals gestartet werden.')}
+${bRule('<strong>Mehrere Erfolge pro Aktion?</strong> Nein – pro Sondergesandter-Aktion kann nur <em>eine</em> Option gewählt werden. Für eine weitere Option muss die Aktion nochmals gestartet werden.')}
 <h3>Aktion B: Bewegungen (immer, danach)</h3>
 <p>Bis zu <strong>2 Bewegungen</strong>: Je 1 Schreiber oder 1 Schiff aus einer Präsidentschaft/Seeregion in eine andere (inkl. China-Schatulle).</p>
 </div>`;
@@ -1504,15 +1771,15 @@ function s_ph4_mil(){return `
   <li>Bisheriger Kommandant wird wieder Offizier (verbleibt in der Armee).</li>
   <li>Gleichstand: Amtsinhaber von Militärische Belange entscheidet.</li>
 </ul>
-${bi('Kommandanten sind keine Ämter – die Nepotismus-Regel gilt hier nicht.')}
+${bRule('Kommandanten sind keine Ämter – die Nepotismus-Regel gilt hier nicht.')}
 </div>`;}
 
 function s_ph4_pres(name, sea){return `
 <div class="step-badge"><span class="step-num">Phase IV · 5</span><span class="step-phase">Präsidentschaft</span></div>
 <div class="step-title">${name}</div>
 <div class="card">
-${bi(`<strong>Vollständig abhandeln, dann zur nächsten.</strong> Reihenfolge: Bombay → Madras → Bengalen.<br>Seeregion von ${name}: <strong>${sea}</strong>.`)}
-${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter fest, kann aber selbst weder handeln noch lokale Allianzen genehmigen.')}
+${bRule(`<strong>Vollständig abhandeln, dann zur nächsten.</strong> Reihenfolge: Bombay → Madras → Bengalen.<br>Seeregion von ${name}: <strong>${sea}</strong>.`)}
+${bExcept('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter fest, kann aber selbst weder handeln noch lokale Allianzen genehmigen.')}
 
 <h3>Aktionsreihenfolge &amp; Ämter</h3>
 <p style="font-size:.9rem;color:var(--ink2);margin-bottom:12px">Der <strong>Präsident legt die Reihenfolge</strong> der drei Ämter fest. <em>Handel treiben</em> kann vor <em>oder</em> nach jedem anderen Amt ausgeführt werden – niemals mitten in einer laufenden Amtsaktion. Tippe auf ein Amt, um die Regeln aufzuklappen. Haken = erledigt.</p>
@@ -1541,7 +1808,7 @@ ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter f
       </ul>
       <p><strong>Schritt 2 – Erfolgstest:</strong> £1 = 1 Würfel. –1 Würfel pro benannter Region außerhalb der Heimatregion.</p>
       ${bg('<strong>Bei Erfolg:</strong><ul><li>Pro Schiff in der Seeregion: 1 offenen Auftrag in benannter Region mit Schreiber belegen. Keine Schreiber mehr → Erfüllt-Marker setzen.</li><li>Ersten Schreiber immer auf den <strong>Heimathafen</strong> (dickrandiger Auftrag). Danach: angrenzend an bereits belegten Auftrag.</li><li>Kompanie-Vermögen: +£ laut Auftragswert pro erfülltem Auftrag.</li><li>Präsident persönlich: +£1 pro erfülltem Auftrag.</li><li>Jede Familie: +£1 pro eigenem Schreiber auf einem erfüllten Auftrag.</li></ul>')}
-      ${bi('<strong>Schreiber-Teiler:</strong> Wird ein Schreiber angrenzend zu einem Schreiber einer anderen Präsidentschaft platziert, sofort Präsidentschafts-Teiler auf die Verbindung legen (relevant für Phase IX).')}
+      ${bRule('<strong>Schreiber-Teiler:</strong> Wird ein Schreiber angrenzend zu einem Schreiber einer anderen Präsidentschaft platziert, sofort Präsidentschafts-Teiler auf die Verbindung legen (relevant für Phase IX).')}
     </div>
   </div>
 
@@ -1558,7 +1825,7 @@ ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter f
     <div class="pres-cb-body" id="pbbody-commander" style="display:none">
       <h4>Vor dem Einsatz: Lokale Allianzen (optional)</h4>
       <p>Kommandant kann Geld aus der Präsidentenschatulle anfordern (Zustimmung des Präsidenten nötig), um lokale Allianzen in der eigenen Armee zu kaufen. Kein Präsident vorhanden = kein Genehmigungsbedarf.</p>
-      ${bi('<strong>Lokale Allianzen:</strong> Für Einsatz <em>oder</em> Verteidigung in Phase VII. Stärke unteilbar – komplett für einen einzigen Zweck. Jedes Stück nur 1× pro Runde.')}
+      ${bRule('<strong>Lokale Allianzen:</strong> Für Einsatz <em>oder</em> Verteidigung in Phase VII. Stärke unteilbar – komplett für einen einzigen Zweck. Jedes Stück nur 1× pro Runde.')}
       <h4>Aktion: Einsatz (beliebig oft, solange Mittel und Einheiten vorhanden)</h4>
       <p><strong>Schritt 1 – Zielregion wählen:</strong></p>
       <ul>
@@ -1643,15 +1910,15 @@ ${$('tog-dr').checked ? bb('<strong>Firmen zahlen ZUERST</strong> <span class="b
   <li>Jedes Schiff in den Seeregionen (inkl. China)</li>
 </ul>
 <h3>Schritt 2: Notkredite (falls nötig)</h3>
-${bw('Optional kann der Vorsitzende die Gesetzeskarte „Königlicher Schutz" abwerfen, um alle Notkredite zu verhindern.')}
+${bExcept('Optional kann der Vorsitzende die Gesetzeskarte „Königlicher Schutz" abwerfen, um alle Notkredite zu verhindern.')}
 <p>Kann die Kompanie Ausgaben nicht decken? Notkredite sind Pflicht:</p>
 <ol>
   <li>Schuldenmarker +1 (auch wenn bereits am Maximum!) → +£5 ins Kompanie-Vermögen.</li>
   <li>Wiederholen bis alle Ausgaben bezahlt.</li>
   <li><strong>Danach: Kompanie-Vermögen auf 0 setzen!</strong></li>
 </ol>
-${bw('<strong>Ansehen-Verlust durch Notkredite:</strong><br>1–2 Notkredite → Ansehen –1<br>3+ Notkredite → Ansehen –2')}
-${bw('<strong>Ansehen ganz links = Kompanie gescheitert!</strong> Sofort Schlusswertung.')}
+${bExcept('<strong>Ansehen-Verlust durch Notkredite:</strong><br>1–2 Notkredite → Ansehen –1<br>3+ Notkredite → Ansehen –2')}
+${bExcept('<strong>Ansehen ganz links = Kompanie gescheitert!</strong> Sofort Schlusswertung.')}
 <button class="btn btn-r mt" onclick="goToFinalScoring()">⚠ Kompanie gescheitert → Schlusswertung</button>
 </div>`;}
 
@@ -1662,13 +1929,13 @@ function s_ph6_dividends(){return `
 <h3>Schritt 3: Markterwartungen prüfen</h3>
 <p>Ist das Kompanie-Vermögen nach den Ausgaben und Notkrediten <strong>niedriger als der Erwartungswert</strong> (unter dem aktuellen Ansehen auf der Ansehens-Leiste)?</p>
 <p>→ <strong>Ansehen –1 Schritt</strong>.</p>
-${bi('Selbst nach Notkrediten und Ansehen-Verlust durch Notkredite wird die Markterwartung nochmals geprüft!')}
-${bw('Ansehen ganz links = Kompanie gescheitert!')}
+${bRule('Selbst nach Notkrediten und Ansehen-Verlust durch Notkredite wird die Markterwartung nochmals geprüft!')}
+${bExcept('Ansehen ganz links = Kompanie gescheitert!')}
 <h3>Schritt 4: Dividenden zahlen (optional)</h3>
 <p>Der <strong>Vorsitzende</strong> kann Dividenden zahlen – dies ist der <em>einzige</em> Weg, das Ansehen zu erhöhen!</p>
-${bw('<strong>Achtung nach Notkrediten:</strong> Das Kompanie-Vermögen wurde auf 0 gesetzt. Da eine Ausschüttung mindestens £1 pro Anteil (inkl. Vorsitzender) kostet, ist bei einem Vermögen von 0 <strong>keine Dividende möglich</strong>.')}
+${bExcept('<strong>Achtung nach Notkrediten:</strong> Das Kompanie-Vermögen wurde auf 0 gesetzt. Da eine Ausschüttung mindestens £1 pro Anteil (inkl. Vorsitzender) kostet, ist bei einem Vermögen von 0 <strong>keine Dividende möglich</strong>.')}
 <p>Pro Ausschüttung: <strong>£1 pro Anteil</strong> (inkl. Vorsitzender) aus dem Kompanie-Vermögen. Darf mehrfach wiederholt werden.</p>
-${bg('<strong>Öffentliche Euphorie:</strong> War die <em>Gesamtsumme</em> der gezahlten Dividenden <strong>höher</strong> als der Erwartungswert (unter dem Ansehens-Marker)? → <strong>Ansehen +1!</strong>')}
+${bAction('<strong>Öffentliche Euphorie:</strong> War die <em>Gesamtsumme</em> der gezahlten Dividenden <strong>höher</strong> als der Erwartungswert (unter dem Ansehens-Marker)? → <strong>Ansehen +1!</strong>')}
 <button class="btn btn-r mt" onclick="goToFinalScoring()">⚠ Kompanie gescheitert → Schlusswertung</button>
 </div>`;}
 
@@ -1692,7 +1959,7 @@ function s_ph8(){return `
 <div class="card">
 <h3>1. Gesetz wählen</h3>
 <p>Der PM zieht nacheinander Karten und liest sie vor. Er wählt eine aus (max. 3 Karten).</p>
-${bw('Wird eine <strong>Dilemma-Karte</strong> gezogen, stoppt das Ziehen sofort. Diese Karte muss ausgewählt werden!')}
+${bExcept('Wird eine <strong>Dilemma-Karte</strong> gezogen, stoppt das Ziehen sofort. Diese Karte muss ausgewählt werden!')}
 <h3>2. Politik bestimmen</h3>
 <p>PM dreht den Zeiger der PM-Scheibe auf das angegebene Feld (im oder gegen den Uhrzeigersinn).</p>
 <h3>3. Abstimmung</h3>
@@ -1762,7 +2029,7 @@ function s_ph10(){return `
 <div class="step-badge"><span class="step-num">Phase X</span><span class="step-phase">Spielende</span></div>
 <div class="step-title">Spielende & Schlusswertung</div>
 <div class="card">
-${bi('Das Spiel endet nach der letzten Runde des Szenarios <em>oder sofort</em>, wenn das Ansehen ganz links landet. Nach dem Spielende: keine Verhandlungen, keine Versprechen-Karten einlösen, keine Erpressungskarten spielen.')}
+${bRule('Das Spiel endet nach der letzten Runde des Szenarios <em>oder sofort</em>, wenn das Ansehen ganz links landet. Nach dem Spielende: keine Verhandlungen, keine Versprechen-Karten einlösen, keine Erpressungskarten spielen.')}
 <h3>Schlusswertung – Reihenfolge</h3>
 <ol>
   <li><strong>SP auf der Punkte-Leiste</strong> zählen (bereits eingetragen).</li>
@@ -1777,8 +2044,8 @@ ${bi('Das Spiel endet nach der letzten Runde des Szenarios <em>oder sofort</em>,
   </li>
   <li><strong>Macht-Prämie:</strong> Die 2 Familien mit meister Macht → SP laut Tabelle oben links am Spielplan.</li>
 </ol>
-${bi('<strong>Gleichstand bei Macht:</strong> Die gleichstehenden Familien erhalten den niedrigeren SP-Wert. Kein 2. Platz wird vergeben bei Gleichstand für Platz 1.')}
-${bi('<strong>Gleichstand Gesamtsieger:</strong> Meiste Fenster-Symbole → dann PM-Reihenfolge (im Uhrzeigersinn).')}
+${bRule('<strong>Gleichstand bei Macht:</strong> Die gleichstehenden Familien erhalten den niedrigeren SP-Wert. Kein 2. Platz wird vergeben bei Gleichstand für Platz 1.')}
+${bRule('<strong>Gleichstand Gesamtsieger:</strong> Meiste Fenster-Symbole → dann PM-Reihenfolge (im Uhrzeigersinn).')}
 <div class="btn-row mt">
   <button class="btn btn-g" onclick="showEndResult(true)">✓ Kompanie überlebt</button>
   <button class="btn btn-r" onclick="showEndResult(false)">✗ Kompanie gescheitert</button>
@@ -1911,10 +2178,10 @@ function goToFinalScoring(){
     $('W').style.display='none';
     const app=$('A');app.style.display='flex';app.style.flexDirection='column';
     $('sbar').classList.remove('hidden');
-    $('profi-toggle-row').classList.remove('hidden');
-        $('nav-wrap').classList.remove('hidden');
+    $('nav-wrap').classList.remove('hidden');
     cur=n;
     render();
+    updateSbarChips();
   }
 }
 
@@ -2401,7 +2668,7 @@ function nav(d){
   render();
 }
 
-function onSettingChange(){buildSteps();cur=Math.min(cur,steps.length-1);render();}
+function onSettingChange(){buildSteps();cur=Math.min(cur,steps.length-1);render();updateSbarChips();}
 
 /* ── PHASE JUMP ── */
 function buildPJList(){
@@ -2433,25 +2700,22 @@ function startMode(mode){
   if(mode==='india'){
     indiaStandalone=true;
     $('sbar').classList.add('hidden');
-    $('profi-toggle-row').classList.add('hidden');
     startIndia();
   } else if(mode==='setup'){
     indiaStandalone=false;
     $('sbar').classList.add('hidden');
-    $('profi-toggle-row').classList.add('hidden');
     renderSetup();
   } else if(mode==='ref'){
     indiaStandalone=false;
     $('sbar').classList.add('hidden');
-    $('profi-toggle-row').classList.add('hidden');
     $('nav-wrap').classList.add('hidden');
     $('M').innerHTML='<div class="card" style="text-align:center;padding:20px"><p>Referenz über den Button oben öffnen.</p></div>';
     setTimeout(()=>openQR(),100);
   } else {
     indiaStandalone=false;
     $('sbar').classList.remove('hidden');
-    $('profi-toggle-row').classList.remove('hidden');
-        buildSteps();cur=0;render();
+    buildSteps();cur=0;render();
+    updateSbarChips();
   }
 }
 
@@ -2461,9 +2725,9 @@ function backToMenu(){
   $('W').style.display='flex';
   $('qr-overlay').classList.remove('open');
   $('pj-overlay').classList.remove('open');
+  $('settings-overlay').classList.remove('open');
   $('sbar').classList.remove('hidden');
-  $('profi-toggle-row').classList.add('hidden');
-    $('nav-wrap').classList.remove('hidden');
+  $('nav-wrap').classList.remove('hidden');
   indiaStandalone=false;IS={};
   clearState();
 }
@@ -2490,8 +2754,6 @@ function toggleDarkMode(){
 function toggleProfi(){
   const isProfi = $('tog-profi').checked;
   document.body.classList.toggle('profi', isProfi);
-  const hint = $('profi-hint');
-  if(hint) hint.textContent = isProfi ? 'Nur Checklisten – Details ausgeblendet' : 'Alle Detailregeln sichtbar';
   try{ localStorage.setItem('jc2e_profi', isProfi ? '1' : '0'); }catch(e){}
 }
 (function initProfi(){
@@ -2501,8 +2763,6 @@ function toggleProfi(){
       window.addEventListener('load',()=>{
         const tog = $('tog-profi');
         if(tog) tog.checked = true;
-        const hint = $('profi-hint');
-        if(hint) hint.textContent = 'Nur Checklisten – Details ausgeblendet';
       });
     }
   }catch(e){}
@@ -2532,6 +2792,7 @@ function toggleProfi(){
     // Block if overlay open
     if($('qr-overlay')?.classList.contains('open')) return;
     if($('pj-overlay')?.classList.contains('open')) return;
+    if($('settings-overlay')?.classList.contains('open')) return;
 
     const dx = e.changedTouches[0].clientX - startX;
     const dy = e.changedTouches[0].clientY - startY;
@@ -2593,10 +2854,10 @@ window.addEventListener('load',()=>{
       // Vollständiger Spielführer wiederherstellen
       currentAppMode='full';
       $('sbar').classList.remove('hidden');
-      $('profi-toggle-row').classList.remove('hidden');
-            buildSteps();
+      buildSteps();
       cur=Math.min(cur,getSteps().length-1);
       render();
+      updateSbarChips();
       showBanner();
     }
   }
