@@ -31,16 +31,11 @@
   --border:rgba(184,132,42,.28); --border-s:rgba(184,132,42,.18);
   --shadow:0 2px 12px rgba(26,14,4,.10); --shadow-l:0 4px 24px rgba(26,14,4,.16);
   --r:10px; --r-s:6px;
-  /* Toggle-Größen – zentrale Quelle für alle Berechnungen */
-  --tog-w:40px; --tog-h:22px;
-  --tog-knob:16px; --tog-knob-off:2px;
-  --tog-knob-travel:17px; /* = tog-w - tog-knob - 2*tog-knob-off - 1 (border) */
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 
-/* ── FONTS & FLUID TYPOGRAPHY ── */
+/* ── FONTS ── */
 body{font-family:Georgia,'Times New Roman',Times,serif;background:var(--bg);color:var(--ink);min-height:100vh;
-  font-size:clamp(15px,2.2vw,17px);
   min-height:-webkit-fill-available;
   padding-top:env(safe-area-inset-top);
   padding-bottom:env(safe-area-inset-bottom);
@@ -96,24 +91,16 @@ header{background:linear-gradient(180deg,#0a0502,#1a0e08,#221408);padding:10px 1
 .sbar{background:#140c06;padding:7px 14px;display:flex;align-items:center;gap:12px;
   border-bottom:1px solid rgba(184,132,42,.2)}
 .sbar-grid{display:grid;grid-template-columns:auto auto;gap:5px 18px;flex:1;min-width:0}
-/* Dark mode chip adjustments */
-body.dark .chip-p { background: #8a1010; }
-body.dark .chip-o { background: #1a4a10; }
-body.dark .chip-b { background: #0e2848; }
-body.dark .q-sum { background: linear-gradient(135deg,#0e2008,#162a10); border-color: var(--green-l); }
-body.dark .q-sum ul li { color: #a0d098; }
-body.dark .ph4-road-wrap { background: var(--surface2); }
-
 /* .tog-grp kept for compatibility (unused) */
 .tog-grp{display:flex;align-items:center;gap:14px;flex:1;flex-wrap:wrap}
 .tog-lbl{display:flex;align-items:center;gap:7px;cursor:pointer;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
   font-size:.82rem;color:#f0e4c8;letter-spacing:.5px;user-select:none;white-space:nowrap}
-.tog{position:relative;width:var(--tog-w);height:var(--tog-h);flex-shrink:0}
+.tog{position:relative;width:40px;height:22px;flex-shrink:0}
 .tog input{opacity:0;width:0;height:0}
 .tog-sl{position:absolute;inset:0;background:#2a1a0a;border-radius:21px;transition:.3s;border:1px solid #4a3a20}
-.tog-sl::before{content:'';position:absolute;width:var(--tog-knob);height:var(--tog-knob);left:var(--tog-knob-off);top:var(--tog-knob-off);background:#7a6a48;border-radius:50%;transition:.3s}
+.tog-sl::before{content:'';position:absolute;width:16px;height:16px;left:2px;top:2px;background:#7a6a48;border-radius:50%;transition:.3s}
 .tog input:checked+.tog-sl{background:var(--gold-d);border-color:var(--gold)}
-.tog input:checked+.tog-sl::before{transform:translateX(var(--tog-knob-travel));background:var(--gold-l)}
+.tog input:checked+.tog-sl::before{transform:translateX(17px);background:var(--gold-l)}
 .ref-btn{background:transparent;border:1px solid rgba(184,132,42,.4);color:#f0e4c8;padding:5px 7px;
   border-radius:4px;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.78rem;cursor:pointer;
   width:52px;min-width:52px;min-height:44px;align-self:stretch;white-space:normal;text-align:center;line-height:1.3;
@@ -150,19 +137,19 @@ body.dark .ph4-road-wrap { background: var(--surface2); }
 @keyframes su{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
 /* ── TYPOGRAPHY ── */
-h3{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:clamp(0.9rem,2.5vw,1.1rem);font-weight:700;color:var(--green);
+h3{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.88rem;font-weight:700;color:var(--green);
   margin:16px 0 7px;padding-bottom:5px;border-bottom:1px solid var(--border-s)}
 h3:first-child{margin-top:0}
 h4{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.78rem;font-weight:600;color:var(--gold-d);margin:12px 0 5px;letter-spacing:.5px}
-p{font-size:clamp(0.9rem,2vw,1rem);line-height:1.65;margin-bottom:8px;color:var(--ink2)}
+p{font-size:.95rem;line-height:1.65;margin-bottom:8px;color:var(--ink2)}
 p:last-child{margin-bottom:0}
 strong{color:var(--ink);font-weight:600}
 em{color:var(--ink3)}
 ul{list-style:none;padding:0;margin:6px 0 8px}
-ul li{padding:4px 0 4px 20px;font-size:clamp(0.88rem,2vw,1rem);line-height:1.55;color:var(--ink2);position:relative}
+ul li{padding:4px 0 4px 20px;font-size:.93rem;line-height:1.55;color:var(--ink2);position:relative}
 ul li::before{content:'◆';position:absolute;left:0;color:var(--gold);font-size:.4rem;top:10px}
 ol{list-style:none;padding:0;margin:6px 0 8px;counter-reset:step}
-ol li{padding:5px 0 5px 30px;font-size:clamp(0.88rem,2vw,1rem);line-height:1.55;color:var(--ink2);position:relative;counter-increment:step}
+ol li{padding:5px 0 5px 30px;font-size:.93rem;line-height:1.55;color:var(--ink2);position:relative;counter-increment:step}
 ol li::before{content:counter(step);position:absolute;left:0;width:21px;height:21px;
   background:linear-gradient(145deg,var(--gold),var(--gold-d));color:#fff;border-radius:50%;
   display:flex;align-items:center;justify-content:center;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.62rem;
@@ -245,20 +232,11 @@ ol li::before{content:counter(step);position:absolute;left:0;width:21px;height:2
 /* ── CHECKLIST ── */
 .cl{list-style:none;padding:0;margin:8px 0}
 .cl li{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px dashed var(--border-s);
-  font-size:clamp(0.88rem,2vw,1rem);line-height:1.5;color:var(--ink2);transition:color .25s,opacity .25s}
+  font-size:.93rem;line-height:1.5;color:var(--ink2);transition:color .2s}
 .cl li::before{display:none}
 .cl li:last-child{border-bottom:none}
-.cl li.done{color:#9a8a6a;text-decoration:line-through;opacity:.7}
-.cl li.just-checked{animation:cl-pop .35s cubic-bezier(.25,.46,.45,.94)}
-@keyframes cl-pop{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
-.cl input[type=checkbox]{width:20px;height:20px;accent-color:var(--red);cursor:pointer;flex-shrink:0;margin-top:1px;
-  min-width:20px;min-height:20px}
-.cl-wrap{position:relative}
-.cl-reset{background:transparent;border:1px solid rgba(184,132,42,.35);color:var(--gold-d);
-  border-radius:4px;padding:5px 11px;font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
-  font-size:.68rem;cursor:pointer;margin-top:6px;letter-spacing:.5px;display:inline-flex;
-  align-items:center;gap:5px;min-height:36px;transition:background .15s}
-.cl-reset:active{background:rgba(184,132,42,.12)}
+.cl li.done{color:#9a8a6a;text-decoration:line-through}
+.cl input[type=checkbox]{width:20px;height:20px;accent-color:var(--red);cursor:pointer;flex-shrink:0;margin-top:1px}
 
 /* ── COMBAT BOX ── */
 .cb{background:linear-gradient(135deg,#180808,#260c0c);border:1px solid var(--red);border-radius:var(--r-s);padding:13px;margin:8px 0;color:#f5e8e8}
@@ -481,11 +459,9 @@ ol li::before{content:counter(step);position:absolute;left:0;width:21px;height:2
     gap: 6px 28px;
   }
   .tog-lbl { font-size: .82rem; gap: 9px; }
-  .tog {
-    --tog-w: 46px; --tog-h: 25px;
-    --tog-knob: 20px; --tog-knob-off: 2px;
-    --tog-knob-travel: 21px;
-  }
+  .tog { width: 46px; height: 25px; }
+  .tog-sl::before { width: 20px; height: 20px; }
+  .tog input:checked + .tog-sl::before { transform: translateX(21px); }
   .ref-btn {
     width: 54px;
     min-width: 54px;
@@ -644,66 +620,209 @@ body.dark .w-seal { box-shadow: 0 6px 24px rgba(0,0,0,.7), inset 0 1px 0 rgba(25
   font-style: italic;
 }
 
-/* ── SCHNELL-MODUS ── */
-body.quick .acc-bd { display:none !important; }
-body.quick .acc.open .acc-bd { display:none !important; }
-body.quick .acc-hd { opacity:.65; font-size:.75rem; }
-body.quick .q-detail { display:none !important; }
-body.quick .box-i { display:none !important; }
-body.quick .box-b { display:none !important; }
-.q-sum { display:none; }
-body.quick .q-sum { display:block !important; }
-.q-sum {
-  background:linear-gradient(135deg,#eef8e8,#e0f0d8);
-  border:1px solid var(--green);border-left:4px solid var(--green-l);
-  border-radius:var(--r-s);padding:12px 14px;margin:0 0 10px;
-}
-body.dark .q-sum { background:linear-gradient(135deg,#0e2008,#162a10); }
-.q-sum-title { font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green-l);margin-bottom:7px; }
-.q-sum ul { margin:0; }
-.q-sum ul li { font-size:.88rem;color:var(--green);line-height:1.6; }
-.q-sum ul li::before { color:var(--green-l); }
-.q-sum strong { color:var(--green); }
+/* ══════════════════════════════════════════
+   ZWEI-EBENEN-STRUKTUR & PROFI-MODUS
+   ══════════════════════════════════════════ */
 
-/* ── REGEL-CHIPS ── */
-.chip { display:inline-flex;align-items:center;padding:1px 8px;border-radius:12px;font-size:.6rem;font-weight:700;letter-spacing:.8px;margin:0 5px 2px 0;vertical-align:middle;flex-shrink:0; }
-.chip-p { background:var(--red);color:#fff; }
-.chip-o { background:var(--green);color:#d8ecc8; }
-.chip-b { background:var(--blue-l);color:#d0e8f8; }
-.chip-w { background:var(--gold-d);color:#fff; }
-li .chip, p .chip { margin-left:0; }
+/* ── Checklisten-Karte (immer sichtbar) ── */
+.step-checklist-card {
+  background: linear-gradient(160deg,#1c1004,#241808,#1c1004);
+  border: 1px solid var(--gold-d);
+  border-top: 3px solid var(--gold-l);
+  border-radius: var(--r);
+  padding: 14px 16px 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 3px 14px rgba(0,0,0,.35), inset 0 1px 0 rgba(212,168,69,.12);
+  position: relative;
+}
+.scl-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+}
+.scl-phase {
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .68rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.scl-dot { color: rgba(184,132,42,.5); font-size: .7rem; }
+.scl-title-txt {
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .88rem;
+  color: #f5ead5;
+  font-weight: 600;
+}
+.scl-divider {
+  height: 1px;
+  background: linear-gradient(90deg,transparent,rgba(184,132,42,.4),transparent);
+  margin: 8px 0 10px;
+}
+.scl-label {
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .65rem;
+  letter-spacing: 1.5px;
+  color: var(--gold-d);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.step-cl {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.step-cl li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(184,132,42,.1);
+  font-size: .92rem;
+  line-height: 1.55;
+  color: #e8d8b8;
+  transition: color .2s, opacity .2s;
+  position: relative;
+}
+.step-cl li::before { display: none; }
+.step-cl li:last-child { border-bottom: none; padding-bottom: 2px; }
+.step-cl li.done { color: rgba(184,148,90,.45); text-decoration: line-through; }
+.step-cl li.done input { opacity: .5; }
+.step-cl input[type=checkbox] {
+  width: 20px; height: 20px;
+  accent-color: var(--gold-l);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-cl li strong { color: #fde8c0; font-weight: 600; }
+.step-cl li em { color: rgba(232,216,184,.7); font-style: normal; font-size: .87rem; }
 
-/* ── PHASE IV MINI-ROADMAP ── */
-.ph4-road {
-  display:flex;gap:3px;overflow-x:auto;padding:8px 0 10px;margin-bottom:10px;
-  scrollbar-width:none;
+/* Reset-link für Checkliste */
+.scl-reset {
+  background: transparent;
+  border: none;
+  color: rgba(184,132,42,.5);
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .65rem;
+  letter-spacing: .8px;
+  cursor: pointer;
+  padding: 4px 0 0;
+  display: block;
+  text-align: right;
+  margin-top: 6px;
+  text-decoration: underline dotted;
 }
-.ph4-road::-webkit-scrollbar { display:none; }
-.ph4-rb {
-  flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;
-  cursor:pointer;padding:5px 6px;border-radius:6px;transition:background .15s;
-  border:1px solid transparent;min-width:52px;
+.scl-reset:active { color: var(--gold-d); }
+
+/* ── Details-Toggle-Button ── */
+.details-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: 1px dashed rgba(184,132,42,.3);
+  border-radius: var(--r-s);
+  padding: 9px 13px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: var(--gold-d);
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .78rem;
+  letter-spacing: .5px;
+  transition: all .2s;
+  min-height: 40px;
 }
-.ph4-rb:active { background:rgba(184,132,42,.1); }
-.ph4-rb.active { border-color:var(--gold);background:rgba(184,132,42,.08); }
-.ph4-rb-dot {
-  width:26px;height:26px;border-radius:50%;border:2px solid var(--border);
-  background:var(--surface2);display:flex;align-items:center;justify-content:center;
-  font-size:.85rem;transition:all .2s;
+.details-toggle:active { background: rgba(184,132,42,.06); }
+.details-toggle .dt-ic {
+  transition: transform .25s;
+  font-size: .68rem;
+  flex-shrink: 0;
+  color: var(--gold);
 }
-.ph4-rb.active .ph4-rb-dot { background:linear-gradient(145deg,var(--gold-d),var(--gold));border-color:var(--gold);box-shadow:0 2px 8px rgba(184,132,42,.4); }
-.ph4-rb.done .ph4-rb-dot { background:var(--green);border-color:var(--green-l); }
-.ph4-rb-lbl { font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:.58rem;color:var(--ink3);text-align:center;letter-spacing:.3px;line-height:1.2; }
-.ph4-rb.active .ph4-rb-lbl { color:var(--gold-d);font-weight:700; }
-.ph4-road-wrap { background:var(--surface2);border:1px solid var(--border-s);border-radius:var(--r-s);padding:6px 10px 4px;margin-bottom:12px; }
-.ph4-road-ttl { font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:2px; }
+.details-toggle.open { border-color: rgba(184,132,42,.5); color: var(--ink3); }
+.details-toggle.open .dt-ic { transform: rotate(180deg); }
+.dt-txt { flex: 1; text-align: left; }
+
+/* ── Details-Section ── */
+.details-section { }
+.details-section.hidden { display: none; }
+
+/* ── PROFI-MODUS: Details und Toggle verbergen ── */
+body.profi .details-section { display: none !important; }
+body.profi .details-toggle { display: none !important; }
+body.profi .step-checklist-card { border-top-width: 4px; }
+
+/* Profi-Modus-Indikator in Header */
+.profi-indicator {
+  display: none;
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .6rem;
+  letter-spacing: 1px;
+  background: var(--gold-d);
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+body.profi .profi-indicator { display: inline-block; }
+
+/* Profi-Toggle im sbar */
+.profi-toggle-row {
+  background: rgba(184,132,42,.06);
+  border-top: 1px solid rgba(184,132,42,.15);
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.profi-toggle-lbl {
+  font-family: 'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size: .78rem;
+  color: #c8a878;
+  letter-spacing: .5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.profi-toggle-lbl .profi-hint {
+  font-size: .68rem;
+  color: var(--ink3);
+  font-style: italic;
+}
+body.profi .profi-toggle-lbl { color: var(--gold-l); }
+body.profi .profi-toggle-lbl .profi-hint { color: var(--gold-d); }
+
+/* Dark-Mode adjustments für checklist */
+body.dark .step-checklist-card {
+  background: linear-gradient(160deg,#100a02,#180e04,#100a02);
+  border-color: var(--gold-d);
+}
+body.dark .step-cl li { color: var(--ink2); }
+body.dark .step-cl li strong { color: var(--ink); }
+body.dark .details-toggle { color: var(--ink3); border-color: rgba(184,132,42,.25); }
+
+@media (min-width: 768px) {
+  .profi-toggle-row { padding: 7px 24px; }
+  .step-checklist-card { padding: 16px 20px 14px; }
+  .step-cl li { font-size: 1rem; padding: 9px 0; }
+  .scl-title-txt { font-size: .95rem; }
+}
 
 </style>
 </head>
 <body>
 
 <!-- WELCOME SCREEN -->
-<div id="W" style="position:relative"><button class="dm-btn" id="dm-btn-welcome" onclick="toggleDarkMode()" aria-label="Hell/Dunkel-Modus wechseln" title="Hell/Dunkel wechseln" style="position:absolute;top:16px;right:16px;background:rgba(0,0,0,.1);">🌙</button>
+<div id="W" style="position:relative"><button class="dm-btn" id="dm-btn-welcome" onclick="toggleDarkMode()" title="Hell/Dunkel wechseln" style="position:absolute;top:16px;right:16px;background:rgba(0,0,0,.1);">🌙</button>
   <div class="w-seal">⚓</div>
   <h1 class="w-title">John Company</h1>
   <div class="w-sub">Zweite Auflage · Spielführer</div>
@@ -712,26 +831,22 @@ li .chip, p .chip { margin-left:0; }
   <div class="mc" onclick="startMode('full')">
     <div class="mc-ic">📜</div>
     <div class="mc-t">Vollständiger Spielführer</div>
-    <div class="mc-d">Alle Phasen einer Runde – Schritt für Schritt geführt, übersichtlich und vollständig.</div>
-    <div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap"><span style="background:linear-gradient(135deg,var(--green),var(--green-l));color:#d8ecc8;border-radius:20px;padding:2px 10px;font-size:.7rem;font-weight:700;letter-spacing:.5px">👥 1–6 Spieler</span><span style="background:linear-gradient(135deg,var(--gold-d),var(--gold));color:#fff;border-radius:20px;padding:2px 10px;font-size:.7rem;font-weight:700;letter-spacing:.5px">🎯 Komplette Runde</span></div>
+    <div class="mc-d">Alle Phasen einer Runde – Schritt für Schritt geführt, übersichtlich und vollständig. <em>Für 1–6 Spieler.</em></div>
   </div>
   <div class="mc" style="--before-color:#1a3a5c" onclick="startMode('setup')">
     <div class="mc-ic">🎲</div>
     <div class="mc-t">Setup & Spielvorbereitung</div>
-    <div class="mc-d">Szenario wählen, Spielplan aufbauen, Familien einrichten – alles erklärt.</div>
-    <div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap"><span style="background:linear-gradient(135deg,var(--blue),var(--blue-l));color:#d8eef8;border-radius:20px;padding:2px 10px;font-size:.7rem;font-weight:700;letter-spacing:.5px">👥 1–6 Spieler</span><span style="background:linear-gradient(135deg,var(--blue),var(--blue-l));color:#d8eef8;border-radius:20px;padding:2px 10px;font-size:.7rem;font-weight:700;letter-spacing:.5px">⏱ Vor Runde 1</span></div>
+    <div class="mc-d">Szenario wählen, Spielplan aufbauen, Familien einrichten – alles erklärt. <em>Vor der ersten Runde.</em></div>
   </div>
   <div class="mc" onclick="startMode('india')">
     <div class="mc-ic">🐘</div>
     <div class="mc-t">Nur Ereignisse in Indien</div>
-    <div class="mc-d">Direkt zu Stürmen, Krisen und dem Marsch des Elefanten springen.</div>
-    <div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap"><span style="background:linear-gradient(135deg,var(--red),var(--red-l));color:#fde8e8;border-radius:20px;padding:2px 10px;font-size:.7rem;font-weight:700;letter-spacing:.5px">👥 Alle Spielerzahlen</span><span style="background:linear-gradient(135deg,var(--red),var(--red-l));color:#fde8e8;border-radius:20px;padding:2px 10px;font-size:.7rem;font-weight:700;letter-spacing:.5px">🏛 Phase VII</span></div>
+    <div class="mc-d">Direkt zu Stürmen, Krisen und dem Marsch des Elefanten springen. <em>Für Phase VII.</em></div>
   </div>
   <div class="mc" onclick="startMode('ref')">
     <div class="mc-ic">📖</div>
     <div class="mc-t">Schnellreferenz</div>
-    <div class="mc-d">Erfolgstest, Verhandlungen, wichtige Begriffe – immer griffbereit.</div>
-    <div style="margin-top:7px;display:flex;gap:6px;flex-wrap:wrap"><span style="background:linear-gradient(135deg,#4a3808,var(--gold-d));color:#f0e4c8;border-radius:20px;padding:2px 10px;font-size:.7rem;font-weight:700;letter-spacing:.5px">👥 Alle Spielerzahlen</span><span style="background:linear-gradient(135deg,#4a3808,var(--gold-d));color:#f0e4c8;border-radius:20px;padding:2px 10px;font-size:.7rem;font-weight:700;letter-spacing:.5px">⚡ Schnellzugriff</span></div>
+    <div class="mc-d">Erfolgstest, Verhandlungen, wichtige Begriffe – immer griffbereit. <em>Schneller Regelblick.</em></div>
   </div>
 </div>
 
@@ -743,10 +858,12 @@ li .chip, p .chip { margin-left:0; }
       <div class="h-title">John Company 2E</div>
       <div class="h-phase" id="H-ph">Spielführer</div>
     </div>
-    <button class="h-menu-btn" onclick="openPJ()" aria-label="Phasenübersicht öffnen">☰ Phasen</button>
-    <button class="h-menu-btn" style="margin-left:4px" onclick="backToMenu()" aria-label="Zurück zum Hauptmenü">← Menü</button>
-    <button class="dm-btn" id="dm-btn" onclick="toggleDarkMode()" aria-label="Hell/Dunkel-Modus wechseln" title="Hell/Dunkel">🌙</button>
+    <span class="profi-indicator">⚡ Profi</span>
+    <button class="h-menu-btn" onclick="openPJ()">☰ Phasen</button>
+    <button class="h-menu-btn" style="margin-left:4px" onclick="backToMenu()">← Menü</button>
+    <button class="dm-btn" id="dm-btn" onclick="toggleDarkMode()" title="Hell/Dunkel">🌙</button>
   </header>
+  <div class="prog" style="display:none"><div class="prog-fill" id="prog" style="width:5%"></div></div>
 
   <div class="sbar" id="sbar">
     <div class="sbar-grid">
@@ -766,12 +883,15 @@ li .chip, p .chip { margin-left:0; }
         <div class="tog"><input type="checkbox" id="tog-cn" onchange="onSettingChange()"><div class="tog-sl"></div></div>
         China aktiv
       </label>
-      <label class="tog-lbl" style="grid-column:span 2;border-top:1px solid rgba(184,132,42,.15);padding-top:5px;margin-top:2px">
-        <div class="tog"><input type="checkbox" id="tog-quick" onchange="toggleQuickMode()"><div class="tog-sl"></div></div>
-        <span>⚡ Schnell-Modus <span style="font-size:.7rem;opacity:.7;font-style:italic">(nur Kernschritte)</span></span>
-      </label>
     </div>
-    <button class="ref-btn" onclick="openQR()" aria-label="Schnellreferenz öffnen">📖 Refe&shy;renz</button>
+    <button class="ref-btn" onclick="openQR()">📖 Refe&shy;renz</button>
+  </div>
+  <div class="profi-toggle-row hidden" id="profi-toggle-row">
+    <label class="profi-toggle-lbl" style="cursor:pointer">
+      <div class="tog"><input type="checkbox" id="tog-profi" onchange="toggleProfi()"><div class="tog-sl"></div></div>
+      ⚡ Profi-Modus
+      <span class="profi-hint" id="profi-hint">Alle Detailregeln sichtbar</span>
+    </label>
   </div>
 
   <div id="M"></div>
@@ -793,7 +913,7 @@ li .chip, p .chip { margin-left:0; }
   <div class="qr-sheet">
     <div class="qr-hd">
       <h2>📖 Schnellreferenz</h2>
-      <button class="qr-close" onclick="closeQR()" aria-label="Referenz schließen">✕ Schließen</button>
+      <button class="qr-close" onclick="closeQR()">✕ Schließen</button>
     </div>
 
     <h3>Erfolgstest (Phase IV)</h3>
@@ -864,7 +984,7 @@ li .chip, p .chip { margin-left:0; }
 <!-- PHASE JUMP OVERLAY -->
 <div class="pj-overlay" id="pj-overlay">
   <div class="pj-sheet">
-    <h2>Zu Phase springen <button class="pj-close" onclick="closePJ()" aria-label="Phasenübersicht schließen">✕</button></h2>
+    <h2>Zu Phase springen <button class="pj-close" onclick="closePJ()">✕</button></h2>
     <div id="pj-list"></div>
   </div>
 </div>
@@ -881,107 +1001,10 @@ const bg = h => box('box-g',h);
 const bb = h => box('box-b',h);
 const dt = rows => `<div class="dt">${rows.map(r=>`<div class="dt-row"><div class="dt-k">${r[0]}</div><div class="dt-v">${r[1]}</div></div>`).join('')}</div>`;
 const acc = (id,t,body,open=false) => `<div class="acc${open?' open':''}" id="acc-${id}"><div class="acc-hd" onclick="tAcc('acc-${id}')"><span>${t}</span><span class="ic">▼</span></div><div class="acc-bd">${body}</div></div>`;
-
-/* ── SCHNELL-MODUS HELPERS ── */
-const chip = (type, label) => `<span class="chip chip-${type}">${label}</span>`;
-const pflicht = () => chip('p','PFLICHT');
-const optional = () => chip('o','OPTIONAL');
-const bedingt = (txt) => chip('b', txt||'BEDINGT');
-const qsum = (items) => `<div class="q-sum"><div class="q-sum-title">⚡ Kern-Schritte</div><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;
-
-function toggleQuickMode(){
-  const on = $('tog-quick') && $('tog-quick').checked;
-  document.body.classList.toggle('quick', !!on);
-  try { localStorage.setItem('jc2e_quickmode', on ? '1' : '0'); } catch(e){}
-}
-(function initQuickMode(){
-  try {
-    if(localStorage.getItem('jc2e_quickmode')==='1'){
-      document.body.classList.add('quick');
-      window.addEventListener('load', ()=>{
-        const t = $('tog-quick');
-        if(t) t.checked = true;
-      });
-    }
-  } catch(e) {}
-})();
-let _clCounter = 0;
-const cl = (items, opts={}) => {
-  const id = 'cl-' + (++_clCounter);
-  const label = opts.label || '';
-  const noReset = opts.noReset || false;
-  const key = 'jc2e_cl_' + id;
-  const listHtml = items.map((item, i) => {
-    const cbId = id + '-' + i;
-    return `<li id="li-${cbId}"><input type="checkbox" id="${cbId}" aria-label="Aufgabe abhaken" onchange="clCheck('${id}',${i},this,'${key}')"> <span>${item}</span></li>`;
-  }).join('');
-  const resetBtn = noReset ? '' : `<button class="cl-reset" onclick="clReset('${id}',${items.length},'${key}')" aria-label="Alle Häkchen zurücksetzen">↺ Alle zurücksetzen</button>`;
-  return `<div class="cl-wrap"><ul class="cl" id="${id}">${listHtml}</ul>${resetBtn}</div>`;
-};
+const cl = items => `<ul class="cl">${items.map(i=>`<li><input type="checkbox" onchange="this.closest('li').classList.toggle('done',this.checked)"> <span>${i}</span></li>`).join('')}</ul>`;
 const chbtn = (ic,t,s,fn) => `<button class="chbtn" onclick="${fn}"><div class="chbtn-ic">${ic}</div><div class="chbtn-body"><div class="chbtn-t">${t}</div>${s?`<div class="chbtn-s">${s}</div>`:''}</div><div class="chbtn-ar">▶</div></button>`;
 const trail = (...p) => `<div class="trail">${p.map((t,i)=>`<span class="trail-i">${t}</span>${i<p.length-1?'<span class="trail-sep">›</span>':''}`).join('')}</div>`;
 const cb = (atk,def,tie) => `<div class="cb"><div class="cb-row"><div class="cb-lbl">⚔ Angreifer</div><div class="cb-val">${atk}</div></div><hr class="cb-div"><div class="cb-row"><div class="cb-lbl">🛡 Verteidiger</div><div class="cb-val">${def}</div></div>${tie?`<div class="cb-tie">🔸 Gleichstand: ${tie}</div>`:''}</div>`;
-
-/* ── PHASE IV MINI-ROADMAP ── */
-const PH4_STEPS = [
-  {idx:7,  ic:'⚖',  lbl:'Vorsitz',    id:'ph4-chairman'},
-  {idx:8,  ic:'📋', lbl:'Dir./GG',     id:'ph4-director'},
-  {idx:9,  ic:'⚓',  lbl:'Flotten-\nverw.', id:'ph4-shipping'},
-  {idx:10, ic:'🎖',  lbl:'Militär',    id:'ph4-mil'},
-  {idx:11, ic:'🏛',  lbl:'Bombay',     id:'ph4-bombay'},
-  {idx:12, ic:'🏛',  lbl:'Madras',     id:'ph4-madras'},
-  {idx:13, ic:'🏛',  lbl:'Bengal.',    id:'ph4-bengal'},
-];
-function ph4Road(){
-  const dots = PH4_STEPS.map(s=>{
-    const isCur = steps[cur] && steps[cur].id===s.id;
-    const idx = steps.findIndex(x=>x.id===s.id);
-    const isDone = idx>=0 && cur>idx;
-    return `<div class="ph4-rb${isCur?' active':''}${isDone?' done':''}" onclick="if(${idx}>=0&&${idx}<steps.length){cur=${idx};render();}">
-      <div class="ph4-rb-dot">${isDone?'✓':s.ic}</div>
-      <div class="ph4-rb-lbl">${s.lbl}</div>
-    </div>`;
-  }).join('');
-  return `<div class="ph4-road-wrap"><div class="ph4-road-ttl">Phase IV · Kompanie agiert</div><div class="ph4-road">${dots}</div></div>`;
-}
-
-function clCheck(listId, idx, cb, storeKey) {
-  const li = cb.closest('li');
-  li.classList.toggle('done', cb.checked);
-  if (cb.checked) {
-    li.classList.add('just-checked');
-    li.addEventListener('animationend', () => li.classList.remove('just-checked'), {once: true});
-  }
-  // Persist state
-  try {
-    const list = document.getElementById(listId);
-    if (!list) return;
-    const boxes = list.querySelectorAll('input[type=checkbox]');
-    const state = Array.from(boxes).map(b => b.checked);
-    localStorage.setItem(storeKey, JSON.stringify(state));
-  } catch(e) {}
-}
-function clReset(listId, count, storeKey) {
-  const list = document.getElementById(listId);
-  if (!list) return;
-  list.querySelectorAll('input[type=checkbox]').forEach(cb => {
-    cb.checked = false;
-    cb.closest('li').classList.remove('done', 'just-checked');
-  });
-  try { localStorage.removeItem(storeKey); } catch(e) {}
-}
-function clRestore(listId, storeKey) {
-  try {
-    const raw = localStorage.getItem(storeKey);
-    if (!raw) return;
-    const state = JSON.parse(raw);
-    const list = document.getElementById(listId);
-    if (!list) return;
-    list.querySelectorAll('input[type=checkbox]').forEach((cb, i) => {
-      if (state[i]) { cb.checked = true; cb.closest('li').classList.add('done'); }
-    });
-  } catch(e) {}
-}
 
 function tAcc(id){$(id).classList.toggle('open')}
 
@@ -1022,8 +1045,196 @@ function togglePresBlock(id){
 }
 
 /* ══════════════════════════════════════════════════
-   STEP DEFINITIONS
+   SCHRITT-CHECKLISTEN (Zwei-Ebenen-Struktur)
+   Kompakte Aktionslisten: max. 4–5 Einträge pro Schritt
 ══════════════════════════════════════════════════ */
+const CHECKLISTS = {
+  'ph1-attrition': [
+    '<strong>Alle gleichzeitig würfeln:</strong> 1 W6 pro besetztem Amt',
+    'Ermattungs-Marker auf Ämterkarte? → Ergebnis <strong>+1</strong> pro Marker',
+    'Vorsitzender würfelt? → Ergebnis immer <strong>zusätzlich +1</strong>',
+    '1–2: Nichts · 3–4: Ermattungs-Marker setzen · <strong>5+: Ruhestand</strong> (Figur + Karte auf freie Felder)'
+  ],
+  'ph1-retire': [
+    '<strong>Reihenfolge:</strong> Vorsitzender zuerst, dann im Uhrzeigersinn',
+    'Belohnung aus Angebot wählen · Kosten zahlen',
+    'Figur auf Belohnung legen · <strong>SP sofort eintragen</strong>',
+    'Restliche Ruheständler-Marker → zurück in Familienvorrat'
+  ],
+  'ph1-prestige': [
+    'Berechtigt: <strong>nur Familien mit mind. 1 Ruheständler</strong> dieser Phase',
+    'Reihenfolge: Höchste Ruhestand-Ausgaben zuerst · Gleichstand → Fenster-Symbole',
+    'Karte aus Auslage nehmen oder passen',
+    '<strong>Auslage immer auf 3 Karten auffüllen</strong> (auch wenn keine Karte genommen wurde)'
+  ],
+  'ph2-family': [
+    '<strong>Vorsitzender zuerst</strong>, dann im Uhrzeigersinn',
+    'Chancen-Marker auf gewählte Aktion legen · Bereits dort? → Aktion <strong>2× ausführen</strong>',
+    '1 Familienaktion wählen: Schreiber · Offizier · Werft · Luxusgut · Betrieb · Anteil'
+  ],
+  'ph2-shares': [
+    'Kompanie hat <strong>Schulden</strong>? → Für jeden Schulden-Schritt: Rechtestes Börsen-Mitglied → Kollegium · Schulden –1',
+    'Wiederholen bis Schulden getilgt oder keine Mitglieder mehr auf Börsenleiste',
+    'Keine Schulden: Verbleibende Mitglieder auf Börsenleiste <strong>so weit rechts wie möglich</strong> verschieben'
+  ],
+  'firms': [
+    '<strong>Schritt 1 – Investitionen</strong> (keine feste Reihenfolge): Firma gründen · investieren · Schiffe kaufen · Übernahme · Fusion',
+    '<strong>Schritt 2 – Strategie:</strong> Alle Firmen wählen gleichzeitig & geheim: Seeregion + Heimathafen + Einsatzbetrag'
+  ],
+  'ph3-hiring': [
+    'Freie Ämter in <strong>aufsteigender Nummerfolge</strong> abhandeln',
+    '<strong>Vorsitz:</strong> Kollegium-Mehrheit nötig · kein Konsens → alter Vorsitzender wählt selbst',
+    'Alle anderen Ämter laut Ernennungs-Hierarchie besetzen (Vorsitz → Direktor/GG → Flottenverwalter → ...)',
+    '<strong>⚠ Pflicht:</strong> Alle Ämter MÜSSEN besetzt werden, solange Kandidaten vorhanden!'
+  ],
+  'ph4-chairman': [
+    'Optional: <strong>Schulden erhöhen</strong> (max. 3× ohne Abstimmung) → je: Schuld +1 · +£5 ins Kompanie-Vermögen',
+    '<strong>Pflicht:</strong> Gesamtes Kompanie-Vermögen vollständig auf Amtsschatullen verteilen (nichts übrig lassen)'
+  ],
+  'ph4-director': [
+    'Aktion A (optional, beliebig oft): <strong>Sondergesandter</strong> – Erfolgstest · £1 = 1 Würfel · Erfolg: Auftrag öffnen <em>oder</em> China-Handel eröffnen',
+    'Aktion B (immer danach): <strong>Bis zu 2 Bewegungen</strong> (je 1 Schreiber oder 1 Schiff in andere Region/Seeregion)'
+  ],
+  'ph4-shipping': [
+    '<strong>⚠ Pflicht:</strong> Geld ausgeben bis max. <strong>£2</strong> in der Schatulle übrig bleibt!',
+    'Charterschiff mieten: <strong>£2</strong> · Privates Schiff ausrüsten: <strong>£3</strong> · Kompanie-Schiff kaufen: <strong>£5</strong> (nur wenn kein blaues Schiff auf einer Werft!)'
+  ],
+  'ph4-mil': [
+    'Schritt 1 (optional): <strong>Bis zu 2 Bewegungen</strong> zwischen Armeen (Offizier oder Regiment)',
+    'Schritt 2 (Pflicht): <strong>Alle Offiziersanwärter</strong> einer Armee zuweisen → werden Offiziere',
+    'Schritt 3: Kommandanten prüfen – Familie mit meisten Figuren stellt Kommandant'
+  ],
+  'ph4-bombay': [
+    'Präsident legt <strong>Reihenfolge</strong> der 3 Ämter fest',
+    '<strong>Präsident – Handel treiben</strong> (1× erfolgreich/Runde): Erfolgstest · £1/Würfel · –1 Würfel pro Fremd-Region',
+    '<strong>Kommandant – Einsatz</strong> (optional, beliebig oft): Erfolgstest · 1 W/erschöpftem Offizier oder Regiment',
+    '<strong>Gouverneure – Verwalten</strong> (optional): Wiederholbarer Erfolgstest · Würfelvorrat sinkt nach jedem Versuch'
+  ],
+  'ph4-madras': [
+    'Präsident legt <strong>Reihenfolge</strong> der 3 Ämter fest',
+    '<strong>Präsident – Handel treiben</strong> (1× erfolgreich/Runde): Erfolgstest · £1/Würfel · –1 Würfel pro Fremd-Region',
+    '<strong>Kommandant – Einsatz</strong> (optional, beliebig oft): Erfolgstest · 1 W/erschöpftem Offizier oder Regiment',
+    '<strong>Gouverneure – Verwalten</strong> (optional): Wiederholbarer Erfolgstest · Würfelvorrat sinkt nach jedem Versuch'
+  ],
+  'ph4-bengal': [
+    'Präsident legt <strong>Reihenfolge</strong> der 3 Ämter fest',
+    '<strong>Präsident – Handel treiben</strong> (1× erfolgreich/Runde): Erfolgstest · £1/Würfel · –1 Würfel pro Fremd-Region',
+    '<strong>Kommandant – Einsatz</strong> (optional, beliebig oft): Erfolgstest · 1 W/erschöpftem Offizier oder Regiment',
+    '<strong>Gouverneure – Verwalten</strong> (optional): Wiederholbarer Erfolgstest · Würfelvorrat sinkt nach jedem Versuch'
+  ],
+  'ph4-china': [
+    '<strong>Voraussetzung:</strong> mind. 1 Schiff in China-Schatulle + mind. 1 Exportsymbol in kontrollierter Region',
+    '<strong>Handel in China</strong> (1× pro Runde): Erfolgstest · 1 Würfel pro Schiff in China-Schatulle · kein Abzug',
+    'Erfolg: +£4/Exportsymbol ins Kompanie-Vermögen · Superintendent persönlich +£1/Exportsymbol'
+  ],
+  'ph5-bonus': [
+    'Jede Familie: <strong>£1 pro Werft</strong> mit ausgerüstetem Schiff auf See',
+    'Jede Familie: <strong>£1 pro eigenem Betrieb</strong> (Familienversion, nicht investierte DEREG-Betriebe)'
+  ],
+  'ph6-expenses': [
+    '<strong>Ausgaben:</strong> £1 je Schulden-Schritt + £1 je Regiment + £1 je Offizier (nicht Kommandant) + £1 je Schiff',
+    'Notkredite (falls nötig): je +1 Schuld · +£5 → wiederholen bis gedeckt → <strong>danach Vermögen auf 0!</strong>',
+    'Ansehen-Verlust: 1–2 Notkredite → –1 · 3+ Notkredite → –2',
+    '<strong>⚠ Ansehen ganz links = Kompanie gescheitert!</strong>'
+  ],
+  'ph6-dividends': [
+    'Vermögen < Erwartungswert? → <strong>Ansehen –1</strong>',
+    'Optional: <strong>Dividenden zahlen</strong> (£1/Anteil inkl. Vorsitzender, beliebig oft wiederholbar)',
+    'Dividenden-Gesamtsumme > Erwartungswert? → <strong>Öffentliche Euphorie: Ansehen +1!</strong>',
+    '<strong>⚠ Ansehen ganz links = Kompanie gescheitert!</strong>'
+  ],
+  'ph7-india': [
+    'Sturmwürfel werfen · Stürme für <strong>blaue Spieler-Schiffe</strong> abhandeln',
+    'Anzahl Ereigniskarten festlegen · Karten einzeln ziehen und abhandeln',
+    'Nach jedem Ereignis: <strong>Marsch des Elefanten</strong> ausführen'
+  ],
+  'ph8-parli': [
+    'PM zieht Karten (max. 3) · <strong>Dilemma-Karte</strong> stoppt sofort · 1 Gesetz auswählen',
+    'PM-Scheibe auf neues Politik-Feld drehen',
+    'Abstimmung: anfängl. Unterstützung eintragen · jeder Spieler: £1 = 1 Stimme (für oder gegen)',
+    'Ergebnis auswerten: ≥0 → <strong>Beschlossen</strong> · <0 → <strong>Abgelehnt</strong> (Oppositionsführer = neuer PM) · Folgen ausführen'
+  ],
+  'ph9-upkeep': [
+    'Unterhalt zahlen: weiße Zahl pro Belohnung · nicht zahlen = Figur zurück + SP verlieren',
+    '<strong>Letzte Runde des Szenarios?</strong> → Zur Schlusswertung (Phase X)',
+    'Schreiber-Marker · Erfüllt-Marker · Präsidentschafts-Teiler · <strong>Charterschiffe</strong> → zurück in Vorrat',
+    'Erschöpfte Offiziere & Regimenter aktivieren · <strong>Rundenmarker vorrücken</strong>'
+  ],
+  'ph10-scoring': [
+    '<strong>1.</strong> SP auf Punkte-Leiste zählen (bereits eingetragen)',
+    '<strong>2.</strong> Anteile/Betriebe: überlebt → laut Kollegium-Tabelle · gescheitert → –1 SP/Anteil · +1 SP/Betrieb',
+    '<strong>3.</strong> Macht berechnen: Trophäen (+1) · PM (+2) · Gesetze (+1) · Unternehmen/Ehegatten/Erpressung (laut Karte)',
+    '<strong>4.</strong> Macht-Prämie: Top-2-Familien erhalten SP laut Tabelle (oben links am Spielplan)'
+  ]
+};
+
+/* ── Details-Abschnitt ein-/ausblenden ── */
+function toggleDetailsSection(id){
+  const section = document.getElementById('details-' + id);
+  const btn = document.getElementById('dtbtn-' + id);
+  if(!section || !btn) return;
+  const isOpen = !section.classList.contains('hidden');
+  if(isOpen){
+    section.classList.add('hidden');
+    btn.classList.remove('open');
+    btn.querySelector('.dt-txt').textContent = '▼ Detailregeln & Sonderfälle anzeigen';
+  } else {
+    section.classList.remove('hidden');
+    btn.classList.add('open');
+    btn.querySelector('.dt-txt').textContent = '▲ Detailregeln ausblenden';
+  }
+  try{ localStorage.setItem('jc2e_det_' + id, isOpen ? '0' : '1'); }catch(e){}
+}
+
+/* ── Checkliste dieses Schritts zurücksetzen ── */
+function resetStepChecklist(id){
+  const card = document.getElementById('scl-' + id);
+  if(!card) return;
+  card.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.checked = false;
+    cb.closest('li').classList.remove('done');
+  });
+}
+
+/* ── Schritt-Inhalt in Zwei-Ebenen-Struktur einwickeln ── */
+function wrapWithChecklist(step, content){
+  const items = CHECKLISTS[step.id];
+  if(!items) return content;
+
+  // Detailsektion-Sichtbarkeit aus localStorage laden
+  let detailsOpen = true;
+  try{
+    const saved = localStorage.getItem('jc2e_det_' + step.id);
+    if(saved !== null) detailsOpen = (saved === '1');
+  }catch(e){}
+
+  const checklistHtml = `
+<div class="step-checklist-card" id="scl-${step.id}">
+  <div class="scl-header">
+    <span class="scl-phase">${step.phase}</span>
+    <span class="scl-dot">·</span>
+    <span class="scl-title-txt">${step.title}</span>
+  </div>
+  <div class="scl-divider"></div>
+  <div class="scl-label">✔ Checkliste – Was tue ich jetzt?</div>
+  <ul class="step-cl">
+    ${items.map(item => `<li><input type="checkbox" onchange="this.closest('li').classList.toggle('done',this.checked)"> <span>${item}</span></li>`).join('')}
+  </ul>
+  <button class="scl-reset" onclick="resetStepChecklist('${step.id}')">✕ Zurücksetzen</button>
+</div>`;
+
+  const toggleBtn = `
+<button class="details-toggle${detailsOpen ? ' open' : ''}" id="dtbtn-${step.id}" onclick="toggleDetailsSection('${step.id}')">
+  <span class="dt-txt">${detailsOpen ? '▲ Detailregeln ausblenden' : '▼ Detailregeln & Sonderfälle anzeigen'}</span>
+  <span class="dt-ic">▼</span>
+</button>`;
+
+  const detailsSection = `<div class="details-section${detailsOpen ? '' : ' hidden'}" id="details-${step.id}">${content}</div>`;
+
+  return checklistHtml + toggleBtn + detailsSection;
+}
+
+
 function getSteps(){
   const r1 = $('tog-r1').checked;
   const dr = $('tog-dr').checked;
@@ -1064,12 +1275,6 @@ function s_ph1_attrition(){return `
 <div class="step-badge"><span class="step-num">Phase I</span><span class="step-phase">Londoner Season</span></div>
 <div class="step-title">Personalabbau</div>
 <div class="card">
-${qsum([
-  pflicht()+' Für jedes besetzte Amt <strong>1W6</strong> werfen',
-  'Ermattungs-Marker auf Ämterkarte: je +1 auf Wurf',
-  '<strong>1–2:</strong> Nichts &nbsp;<strong>3–4:</strong> +1 Ermattung &nbsp;<strong>5+:</strong> Ruhestand',
-  bedingt('VORSITZ')+' Vorsitzender: Wurf immer +1!',
-])}
 ${bw('<strong>Kein Erfolgstest!</strong> Dies ist ein einfacher W6-Wurf – kein Würfelpool-Kauf. Alle Spieler würfeln <em>gleichzeitig</em> für jedes besetzte Amt.')}
 <p>Wirf für jedes besetzte Amt genau <strong>einen W6</strong>. Ermattungs-Marker auf der Ämterkarte addieren +1 auf das Ergebnis:</p>
 ${dt([
@@ -1084,12 +1289,6 @@ function s_ph1_retire(){return `
 <div class="step-badge"><span class="step-num">Phase I</span><span class="step-phase">Londoner Season</span></div>
 <div class="step-title">Ruhestand</div>
 <div class="card">
-${qsum([
-  pflicht()+' Vom Vorsitzenden ausgehend im Uhrzeigersinn',
-  pflicht()+' Nur wer Ruheständler hat, schickt jemanden in Rente',
-  pflicht()+' Belohnung wählen → Kosten zahlen → SP eintragen',
-  'Geld noch NICHT in die Bank (Reihenfolge Prestige!)',
-])}
 <h3>Reihenfolge</h3>
 <ul>
   <li>Beginnend mit dem <strong>(ehemaligen) Vorsitzenden</strong>, dann im Uhrzeigersinn.</li>
@@ -1141,22 +1340,16 @@ function s_ph2_family(){return `
 <div class="step-badge"><span class="step-num">Phase II</span><span class="step-phase">Familie</span></div>
 <div class="step-title">Familienaktionen</div>
 <div class="card">
-${qsum([
-  pflicht()+' Vom Vorsitzenden ausgehend im Uhrzeigersinn',
-  pflicht()+' Jede Familie wählt 1 Aktion (ggf. 2× bei Chancen-Marker)',
-  optional()+' Schreiber · Offizier · Werft (£2) · Luxus (£4, +2SP) · Betrieb (£5) · Anteil',
-  bedingt('CHANCEN')+' Gleiche Aktion wie letzte Runde → 2× ausführbar',
-])}
 ${bi('<strong>Chancen-Marker (Glasstein):</strong> Jede Familie legt ihren Marker auf die gewählte Aktion. Liegt er dort <em>bereits</em> (gleiche Aktion wie letzte Runde), darf sie <strong>2× ausgeführt werden</strong> – die Kosten fallen dabei für <em>beide</em> Ausführungen voll an! Erst ab Runde 2 möglich.')}
 ${bi('<strong>Extra-Aktionen durch Gesetze:</strong> Manche Gesetze gewähren eine Extra-Aktion. Diese darf <em>nicht</em> durch den Chancen-Marker verdoppelt werden. Es gilt immer nur die zuletzt ausgelegte Gesetzeskarte.')}
 <p>Beginnend mit dem Vorsitzenden im Uhrzeigersinn: <strong>1 Familienaktion</strong> ausführen (bei doppeltem Marker: 2×).</p>
 <h3>Die 6 Aktionen</h3>
-${acc('fam-w','✍ Schreiber anheuern',`<p>1 Familienmitglied auf Schreiberposten einer Präsidentschaft. ${bi('<strong>Sonderregel:</strong> Bei 4+ freien Ämtern: kostenlos 1 weiterer Schreiber möglich (max. 3 Schreiber pro Zug).')}</p>`)}
-${acc('fam-o','🎖 Offizier rekrutieren',`<p>1 Familienmitglied in das Offiziersanwärter-Feld über „Militärische Belange". Wird in Phase IV.4 zugewiesen.</p>`)}
-${acc('fam-y','⚓ Werft kaufen – £2',`<p><strong>£2 zahlen</strong> → Werftkarte nehmen. Schiff wird <em>nicht</em> ausgerüstet. Jedes ausgerüstete Schiff bringt £1/Runde. Im Parlament: 1 Stimme pro Werft.</p>`)}
-${acc('fam-l','💎 Luxusgut kaufen – £4 · +2SP',`<p><strong>£4 zahlen</strong> → Luxusgut-Karte nehmen. Sofort <strong>+2 SP</strong>. ${bw('Fenstersteuer beachten!')}</p>`)}
-${acc('fam-ws','🏭 Betrieb kaufen – £5',`<p><strong>£5 zahlen</strong> → Betriebskarte nehmen. Im Parlament: <strong>2 Stimmen</strong>. Scheitert die Kompanie: 1 SP wert. Im Deregulierungsspiel kann er in eine Firma umgewandelt werden.</p>`)}
-${acc('fam-sh','📈 Kompanie-Anteile erlangen',`<p>Familienmitglied auf ein freies Feld der Börsenleiste setzen. Preis des Feldes zahlen. ${bw('<strong>Achtung:</strong> Scheitert die Kompanie, bedeutet jeder Anteil –1 SP!')}</p>`)}
+${acc('fam-w','Schreiber anheuern',`<p>1 Familienmitglied auf Schreiberposten einer Präsidentschaft. ${bi('<strong>Sonderregel:</strong> Bei 4+ freien Ämtern: kostenlos 1 weiterer Schreiber möglich (max. 3 Schreiber pro Zug).')}</p>`)}
+${acc('fam-o','Offizier rekrutieren',`<p>1 Familienmitglied in das Offiziersanwärter-Feld über „Militärische Belange". Wird in Phase IV.4 zugewiesen.</p>`)}
+${acc('fam-y','Werft kaufen',`<p><strong>£2 zahlen</strong> → Werftkarte nehmen. Schiff wird <em>nicht</em> ausgerüstet. Jedes ausgerüstete Schiff bringt £1/Runde. Im Parlament: 1 Stimme pro Werft.</p>`)}
+${acc('fam-l','Luxusgut kaufen',`<p><strong>£4 zahlen</strong> → Luxusgut-Karte nehmen. Sofort <strong>+2 SP</strong>. ${bw('Fenstersteuer beachten!')}</p>`)}
+${acc('fam-ws','Betrieb kaufen',`<p><strong>£5 zahlen</strong> → Betriebskarte nehmen. Im Parlament: <strong>2 Stimmen</strong>. Scheitert die Kompanie: 1 SP wert. Im Deregulierungsspiel kann er in eine Firma umgewandelt werden.</p>`)}
+${acc('fam-sh','Kompanie-Anteile erlangen',`<p>Familienmitglied auf ein freies Feld der Börsenleiste setzen. Preis des Feldes zahlen. ${bw('<strong>Achtung:</strong> Scheitert die Kompanie, bedeutet jeder Anteil –1 SP!')}</p>`)}
 ${bw('<strong>Keine Familienmitglieder mehr übrig?</strong> Wenn ein Mitglied <em>eingesetzt werden muss</em>, aber keines mehr da ist, <strong>muss</strong> eines von einer Belohnung entfernt werden – dabei gehen die dortigen SP sofort verloren.')}
 </div>`;}
 
@@ -1207,25 +1400,19 @@ function s_ph3_hiring(){return `
 <div class="step-badge"><span class="step-num">Phase III</span><span class="step-phase">Ämter besetzen</span></div>
 <div class="step-title">Ämter besetzen</div>
 <div class="card">
-${qsum([
-  pflicht()+' Ämterkarten in aufsteigender Nummerfolge abhandeln',
-  pflicht()+' Alle Ämter MÜSSEN besetzt werden, wenn Kandidaten vorhanden',
-  bedingt('NEPOTISMUS')+' Eigenes Mitglied → Zustimmung aller anderen nötig',
-  '1. Vorsitz (Kollegium) · 2. Direktor/GG (Vorsitzender) · 3. Flottenverw. · 4. Militär · 5. Präsidenten · 6. Gouverneure',
-])}
 ${bw('<strong>Erste Runde:</strong> Diese Phase wird übersprungen!')}
 <p>Ämterkarten im Bereich „freie Ämter" in <strong>aufsteigender Nummerfolge</strong> abhandeln.</p>
 ${bi('<strong>Nepotismus-Regel:</strong> Eigenes Familienmitglied ernennen? Zustimmung aller anderen Familien im Anwärter-Pool nötig. Gilt nicht beim Vorsitz. Nur wenn mehrere Kandidaten vorhanden.')}
 ${bi('<strong>Beförderungen:</strong> Wird ein Mitglied aus einem anderen Amt befördert, wird die alte Ämterkarte getauscht. Ermattungs-Marker übernehmen. Die freigewordene alte Karte sofort in aufsteigender Reihenfolge einordnen und besetzen.')}
 
 <h3>Wer ernennt wen?</h3>
-${acc('hr-chair','⚖ Vorsitz',`<p>Gewählt vom <strong>Kollegium</strong> (Figuren auf Börsenleiste + aktueller Vorsitzender). Benötigt Zustimmung von mehr als der Hälfte aller Kollegiums-Mitglieder.</p>${bw('<strong>Kein Konsens?</strong> Der bisherige Vorsitzende wählt selbst – auch sich selbst. Nepotismus gilt hier nicht.')}${bi('<strong>Kollegium leer?</strong> Ehemaliger Vorsitzender setzt sich selbst ein (oder nimmt eine Figur von einer Belohnung).')}`)}
-${acc('hr-dir','📋 Direktor des Handels / General-Gouverneur',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Alle aktuellen Amtsinhaber außer Vorsitz, Gouverneure und Kommandanten.</p>`)}
-${acc('hr-ship','⚓ Flottenverwalter',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Schreiber aus allen Präsidentschaften.</p>`)}
-${acc('hr-mil','🎖 Militärische Belange',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten (in Prioritätsreihenfolge): Kommandant → Offizier → Offiziersanwärter.</p>`)}
-${acc('hr-super','🌏 Superintendent des Handels in China',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Schreiber aus beliebiger Präsidentschaft.</p>`)}
-${acc('hr-pres','👑 Präsidenten',`<p>Vom <strong>Direktor/GG</strong> ernannt. Kandidaten: Schreiber der jeweiligen Präsidentschaft oder Gouverneure dieser Präsidentschaft.</p>`)}
-${acc('hr-gov','🏛 Gouverneure',`<p>Vom <strong>jeweiligen Präsidenten</strong> ernannt. Kandidaten: Schreiber oder Offiziere <em>in der Region</em>. <strong>Kommandanten sind keine Offiziere und kommen nicht in Frage!</strong></p>`)}
+${acc('hr-chair','Vorsitz',`<p>Gewählt vom <strong>Kollegium</strong> (Figuren auf Börsenleiste + aktueller Vorsitzender). Benötigt Zustimmung von mehr als der Hälfte aller Kollegiums-Mitglieder.</p>${bw('<strong>Kein Konsens?</strong> Der bisherige Vorsitzende wählt selbst – auch sich selbst. Nepotismus gilt hier nicht.')}${bi('<strong>Kollegium leer?</strong> Ehemaliger Vorsitzender setzt sich selbst ein (oder nimmt eine Figur von einer Belohnung).')}`)}
+${acc('hr-dir','Direktor des Handels / General-Gouverneur',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Alle aktuellen Amtsinhaber außer Vorsitz, Gouverneure und Kommandanten.</p>`)}
+${acc('hr-ship','Flottenverwalter',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Schreiber aus allen Präsidentschaften.</p>`)}
+${acc('hr-mil','Militärische Belange',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten (in Prioritätsreihenfolge): Kommandant → Offizier → Offiziersanwärter.</p>`)}
+${acc('hr-super','Superintendent des Handels in China',`<p>Vom <strong>Vorsitzenden</strong> ernannt. Kandidaten: Schreiber aus beliebiger Präsidentschaft.</p>`)}
+${acc('hr-pres','Präsidenten',`<p>Vom <strong>Direktor/GG</strong> ernannt. Kandidaten: Schreiber der jeweiligen Präsidentschaft oder Gouverneure dieser Präsidentschaft.</p>`)}
+${acc('hr-gov','Gouverneure',`<p>Vom <strong>jeweiligen Präsidenten</strong> ernannt. Kandidaten: Schreiber oder Offiziere <em>in der Region</em>. <strong>Kommandanten sind keine Offiziere und kommen nicht in Frage!</strong></p>`)}
 ${bw('<strong>Pflicht:</strong> Alle Ämter müssen besetzt werden, wenn Kandidaten vorhanden. Ein vakantes Amt absichtlich leer zu lassen ist nicht erlaubt.')}
 </div>`;}
 
@@ -1235,13 +1422,7 @@ ${bw('<strong>Pflicht:</strong> Alle Ämter müssen besetzt werden, wenn Kandida
 function s_ph4_chairman(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 1</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Vorsitz</div>
-${ph4Road()}
 <div class="card">
-${qsum([
-  optional()+' Schulden erhöhen: bis zu 3× (je +1 Schuld → +£5 Kompanie)',
-  bedingt('MEHR ALS 3×')+' Mehrheit Kollegium muss zustimmen',
-  pflicht()+' Gesamtes Kompanie-Vermögen auf Amtsschatullen verteilen',
-])}
 ${bi('Ämter von <strong>links nach rechts</strong> abhandeln. Ämter ohne Inhaber überspringen. Jede Amtsaktivierung ist <em>optional</em>. Privates Familiengeld darf nicht für Amtszwecke verwendet werden.')}
 <h3>Schritt 1: Schulden erhöhen (optional)</h3>
 <p>Der Vorsitzende <em>kann</em> die Schulden der Kompanie erhöhen – bis zu <strong>3×</strong>. Jeder Schritt:</p>
@@ -1266,13 +1447,7 @@ function s_ph4_director(gg){
 if(!gg) return `
 <div class="step-badge"><span class="step-num">Phase IV · 2</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Direktor des Handels</div>
-${ph4Road()}
 <div class="card">
-${qsum([
-  optional()+' Sondergesandter: £1 = 1 Würfel. Erfolg → Auftrag öffnen ODER China eröffnen',
-  optional()+' Sondergesandter beliebig oft wiederholen',
-  pflicht()+' Danach: bis zu 2 Bewegungen (Schreiber/Schiff zwischen Präsidentschaften)',
-])}
 <h3>Aktion A: Sondergesandter (beliebig oft!)</h3>
 <p>Erfolgstest (Würfelpool): £1 = 1 Würfel, kein Abzug. Darf mehrfach hintereinander ausgeführt werden.</p>
 <p><strong>Bei Erfolg – wähle eine Option:</strong></p>
@@ -1285,14 +1460,7 @@ ${bi('<strong>Mehrere Erfolge pro Aktion?</strong> Nein – pro Sondergesandter-
 return `
 <div class="step-badge"><span class="step-num">Phase IV · 2</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">General-Gouverneur <span class="badge bg2">GG</span></div>
-${ph4Road()}
 <div class="card">
-${qsum([
-  pflicht()+' Sofort: +£3 ins Kompanie-Vermögen pro kontrollierter Region',
-  optional()+' Regieren: £1 = 1 Würfel. Bei Erfolg: £1/Region + 1 Option/Region (Steuer/Regiment/Schiff)',
-  bedingt('MISSERFOLG')+' 1 Unruhe in JEDER kontrollierten Region',
-  bedingt('JEDE 6')+' +1 Unruhe in jeder kontrollierten Region',
-])}
 ${bg('<strong>Soforteffekt beim Inkrafttreten des Gesetzes:</strong><ul><li>Alle Gouverneure werden sofort <strong>zu Ruheständlern</strong> (ins Ruheständler-Feld – nicht zurück in den Familienvorrat). Sie können in der nächsten Londoner Season in Rente gehen.</li><li>Alle Gouverneurs-Plättchen vom Spielplan entfernen.</li><li>Alle halbfertigen Kompanie-Schiffe entfernen.</li><li>Direktor-Karte durch GG-Karte ersetzen. Ermattungs-Marker übernehmen.</li><li><strong>Ab sofort: Keine neuen Gouverneure mehr</strong> – auch wenn weitere Regionen übernommen werden.</li></ul>')}
 <h3>Automatischer Einnahmenbonus</h3>
 <p>Zu Beginn dieser Amtsaktivierung (immer, egal ob Regieren versucht wird):</p>
@@ -1308,14 +1476,7 @@ ${bw('<strong>Bei Misserfolg:</strong> 1 Unruhe-Marker in <em>jeder</em> kontrol
 function s_ph4_shipping(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 3</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Flottenverwalter</div>
-${ph4Road()}
 <div class="card">
-${qsum([
-  pflicht()+' Geld ausgeben bis max. £2 in der Schatulle übrig',
-  optional()+' Charterschiff mieten (schwarz): £2 → temporär',
-  optional()+' Privates Schiff ausrüsten (blau): £3 → Werft nach See',
-  bedingt('KEIN BLAUES SCHIFF')+' Kompanie-Schiff kaufen (rot): £5',
-])}
 ${bw('<strong>Pflicht:</strong> Es muss so viel Geld ausgegeben werden, bis maximal <strong>£2</strong> in der Schatulle übrig bleiben!')}
 <p>Drei Optionen (beliebig kombinierbar, solange Mittel vorhanden):</p>
 <h3>Option 1: Charterschiff mieten (schwarz) – £2 <span class="badge bo">ERRATA</span></h3>
@@ -1331,14 +1492,7 @@ ${bi('Alle Seeregionen inkl. China-Schatulle sind zulässige Ziele, wenn der Sup
 function s_ph4_mil(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 4</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Militärische Belange</div>
-${ph4Road()}
 <div class="card">
-${qsum([
-  optional()+' Bis zu 2 Bewegungen: Offizier/Regiment zwischen Armeen',
-  pflicht()+' Alle Offiziersanwärter einer Armee zuweisen',
-  pflicht()+' Für jede Armee: Neuen Kommandanten ernennen falls nötig',
-  bedingt('GLEICHSTAND')+' Amtsinhaber Mil. Belange entscheidet',
-])}
 <h3>Schritt 1: Bewegungen (optional)</h3>
 <p>Bis zu <strong>2 Bewegungen</strong> zwischen Armeen: Jeweils 1 Offizier oder 1 Regiment von einer Armee in eine andere. Bewegte Figuren bleiben verfügbar (erschöpft nicht).</p>
 <h3>Schritt 2: Offiziersanwärter zuweisen (Pflicht)</h3>
@@ -1356,14 +1510,7 @@ ${bi('Kommandanten sind keine Ämter – die Nepotismus-Regel gilt hier nicht.')
 function s_ph4_pres(name, sea){return `
 <div class="step-badge"><span class="step-num">Phase IV · 5</span><span class="step-phase">Präsidentschaft</span></div>
 <div class="step-title">${name}</div>
-${ph4Road()}
 <div class="card">
-${qsum([
-  pflicht()+` Reihenfolge: Präsident legt fest (Handel vor/nach jedem Amt)`,
-  `👤 Präsident: Handel treiben – 1× erfolgreich/Runde, £1/Würfel`,
-  `⚔ Kommandant: Einsatz – Offiziere/Regimenter erschöpfen, Beute, Region übernehmen`,
-  bedingt('AKTIV')+` Gouverneur(e): Verwalten – absteigender Würfelpool`,
-])}
 ${bi(`<strong>Vollständig abhandeln, dann zur nächsten.</strong> Reihenfolge: Bombay → Madras → Bengalen.<br>Seeregion von ${name}: <strong>${sea}</strong>.`)}
 ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter fest, kann aber selbst weder handeln noch lokale Allianzen genehmigen.')}
 
@@ -1376,20 +1523,25 @@ ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter f
     <div class="pres-cb-hd" onclick="togglePresBlock('president')">
       <div class="pres-cb-num">I</div>
       <div class="pres-cb-info">
-        <div class="pres-cb-title">Präsident · Handel treiben</div>
-        <div class="pres-cb-hint">1× erfolgreich/Runde · £1 pro Würfel</div>
+        <div class="pres-cb-title">👤 Präsident – Handel treiben</div>
+        <div class="pres-cb-hint">1× erfolgreich pro Runde · Mehrere Versuche erlaubt</div>
       </div>
-      <button class="pres-cb-done" id="pslot-president" onclick="event.stopPropagation();tPresSlot('president')">○</button>
-      <div class="pres-cb-arrow">›</div>
+      <button class="pres-cb-done" id="pslot-president" onclick="event.stopPropagation();tPresSlot('president')" title="Erledigt">○</button>
+      <span class="pres-cb-arrow">▶</span>
     </div>
     <div class="pres-cb-body" id="pbbody-president" style="display:none">
       <h4>Aktion: Handel treiben</h4>
-      <p>Erfolgstest (Würfelpool): <strong>£1 = 1 Würfel</strong>, kein Abzug. Darf nur <strong>1× erfolgreich</strong> pro Runde ausgeführt werden.</p>
-      ${bg('<strong>Bei Erfolg:</strong><ul><li>Kompanie-Vermögen: +£1 pro Erfolgs-Würfel.</li><li>Präsident persönlich: +£1 pro Erfolgs-Würfel.</li></ul>')}
-      ${bw('Schlägt der Test fehl, darf er (zu höheren Kosten) wiederholt werden – aber nur 1 Erfolg pro Runde zählt!')}
-      <h4>Reihenfolge</h4>
-      <p><em>Handel treiben</em> kann <strong>vor oder nach jedem anderen Amt</strong> dieser Präsidentschaft ausgeführt werden – niemals mitten in einer laufenden Amtsaktion.</p>
-      ${bi('Seeregion dieser Präsidentschaft: <strong>${sea}</strong>. Schiffe dort erhöhen den Handelswürfelpool nicht – der Präsident kauft seinen eigenen Pool.')}
+      <p>Nur <strong>1× pro Runde erfolgreich</strong>. Mehrere Versuche erlaubt, solange Geld vorhanden und kein katastrophaler Misserfolg eintrat.</p>
+      <p><strong>Schritt 1 – Regionen benennen:</strong></p>
+      <ul>
+        <li>Pflicht: Eigene <strong>Heimatregion</strong> einschließen.</li>
+        <li>Optional: weitere Regionen der eigenen Präsidentschaft und/oder angrenzende Regionen.</li>
+        <li><em>Niemals</em> die Heimatregion einer anderen Präsidentschaft!</li>
+        <li>Regionen ohne freien Weg (geschlossene Aufträge) dürfen nicht benannt werden.</li>
+      </ul>
+      <p><strong>Schritt 2 – Erfolgstest:</strong> £1 = 1 Würfel. –1 Würfel pro benannter Region außerhalb der Heimatregion.</p>
+      ${bg('<strong>Bei Erfolg:</strong><ul><li>Pro Schiff in der Seeregion: 1 offenen Auftrag in benannter Region mit Schreiber belegen. Keine Schreiber mehr → Erfüllt-Marker setzen.</li><li>Ersten Schreiber immer auf den <strong>Heimathafen</strong> (dickrandiger Auftrag). Danach: angrenzend an bereits belegten Auftrag.</li><li>Kompanie-Vermögen: +£ laut Auftragswert pro erfülltem Auftrag.</li><li>Präsident persönlich: +£1 pro erfülltem Auftrag.</li><li>Jede Familie: +£1 pro eigenem Schreiber auf einem erfüllten Auftrag.</li></ul>')}
+      ${bi('<strong>Schreiber-Teiler:</strong> Wird ein Schreiber angrenzend zu einem Schreiber einer anderen Präsidentschaft platziert, sofort Präsidentschafts-Teiler auf die Verbindung legen (relevant für Phase IX).')}
     </div>
   </div>
 
@@ -1397,24 +1549,28 @@ ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter f
     <div class="pres-cb-hd" onclick="togglePresBlock('commander')">
       <div class="pres-cb-num">II</div>
       <div class="pres-cb-info">
-        <div class="pres-cb-title">Kommandant · Einsatz</div>
-        <div class="pres-cb-hint">Offiziere/Regimenter erschöpfen · Beute · Region übernehmen</div>
+        <div class="pres-cb-title">⚔ Kommandant – Einsatz</div>
+        <div class="pres-cb-hint">Beliebig oft · Beute · Regionen übernehmen</div>
       </div>
-      <button class="pres-cb-done" id="pslot-commander" onclick="event.stopPropagation();tPresSlot('commander')">○</button>
-      <div class="pres-cb-arrow">›</div>
+      <button class="pres-cb-done" id="pslot-commander" onclick="event.stopPropagation();tPresSlot('commander')" title="Erledigt">○</button>
+      <span class="pres-cb-arrow">▶</span>
     </div>
     <div class="pres-cb-body" id="pbbody-commander" style="display:none">
-      <h4>Voraussetzung</h4>
-      <p>Mind. <strong>1 Offizier oder 1 Regiment</strong> muss in der Armee der Präsidentschaft verfügbar (nicht erschöpft) sein.</p>
-      <h4>Ablauf</h4>
-      <ol>
-        <li><strong>Ziel wählen:</strong> Eine erschlossene Region in der Seeregion <strong>${sea}</strong>.</li>
-        <li><strong>Würfelpool:</strong> 1 Würfel je eingesetztem Offizier oder Regiment (diese werden erschöpft).</li>
-        <li><strong>Erfolgstest:</strong> Benötigte Erfolge = Stärke der Zielregion.</li>
-      </ol>
-      ${bg('<strong>Bei Erfolg:</strong><ul><li><strong>Beute:</strong> Kompanie-Vermögen +£ laut Regionskarte.</li><li><strong>Region übernehmen:</strong> Kompanie-Plättchen setzen. Gouverneur ernennen (falls kein GG-Gesetz aktiv).</li><li>Kommandant persönlich: Beutewürfel-Bonus (laut Regionskarte).</li></ul>')}
-      ${bw('<strong>Bei Misserfolg:</strong> Verluste erleiden – 1 Offizier oder Regiment nach Wahl des Kommandanten entfernen. Kein weiterer Versuch mit dieser Armee in dieser Runde.')}
-      ${bi('Erschöpfte Figuren werden in Phase IX (Unterhalt & Auffrischung) wieder aufgefrischt.')}
+      <h4>Vor dem Einsatz: Lokale Allianzen (optional)</h4>
+      <p>Kommandant kann Geld aus der Präsidentenschatulle anfordern (Zustimmung des Präsidenten nötig), um lokale Allianzen in der eigenen Armee zu kaufen. Kein Präsident vorhanden = kein Genehmigungsbedarf.</p>
+      ${bi('<strong>Lokale Allianzen:</strong> Für Einsatz <em>oder</em> Verteidigung in Phase VII. Stärke unteilbar – komplett für einen einzigen Zweck. Jedes Stück nur 1× pro Runde.')}
+      <h4>Aktion: Einsatz (beliebig oft, solange Mittel und Einheiten vorhanden)</h4>
+      <p><strong>Schritt 1 – Zielregion wählen:</strong></p>
+      <ul>
+        <li>Erlaubt: Heimatregion der Präsidentschaft, assoziierte Regionen, angrenzende Regionen.</li>
+        <li><em>Nicht erlaubt:</em> Heimatregion einer anderen Präsidentschaft oder eine Kompanie-Region, die einer anderen Präsidentschaft zugeordnet ist. <span class="badge bo" style="font-size:.6rem">ERRATA</span></li>
+        <li>Kompanie-Regionen: nur bei mind. 1 geschlossenem Auftrag <em>oder</em> 1 Unruhe-Marker.</li>
+      </ul>
+      <p><strong>Schritt 2 – Erfolgstest:</strong> 1 Würfel pro erschöpftem Offizier oder Regiment. Lokale Allianzen: +Stärke laut Aufdruck. <strong>Abzug:</strong> –1 Würfel pro Turmstufe der Zielregion (bei Reich: Summe <em>aller</em> Turmstufen im Reich).</p>
+      <p style="font-size:.87rem;color:var(--ink3);margin-top:0">Kompanie-Regionen haben Stärke 0 – kein Abzug.</p>
+      ${bg('<strong>Bei Erfolg – diese 5 Schritte:</strong><ol><li><strong>Beute bestimmen:</strong> +£4 pro Turmstufe der Zielregion + Beute-Modifikator (falls Token offen: Wert auf Token). <em>Beute-Minimum:</em> Ist der ermittelte Betrag kleiner als (überlebende Offiziere + 1), wird er aus der Bank auf dieses Minimum aufgestockt.</li><li><strong>Beute verteilen</strong> (Runden, bis Geld aufgebraucht):<ul><li>Runde 1+: Kommandant erhält £1 (Kommandanten-Anteil) + £1 pro eigenem überlebenden Offizier. Dann im Uhrzeigersinn: jeder andere Spieler £1 pro eigenem überlebenden Offizier.</li><li>Dann: je £1 an Bank pro Regiment und lokale Allianz (unabhängig von Stärke).</li><li>Ist danach noch Geld übrig? → Erneut von vorne (Kommandant → im Uhrzeigersinn).</li></ul></li><li><strong>Trophäen nehmen:</strong> Kommandant erhält 1 Trophäe pro Turmstufe der Zielregion. Dann Turm und Kuppel entfernen. War die Region eine Hauptstadt? → Alle zugehörigen Fahnen entfernen.</li><li><strong>Ordnung herstellen:</strong> Alle Aufträge in der Region öffnen. Alle Unruhe-Marker entfernen.</li><li><strong>Gouverneurschaft einrichten</strong> (nur wenn Region noch nicht Kompanie-kontrolliert):<ul><li>Kontroll-Marker des Regions-Tokens in das Feld über dem Präsidentenfeld (Regionssymbol oben).</li><li>Gouverneurs-Plättchen in die Region legen.</li><li>Passende Gouverneurs-Ämterkarte in die freien Ämter legen.</li><li><em>Elefant-Sonderregel:</em> War der Elefant in der übernommenen Region und zeigte auf eine andere? → Elefanten in die Mitte der Region setzen (zeigt nun bevorstehende Rebellion).</li></ul></li></ol>')}
+      ${bw('<strong>Offizier-Verluste (immer nach dem Einsatz):</strong> Für jeden erschöpften Offizier 1W6 – bei einer 6: zurück in Familienvorrat. Regimenter niemals betroffen.')}
+      ${bw('<strong>Katastrophaler Misserfolg (5–6):</strong> Kommandant gibt Hälfte Trophäen (aufrunden) ab → zurück in Familienvorrat.')}
     </div>
   </div>
 
@@ -1422,26 +1578,24 @@ ${bw('Kein Präsident? Der Vorsitzende legt die Reihenfolge der anderen Ämter f
     <div class="pres-cb-hd" onclick="togglePresBlock('governor')">
       <div class="pres-cb-num">III</div>
       <div class="pres-cb-info">
-        <div class="pres-cb-title">Gouverneur(e) · Verwalten</div>
-        <div class="pres-cb-hint">Nur aktiv · Absteigender Würfelpool</div>
+        <div class="pres-cb-title">🏛 Gouverneur(e) – Verwalten</div>
+        <div class="pres-cb-hint">Verwalten · Steuern · Regiment · Schiff</div>
       </div>
-      <button class="pres-cb-done" id="pslot-governor" onclick="event.stopPropagation();tPresSlot('governor')">○</button>
-      <div class="pres-cb-arrow">›</div>
+      <button class="pres-cb-done" id="pslot-governor" onclick="event.stopPropagation();tPresSlot('governor')" title="Erledigt">○</button>
+      <span class="pres-cb-arrow">▶</span>
     </div>
     <div class="pres-cb-body" id="pbbody-governor" style="display:none">
-      <h4>Wer darf verwalten?</h4>
-      <p>Nur <strong>aktive Gouverneure</strong> (Gouverneurs-Plättchen in einer kontrollierten Region dieser Präsidentschaft). Kein Gouverneur = dieser Schritt entfällt.</p>
-      <h4>Absteigender Würfelpool</h4>
-      <p>Jeder Gouverneur verwaltet separat. Würfelanzahl = Stärkewert der verwalteten Region <em>minus</em> Unruhe-Marker dort.</p>
-      ${bg('<strong>Bei Erfolg:</strong><ul><li>Kompanie-Vermögen: +£2 pro verwalteter Region.</li><li>Gouverneur persönlich: +£1 pro verwalteter Region.</li><li>Optional: 1 Unruhe-Marker aus einer verwalteten Region entfernen.</li></ul>')}
-      ${bw('<strong>Bei Misserfolg:</strong> 1 Unruhe-Marker in jede vom Gouverneur verwaltete Region setzen.')}
-      ${bi('Mehrere Gouverneure in einer Präsidentschaft: Reihenfolge legt der Präsident fest. Jeder Gouverneur würfelt separat.')}
+      <h4>Aktion: Verwalten (wiederholbar, solange Würfel vorhanden)</h4>
+      <p><strong>Ausgangswürfel:</strong> Anzahl laut Ämterkarte. Nach jeder Verwaltungsrunde – Erfolg oder Misserfolg – sinkt der Würfelvorrat um 1. Gouverneur darf jederzeit aufhören.</p>
+      ${bg('<strong>Bei Erfolg:</strong> £1 erhalten (+ £1 extra, wenn der <em>vorherige</em> Wurf ein Misserfolg war). Dann eine Option wählen:<ul><li><strong>Steuern:</strong> +£2 ins Kompanie-Vermögen <em>oder</em> in Präsidentenschatulle. Ab der 2. Steuer in dieser Region in dieser Runde: +1 Unruhe!</li><li><strong>Regiment ausheben:</strong> 1 Regiment in die assoziierte Armee. Regimenter: wie Offiziere im Kampf, Beute → Bank, nicht durch Verlust-Wurf entfernt.</li><li><strong>Kompanie-Schiff bauen (2 Schritte):</strong> 1. Erfolg: Schiff in Region ablegen. 2. Erfolg (spätere Aktion): Schiff → assoziierte Seeregion.</li></ul>')}
+      ${bw('<strong>Bei Misserfolg:</strong> 1 Unruhe in der Region. Würfelvorrat –1. Nochmaliger Versuch möglich.')}
+      ${bw('<strong>Katastrophaler Misserfolg (5–6):</strong> Gouverneur sofort entlassen!')}
     </div>
   </div>
 
-  <button class="ot-reset" onclick="resetPresOrder()">↺ Ämter-Status zurücksetzen</button>
+  <button class="ot-reset" onclick="resetPresOrder()">↺ Zurücksetzen</button>
 </div>
-</div>`;} // Ende s_ph4_pres
+</div>`;}
 
 function s_ph4_china(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 6</span><span class="step-phase">China</span></div>
@@ -1466,11 +1620,6 @@ function s_ph5(){return `
 <div class="step-badge"><span class="step-num">Phase V</span><span class="step-phase">Boni</span></div>
 <div class="step-title">Familien-Boni</div>
 <div class="card">
-${qsum([
-  pflicht()+' £1 pro eigener Werft mit ausgerüstetem Schiff (Schiff muss auf See sein!)',
-  pflicht()+' £1 pro eigenem Betrieb (nur Familienversion)',
-  'Geht direkt ins persönliche Familienvermögen',
-])}
 <p>Jede Familie erhält ihr Passiveinkommen:</p>
 ${bg('<ul><li><strong>£1</strong> pro eigener Werft, auf der ein <em>ausgerüstetes</em> Schiff liegt (Schiff muss auf See sein!).</li><li><strong>£1</strong> pro eigenem Betrieb (nur die Familienversion – investierte Betriebe im Deregulierungsspiel zählen nicht!).</li></ul>')}
 ${bi('Dies ist Familiengeld, nicht Amtsgeld – es geht direkt in das persönliche Familienvermögen.')}
@@ -1483,12 +1632,6 @@ function s_ph6_expenses(){return `
 <div class="step-badge"><span class="step-num">Phase VI · 1</span><span class="step-phase">Einkommen</span></div>
 <div class="step-title">Ausgaben & Notkredite</div>
 <div class="card">
-${qsum([
-  pflicht()+' –£1 je: Schuld · Regiment · Offizier (kein Kdt.) · Schiff',
-  bedingt('NICHT DECKBAR')+' Notkredit: Schuld +1 → +£5, danach Kompanie-Vermögen auf 0',
-  bedingt('1–2 NK')+' Ansehen –1 · '+bedingt('3+ NK')+' Ansehen –2',
-  bedingt('ANSEHEN LINKS')+' Kompanie gescheitert → Schlusswertung!',
-])}
 ${$('tog-dr').checked ? bb('<strong>Firmen zahlen ZUERST</strong> <span class="badge bd">DEREG</span><br>Vor den Kompanie-Ausgaben: Firmen zahlen Ausgaben und Dividenden in Reihenfolge ihres Initiativwerts.<br>Firmen-Ausgaben: £1 pro Firmenschiff + (£1 pro Anteil <em>oder</em> Firmenwert – was höher ist).') : ''}
 
 <h3>Schritt 1: Kompanie-Ausgaben abziehen</h3>
@@ -1516,12 +1659,6 @@ function s_ph6_dividends(){return `
 <div class="step-badge"><span class="step-num">Phase VI · 2</span><span class="step-phase">Einkommen</span></div>
 <div class="step-title">Erwartungen & Dividenden</div>
 <div class="card">
-${qsum([
-  pflicht()+' Markterwartung prüfen: Vermögen < Erwartungswert → Ansehen –1',
-  optional()+' Vorsitzender zahlt Dividende: £1/Anteil aus Kompanie-Vermögen',
-  bedingt('SUMME > ERWARTUNG')+' Ansehen +1 (öffentliche Euphorie)',
-  'Einziger Weg Ansehen zu erhöhen!',
-])}
 <h3>Schritt 3: Markterwartungen prüfen</h3>
 <p>Ist das Kompanie-Vermögen nach den Ausgaben und Notkrediten <strong>niedriger als der Erwartungswert</strong> (unter dem aktuellen Ansehen auf der Ansehens-Leiste)?</p>
 <p>→ <strong>Ansehen –1 Schritt</strong>.</p>
@@ -1553,12 +1690,6 @@ function s_ph8(){return `
 <div class="step-badge"><span class="step-num">Phase VIII</span><span class="step-phase">Parlament</span></div>
 <div class="step-title">Parlamentssitzung</div>
 <div class="card">
-${qsum([
-  pflicht()+' PM wählt Gesetz (max. 3 Karten, Dilemma sofort wählen)',
-  pflicht()+' PM dreht Zeiger der PM-Scheibe',
-  pflicht()+' Abstimmung: PM zuerst (muss dafür stimmen), im Uhrzeigersinn',
-  bedingt('< 0 STIMMEN')+' Abgelehnt: Oppositionsführer wird PM · '+bedingt('≥ 0')+' Beschlossen: PM +1 Macht',
-])}
 <h3>1. Gesetz wählen</h3>
 <p>Der PM zieht nacheinander Karten und liest sie vor. Er wählt eine aus (max. 3 Karten).</p>
 ${bw('Wird eine <strong>Dilemma-Karte</strong> gezogen, stoppt das Ziehen sofort. Diese Karte muss ausgewählt werden!')}
@@ -1612,12 +1743,6 @@ function s_ph9(){return `
 <div class="step-badge"><span class="step-num">Phase IX</span><span class="step-phase">Auffrischung</span></div>
 <div class="step-title">Unterhalt & Auffrischung</div>
 <div class="card">
-${qsum([
-  pflicht()+' Unterhalt zahlen (weiße Zahl je Belohnung). Nicht zahlen → Figur weg + SP ab',
-  bedingt('LETZTE RUNDE')+' Schlusswertung (Phase X)',
-  pflicht()+' Schreiber/Marker/Charterschiffe zurück · Offiziere/Regimenter aktivieren',
-  pflicht()+' Lokale Allianzen erschöpfen · Rundenmarker vorrücken',
-])}
 ${cl([
   '<strong>Unterhalt zahlen:</strong> Pro Familienmitglied auf einer Belohnung: Unterhaltskosten zahlen (weiße Zahl). Kann nicht gezahlt werden? → Figur zurück in Familienvorrat + SP sofort abziehen.',
   'Ist dies die letzte Runde des Szenarios? → Zur Schlusswertung (Phase X).',
@@ -1672,7 +1797,6 @@ function showEndResult(ok){
    SETUP SCREEN
 ════════════════════════════════════════════════ */
 function renderSetup(){
-  _clCounter = 0;
   $('M').innerHTML = `
 <div class="step-badge"><span class="step-num">Setup</span><span class="step-phase">Spielvorbereitung</span></div>
 <div class="step-title">Aufbau & Spielvorbereitung</div>
@@ -1754,7 +1878,6 @@ function startIndia(){
 }
 
 function renderIndia(){
-  _clCounter = 0;
   saveState();
   const v=IV[IS.step];
   if(!v)return;
@@ -1788,6 +1911,7 @@ function goToFinalScoring(){
     $('W').style.display='none';
     const app=$('A');app.style.display='flex';app.style.flexDirection='column';
     $('sbar').classList.remove('hidden');
+    $('profi-toggle-row').classList.remove('hidden');
         $('nav-wrap').classList.remove('hidden');
     cur=n;
     render();
@@ -2256,17 +2380,13 @@ let steps=[], cur=0;
 function buildSteps(){steps=getSteps();}
 
 function render(){
-  _clCounter = 0;
   const s=steps[cur];
   if(!s)return;
-  $('M').innerHTML=s.render();
-  // Checklist-Zustände aus localStorage wiederherstellen
-  document.querySelectorAll('.cl-wrap .cl').forEach(list => {
-    if (list.id) clRestore(list.id, 'jc2e_cl_' + list.id);
-  });
+  $('M').innerHTML=wrapWithChecklist(s, s.render());
   const tot=steps.length, n=cur+1;
   $('nav-lbl').textContent=`${s.phase}  ·  ${n} / ${tot}`;
   $('nav-prog').style.width=`${(n/tot)*100}%`;
+  $('prog').style.width=`${(n/tot)*100}%`;
   $('H-ph').textContent=s.title;
   $('nb-prev').disabled=(cur===0);
   $('nb-next').textContent=(cur===steps.length-1)?'↺ Neustart':'Weiter ▶';
@@ -2313,20 +2433,24 @@ function startMode(mode){
   if(mode==='india'){
     indiaStandalone=true;
     $('sbar').classList.add('hidden');
+    $('profi-toggle-row').classList.add('hidden');
     startIndia();
   } else if(mode==='setup'){
     indiaStandalone=false;
     $('sbar').classList.add('hidden');
+    $('profi-toggle-row').classList.add('hidden');
     renderSetup();
   } else if(mode==='ref'){
     indiaStandalone=false;
     $('sbar').classList.add('hidden');
+    $('profi-toggle-row').classList.add('hidden');
     $('nav-wrap').classList.add('hidden');
     $('M').innerHTML='<div class="card" style="text-align:center;padding:20px"><p>Referenz über den Button oben öffnen.</p></div>';
     setTimeout(()=>openQR(),100);
   } else {
     indiaStandalone=false;
     $('sbar').classList.remove('hidden');
+    $('profi-toggle-row').classList.remove('hidden');
         buildSteps();cur=0;render();
   }
 }
@@ -2338,6 +2462,7 @@ function backToMenu(){
   $('qr-overlay').classList.remove('open');
   $('pj-overlay').classList.remove('open');
   $('sbar').classList.remove('hidden');
+  $('profi-toggle-row').classList.add('hidden');
     $('nav-wrap').classList.remove('hidden');
   indiaStandalone=false;IS={};
   clearState();
@@ -2356,6 +2481,28 @@ function toggleDarkMode(){
       document.body.classList.add('dark');
       window.addEventListener('load',()=>{
         [$('dm-btn'),$('dm-btn-welcome')].forEach(b=>{if(b)b.textContent='☀️';});
+      });
+    }
+  }catch(e){}
+})();
+
+/* ── PROFI-MODUS ── */
+function toggleProfi(){
+  const isProfi = $('tog-profi').checked;
+  document.body.classList.toggle('profi', isProfi);
+  const hint = $('profi-hint');
+  if(hint) hint.textContent = isProfi ? 'Nur Checklisten – Details ausgeblendet' : 'Alle Detailregeln sichtbar';
+  try{ localStorage.setItem('jc2e_profi', isProfi ? '1' : '0'); }catch(e){}
+}
+(function initProfi(){
+  try{
+    if(localStorage.getItem('jc2e_profi')==='1'){
+      document.body.classList.add('profi');
+      window.addEventListener('load',()=>{
+        const tog = $('tog-profi');
+        if(tog) tog.checked = true;
+        const hint = $('profi-hint');
+        if(hint) hint.textContent = 'Nur Checklisten – Details ausgeblendet';
       });
     }
   }catch(e){}
@@ -2381,9 +2528,7 @@ function toggleDarkMode(){
   }, {passive:true});
 
   document.addEventListener('touchend', e => {
-    // Bug 2 Fix: style.display ist immer '' (kommt aus CSS, nicht Inline-Style).
-    // Korrekte Prüfung: currentAppMode === 'menu' bedeutet Willkommens-Bildschirm.
-    if(currentAppMode === 'menu') return;
+    if(!$('A') || $('A').style.display==='none') return;
     // Block if overlay open
     if($('qr-overlay')?.classList.contains('open')) return;
     if($('pj-overlay')?.classList.contains('open')) return;
@@ -2414,55 +2559,46 @@ function toggleDarkMode(){
 
 /* ── AUTO-RESTORE NACH iOS TAB-RELOAD ── */
 window.addEventListener('load',()=>{
-  // Bug 3 Fix: Kompletter try/catch – bei Fehler Zustand löschen und sauber neu starten.
-  try {
-    if(loadState()){
-      $('W').style.display='none';
-      const app=$('A');app.style.display='flex';app.style.flexDirection='column';
-      const savedMode = JSON.parse(localStorage.getItem(LS_KEY)||'{}').mode || 'full';
-      const showBanner = ()=>{
-        const banner=document.createElement('div');
-        banner.style.cssText='position:fixed;top:60px;left:0;right:0;z-index:500;background:#b8842a;color:#fff;text-align:center;padding:9px 14px;font-size:.82rem;font-family:Georgia,serif;cursor:pointer;';
-        banner.innerHTML='⚡ Sitzung wiederhergestellt – tippe hier zum Schließen';
-        banner.onclick=()=>banner.remove();
-        document.body.appendChild(banner);
-        setTimeout(()=>banner.remove(),5000);
-      };
-      if(Object.keys(IS).length&&IS.step){
-        // Indien-Phase wiederherstellen
-        currentAppMode='india';
-        $('sbar').classList.add('hidden');
-        renderIndia();
-        showBanner();
-      } else if(savedMode==='setup'){
-        currentAppMode='setup';
-        $('sbar').classList.add('hidden');
-        renderSetup();
-        showBanner();
-      } else if(savedMode==='ref'){
-        currentAppMode='ref';
-        $('sbar').classList.add('hidden');
-        $('nav-wrap').classList.add('hidden');
-        $('M').innerHTML='<div class="card" style="text-align:center;padding:20px"><p>Referenz über den Button oben öffnen.</p></div>';
-        setTimeout(()=>openQR(),100);
-        showBanner();
-      } else {
-        // Vollständiger Spielführer wiederherstellen
-        currentAppMode='full';
-        $('sbar').classList.remove('hidden');
-        buildSteps();
-        cur=Math.min(cur,getSteps().length-1);
-        render();
-        showBanner();
-      }
+  if(loadState()){
+    $('W').style.display='none';
+    const app=$('A');app.style.display='flex';app.style.flexDirection='column';
+    const savedMode = JSON.parse(localStorage.getItem(LS_KEY)||'{}').mode || 'full';
+    const showBanner = ()=>{
+      const banner=document.createElement('div');
+      banner.style.cssText='position:fixed;top:60px;left:0;right:0;z-index:500;background:#b8842a;color:#fff;text-align:center;padding:9px 14px;font-size:.82rem;font-family:Georgia,serif;cursor:pointer;';
+      banner.innerHTML='⚡ Sitzung wiederhergestellt – tippe hier zum Schließen';
+      banner.onclick=()=>banner.remove();
+      document.body.appendChild(banner);
+      setTimeout(()=>banner.remove(),5000);
+    };
+    if(Object.keys(IS).length&&IS.step){
+      // Indien-Phase wiederherstellen
+      currentAppMode='india';
+      $('sbar').classList.add('hidden');
+            renderIndia();
+      showBanner();
+    } else if(savedMode==='setup'){
+      currentAppMode='setup';
+      $('sbar').classList.add('hidden');
+      renderSetup();
+      showBanner();
+    } else if(savedMode==='ref'){
+      currentAppMode='ref';
+      $('sbar').classList.add('hidden');
+      $('nav-wrap').classList.add('hidden');
+      $('M').innerHTML='<div class="card" style="text-align:center;padding:20px"><p>Referenz über den Button oben öffnen.</p></div>';
+      setTimeout(()=>openQR(),100);
+      showBanner();
+    } else {
+      // Vollständiger Spielführer wiederherstellen
+      currentAppMode='full';
+      $('sbar').classList.remove('hidden');
+      $('profi-toggle-row').classList.remove('hidden');
+            buildSteps();
+      cur=Math.min(cur,getSteps().length-1);
+      render();
+      showBanner();
     }
-  } catch(e) {
-    // Fehler beim Wiederherstellen: Zustand löschen und Willkommens-Bildschirm sauber anzeigen
-    console.warn('[AutoRestore] Fehler beim Wiederherstellen, starte neu:', e);
-    try { clearState(); } catch(e2) {}
-    currentAppMode = 'menu';
-    $('A').style.display = 'none';
-    $('W').style.display = 'flex';
   }
 });
 </script>
@@ -2471,25 +2607,6 @@ window.addEventListener('load',()=>{
 <script>
 /* ── SERVICE WORKER REGISTRIERUNG ── */
 if ('serviceWorker' in navigator) {
-  // Bug 5 Fix (Teil 1): hadControllerOnLoad VOR dem load-Event erfassen.
-  // navigator.serviceWorker.controller ist beim Skript-Parse-Zeitpunkt bereits bekannt.
-  // Innerhalb von window.addEventListener('load', ...) ist es zu spät –
-  // der Wert kann sich bis dahin verändert haben.
-  const hadControllerOnLoad = !!navigator.serviceWorker.controller;
-
-  // Bug 5 Fix (Teil 2): controllerchange SOFORT registrieren, nicht erst im load-Event.
-  // iOS feuert controllerchange bevor load abgeschlossen ist → der Handler käme sonst zu spät.
-  // Reload NUR wenn beim Seitenaufruf bereits ein Controller aktiv war (= echter Update-Fall).
-  // Beim Erst-Install gibt es keinen vorherigen Controller → hadControllerOnLoad ist false
-  // → kein Reload → App friert nicht ein.
-  let refreshing = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!refreshing && hadControllerOnLoad) {
-      refreshing = true;
-      window.location.reload();
-    }
-  });
-
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js')
       .then(reg => {
@@ -2500,17 +2617,19 @@ if ('serviceWorker' in navigator) {
           const newWorker = reg.installing;
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // Bug 5 Fix (Teil 3): Wartenden SW in window._swWaiting speichern.
-              // navigator.serviceWorker.controller zeigt auf den AKTIVEN (alten) SW.
-              // SKIP_WAITING muss aber an den WARTENDEN (neuen) SW gesendet werden –
-              // sonst landet die Nachricht im Leeren und Updates werden nie angewendet.
-              window._swWaiting = newWorker;
+              // Neuer SW verfügbar – Update-Banner zeigen
               showUpdateBanner();
             }
           });
         });
       })
       .catch(err => console.warn('[PWA] Service Worker Fehler:', err));
+
+    // Reload wenn neuer SW aktiviert wird
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) { refreshing = true; window.location.reload(); }
+    });
   });
 }
 
@@ -2519,10 +2638,7 @@ function showUpdateBanner() {
   const banner = document.createElement('div');
   banner.id = 'sw-update-banner';
   banner.style.cssText = 'position:fixed;bottom:80px;left:0;right:0;z-index:600;background:#1e3a12;color:#d8ecc8;text-align:center;padding:11px 16px;font-size:.85rem;font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 -2px 12px rgba(0,0,0,.3)';
-  // Bug 5 Fix (Teil 4): Button sendet SKIP_WAITING an window._swWaiting (wartender SW),
-  // NICHT an navigator.serviceWorker.controller (aktiver SW). Danach sofort reload,
-  // damit die neue Version geladen wird sobald der SW aktiviert ist.
-  banner.innerHTML = '🔄 App-Update verfügbar – <button onclick="if(window._swWaiting){window._swWaiting.postMessage({type:\'SKIP_WAITING\'});}window.location.reload();" style="background:#2e5a1a;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-size:.82rem">Jetzt aktualisieren</button> <button onclick="this.parentElement.remove()" style="background:transparent;color:#9ab;border:none;padding:5px;cursor:pointer">✕</button>';
+  banner.innerHTML = '🔄 App-Update verfügbar – <button onclick="navigator.serviceWorker.controller&&navigator.serviceWorker.controller.postMessage({type:\'SKIP_WAITING\'})" style="background:#2e5a1a;color:#fff;border:none;padding:5px 12px;border-radius:4px;cursor:pointer;font-size:.82rem">Jetzt aktualisieren</button> <button onclick="this.parentElement.remove()" style="background:transparent;color:#9ab;border:none;padding:5px;cursor:pointer">✕</button>';
   document.body.appendChild(banner);
   setTimeout(() => banner.remove(), 12000);
 }
