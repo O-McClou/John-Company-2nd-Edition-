@@ -4,7 +4,7 @@
    Strategie: Cache First mit Netzwerk-Fallback
 ═══════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'jc2e-v1.2';
+const CACHE_NAME = 'jc2e-v1.3';
 
 // Alle Dateien, die offline verfügbar sein sollen
 const STATIC_ASSETS = [
@@ -26,8 +26,11 @@ self.addEventListener('install', event => {
       })
       .then(() => {
         console.log('[SW] Installation abgeschlossen');
-        // Sofort aktivieren, ohne auf alten SW zu warten
-        return self.skipWaiting();
+        // Bug 1 Fix: skipWaiting() wurde hier entfernt.
+        // Der neue SW wartet jetzt, bis der Nutzer explizit über den
+        // Update-Banner auf "Jetzt aktualisieren" tippt (SKIP_WAITING-Message).
+        // Dadurch wird beim Erst-Start kein controllerchange ausgelöst,
+        // der die iOS-PWA in einen leeren Zustand neu laden würde.
       })
       .catch(err => {
         console.warn('[SW] Cache-Fehler beim Install:', err);
@@ -51,8 +54,11 @@ self.addEventListener('activate', event => {
       })
       .then(() => {
         console.log('[SW] Aktivierung abgeschlossen');
-        // Sofort alle Clients übernehmen
-        return self.clients.claim();
+        // Bug 4 Fix: clients.claim() wurde entfernt.
+        // clients.claim() löst beim Erst-Install sofort ein controllerchange-Event aus,
+        // weil kein vorheriger SW vorhanden ist und der neue SW die Wartephase überspringt.
+        // Dieses controllerchange friert iOS-PWAs ein – selbst ohne skipWaiting().
+        // Der SW übernimmt neue Clients jetzt beim nächsten Seitenaufruf automatisch.
       })
   );
 });
