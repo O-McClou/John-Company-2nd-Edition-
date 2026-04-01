@@ -26,8 +26,9 @@ self.addEventListener('install', event => {
       })
       .then(() => {
         console.log('[SW] Installation abgeschlossen');
-        // Sofort aktivieren, ohne auf alten SW zu warten
-        return self.skipWaiting();
+        // skipWaiting() wird NICHT automatisch aufgerufen –
+        // nur explizit per SKIP_WAITING-Message aus dem Update-Banner.
+        // Verhindert den Endlos-Reload-Loop.
       })
       .catch(err => {
         console.warn('[SW] Cache-Fehler beim Install:', err);

@@ -38,6 +38,7 @@ body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(
 #W{display:flex;flex-direction:column;align-items:center;justify-content:center;
   min-height:100vh;padding:32px 20px 60px;text-align:center;
   background:var(--bg);position:fixed;inset:0;z-index:600;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
   background-image:radial-gradient(ellipse at 15% 5%,rgba(212,168,69,.12),transparent 55%),
   radial-gradient(ellipse at 85% 90%,rgba(184,132,42,.10),transparent 55%)}
 .w-seal{width:82px;height:82px;border-radius:50%;background:linear-gradient(145deg,#5a3808,#b8842a,#7a5818);
@@ -1822,7 +1823,9 @@ if('serviceWorker' in navigator){
         });
       }).catch(e => console.warn('[SW]', e));
     let refreshing = false;
+    const isFirstInstall = !navigator.serviceWorker.controller;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if(isFirstInstall) return; // Erst-Installation: kein Reload
       if(!refreshing){ refreshing=true; window.location.reload(); }
     });
   });
