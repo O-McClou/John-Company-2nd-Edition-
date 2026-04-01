@@ -864,11 +864,10 @@ body.dark .gf-table td{color:var(--ink2)}
         <div class="ref-item">
           <h3>Schlusswertung – Reihenfolge</h3>
           <ol>
-            <li>SP auf der Punkte-Leiste zählen.</li>
-            <li>Kompanie-Anteile: <em>überlebt</em> → SP laut Kollegium-Tabelle. <em>Scheitert</em> → –1 SP/Anteil; +1 SP/Betrieb (nicht-investiert).</li>
-            <li>Macht berechnen: Trophäen (+1), PM (+2), beschlossene Gesetze (+1), Unternehmen/Ehegatten/Erpressungskarten laut Karte.</li>
-            <li>Macht-Prämie: Die 2 Familien mit meister Macht → SP laut Tabelle oben links am Spielplan.</li>
-            <li>Finaler Ruhestand (Kompanie überlebt) oder Kompanie-scheitert-Karte ziehen.</li>
+            <li><strong>[DEREG]</strong> Firmen-Wertung (Punkte per Anteil) + spezieller Ruhestand.</li>
+            <li><strong>Macht-Prämie:</strong> Macht berechnen. Die 2 stärksten Familien → SP laut Tabelle oben links am Spielplan.</li>
+            <li><strong>Kollegium &amp; Betriebe:</strong> Überlebt → SP laut Kollegium-Tabelle. Gescheitert → –1 SP/Anteil; +1 SP/Betrieb (nicht-investiert).</li>
+            <li><strong>Finaler Ruhestand</strong> (Kompanie überlebt) oder <strong>Scheitern-Karte</strong> ziehen.</li>
           </ol>
           <div class="box box-i"><strong>Gleichstand:</strong> Fenster-Symbole → PM-Reihenfolge (im Uhrzeigersinn).</div>
         </div>
@@ -878,8 +877,11 @@ body.dark .gf-table td{color:var(--ink2)}
             <div class="dt-row"><div class="dt-k">Trophäe</div><div class="dt-v">+1 Macht (durch Kommandant-Siege)</div></div>
             <div class="dt-row"><div class="dt-k">PM</div><div class="dt-v">+2 Macht (Premierminister-Scheibe)</div></div>
             <div class="dt-row"><div class="dt-k">Gesetz</div><div class="dt-v">+1 Macht pro beschlossenem Gesetz</div></div>
-            <div class="dt-row"><div class="dt-k">Karten</div><div class="dt-v">Unternehmen, Ehegatten, Erpressung – laut Karte</div></div>
+            <div class="dt-row"><div class="dt-k">Unternehmen</div><div class="dt-v">Macht laut aktuellem Macht-Token auf der Macht-Leiste (0–2)</div></div>
+            <div class="dt-row"><div class="dt-k">Anteile</div><div class="dt-v">Macht laut aktuellem Macht-Token auf der Macht-Leiste (0–2)</div></div>
+            <div class="dt-row"><div class="dt-k">Karten</div><div class="dt-v">Ehegatten, Erpressungskarten – laut Kartenaufdruck</div></div>
           </div>
+          <div class="box box-i"><strong>Macht-Leiste:</strong> Die untersten zwei Felder der Leiste geben 0 Macht. Je höher ein Marker, desto mehr Macht pro Einheit.</div>
         </div>
       </div>
     </div><!-- /panel-ref -->
@@ -1388,7 +1390,7 @@ function s_ph1_attrition(){return `
 <div class="card">
 ${bExcept('<strong>Kein Erfolgstest!</strong> Einfacher W6 – kein Pool. Alle würfeln <em>gleichzeitig</em>.')}
 <p>Wirf für jedes besetzte Amt genau <strong>einen W6</strong>. Ermattungs-Marker +1 auf das Ergebnis:</p>
-${dt([['1 – 2','Nichts passiert.'],['3 – 4','1 Ermattungs-Marker auf Ämterkarte.'],['5+','<strong>Ruhestand:</strong> Familienmitglied → Ruheständler-Feld. Ämterkarte → freie Ämter.']])}
+${dt([['1 – 2','Nichts passiert.'],['3 – 4','1 Ermattungs-Marker auf Ämterkarte.'],['5+','<strong>Ruhestand:</strong> Familienmitglied → Ruheständler-Feld. Ämterkarte → freie Ämter. <strong>Alle Ermattungs-Marker zurück in Vorrat!</strong>']])}
 ${bExcept('<strong>Vorsitzender:</strong> Würfelergebnis immer +1 – zusätzlich zu Ermattungs-Markern!')}
 </div>`;}
 
@@ -1414,7 +1416,7 @@ function s_ph1_prestige(){return `
 <p>Nur Familien mit mind. 1 Ruheständler dieser Phase.</p>
 <h3>Zugreihenfolge</h3>
 <ol><li><strong>Meiste Kosten</strong> für Ruhestand ausgegeben.</li><li>Gleichstand: Meiste <strong>Fenster-Symbole</strong>.</li><li>Noch Gleichstand: Vom PM im Uhrzeigersinn.</li></ol>
-${acc('pr-types','Ehegatten, Unternehmen, Erpressungskarten',`<ul><li><strong>Ehegatten:</strong> SP + dauerhafte Einschränkung. Rabatt nur 1×/Season. Nicht tauschbar.</li><li><strong>Unternehmen:</strong> Fähigkeiten + Stimmen + Macht. Tauschbar.</li><li><strong>Erpressungskarten:</strong> Einmalige Sondereffekte. Verdeckt – darf vor Tausch angesehen werden.</li></ul>`)}
+${acc('pr-types','Ehegatten, Unternehmen, Erpressungskarten',`<ul><li><strong>Ehegatten:</strong> SP + dauerhafte Einschränkung. Rabatt nur 1×/Season. Nicht tauschbar.</li><li><strong>Unternehmen:</strong> Fähigkeiten + Stimmen + Macht. Tauschbar.</li><li><strong>Erpressungskarten:</strong> Einmalige Sondereffekte. Verdeckt – darf vor Tausch angesehen werden. Nach Nutzung: offen im Spielbereich ablegen, <strong>nicht mehr tauschbar</strong>. Zählt am Ende als Machtwert (offen oder verdeckt).</li></ul>`)}
 <h3>Auslage auffrischen</h3>
 <p>Immer auf <strong>3 Karten</strong> auffüllen – auch wenn keine genommen wurde!</p>
 </div>`;}
@@ -1432,7 +1434,7 @@ ${acc('fam-o','Offizier rekrutieren',`<p>1 Familienmitglied in Offiziersanwärte
 ${acc('fam-y','Werft kaufen',`<p><strong>£2</strong> → Werftkarte. £1/Runde wenn ausgerüstet. 1 Parlamentsstimme.</p>`)}
 ${acc('fam-l','Luxusgut kaufen',`<p><strong>£4</strong> → sofort <strong>+2 SP</strong>. ${bw('Fenstersteuer beachten!')}</p>`)}
 ${acc('fam-ws','Betrieb kaufen',`<p><strong>£5</strong> → <strong>2 Parlamentsstimmen</strong>. Bei Scheitern: +1 SP. DEREG: umwandelbar.</p>`)}
-${acc('fam-sh','Anteile erlangen',`<p>Familienmitglied auf freies Feld der Börsenleiste, Preis zahlen. ${bw('Kompanie scheitert → –1 SP/Anteil!')}</p>`)}
+${acc('fam-sh','Anteile erlangen',`<p>Familienmitglied auf freies Feld der <strong>Börsenleiste oberhalb des Kollegiums</strong>. Preis zahlen: laut aufgedrucktem Betrag auf dem Feld (steigt von links £1 bis rechts £6). ${bw('Kompanie scheitert → –1 SP/Anteil!')}</p>`)}
 ${bExcept('<strong>Keine Familienmitglieder mehr?</strong> Eines von Belohnung entfernen – SP gehen sofort verloren.')}
 </div>`;}
 
@@ -1490,7 +1492,7 @@ function s_ph3_hiring(){return `
 ${bExcept('<strong>Erste Runde:</strong> Diese Phase wird übersprungen!')}
 <p>Ämterkarten in <strong>aufsteigender Nummerfolge</strong>.</p>
 ${bRule('<strong>Nepotismus:</strong> Eigenes Mitglied ernennen? Zustimmung aller anderen im Pool. Gilt nicht beim Vorsitz.')}
-${bRule('<strong>Beförderungen:</strong> Alte Ämterkarte sofort einordnen und besetzen. Ermattungs-Marker übernehmen.')}
+${bRule('<strong>Beförderungen:</strong> Alte Ämterkarte sofort (in Nummernreihenfolge) in freie Ämter einordnen und ggf. neu besetzen. <strong>Ermattungs-Marker von der alten auf die neue Ämterkarte übertragen!</strong> <span class="badge bo">ERRATA</span>')}
 <h3>Wer ernennt wen?</h3>
 ${acc('hr-chair','Vorsitz',`<p>Kollegium wählt (Mehrheit). ${bw('Kein Konsens → ehemaliger Vorsitzender wählt selbst.')}</p>`)}
 ${acc('hr-dir','Direktor/GG',`<p>Vorsitzender → aus besetzten Ämtern außer Vorsitz, Gouverneure, Kommandanten.</p>`)}
@@ -1506,10 +1508,11 @@ function s_ph4_chairman(){return `
 <div class="step-badge"><span class="step-num">Phase IV · 1</span><span class="step-phase">Kompanie agiert</span></div>
 <div class="step-title">Vorsitz</div>
 <div class="card">
+${bRule('<strong>⚠ Keine toten Aktionen:</strong> Eine Aktion darf nur durchgeführt werden, wenn sie eine Wirkung haben kann (z.B. kein Handeln ohne Schiff, kein Einsatz ohne Würfel/Offiziere).')}
 ${bRule('Ämter von <strong>links nach rechts</strong>. Privates Geld darf nicht für Amtszwecke verwendet werden.')}
 <h3>Schritt 1: Schulden erhöhen (optional)</h3>
 <p>Bis zu <strong>3× ohne Abstimmung</strong>. Jeder Schritt: Schuldenmarker +1 → Kompanie-Vermögen +<strong>£5</strong>.</p>
-${bRule('<strong>Mehr als 3×?</strong> Zustimmung der Mehrheit aller Kollegiums-Mitglieder nötig.')}
+${bRule('<strong>Mehr als 3×?</strong> Zustimmung der Mehrheit aller Kollegiums-Mitglieder nötig. <strong>Schuldenmarker darf nie über das Ende der Leiste hinaus!</strong> Hinweis: Schulden können auch während der Budgetverteilung noch aufgenommen werden.')}
 <h3>Schritt 2: Vermögen verteilen (Pflicht)</h3>
 <p>Das <strong>gesamte</strong> Kompanie-Vermögen vollständig auf Amtsschatullen verteilen. Nichts bleibt auf der Leiste.</p>
 ${bExcept('<strong>Kein Bestechungsgeld:</strong> Amtsvermögen und Familienvermögen immer strikt getrennt.')}
@@ -1536,7 +1539,7 @@ ${bg('<strong>Soforteffekt bei GG-Einführung:</strong> Alle Gouverneure → Ruh
 ${bg('<strong>+£3 ins Kompanie-Vermögen</strong> für jede kontrollierte Region.')}
 <h3>Aktion: Regieren (1× erfolgreich/Runde)</h3>
 <p>Erfolgstest: £1 = 1 Würfel.</p>
-${bw('Für jede gewürfelte 6: 1 Unruhe in <em>jeder</em> kontrollierten Region!')}
+${bw('Für jede gewürfelte 6 (auch bei Erfolg!): 1 Unruhe in <em>jeder</em> kontrollierten Region!')}
 <p><strong>Bei Erfolg:</strong> £1 pro kontrollierter Region. Dann pro Region:</p>
 ${bg('<ul><li><strong>Steuern:</strong> +£2 → Kompanie oder Schatulle. Dann 1 Unruhe. Jede weitere in anderer Region!</li><li><strong>Regiment ausheben:</strong> 1 Regiment in beliebige Armee.</li><li><strong>Schiff bauen:</strong> 1 Kompanie-Schiff in beliebiger Seeregion.</li></ul>')}
 ${bw('<strong>Bei Misserfolg:</strong> 1 Unruhe in <em>jeder</em> kontrollierten Region!')}
@@ -1589,7 +1592,7 @@ ${bExcept('Kein Präsident? Vorsitzender legt Reihenfolge fest, kann aber selbst
       <p>Nur <strong>1× pro Runde erfolgreich</strong>. Mehrere Versuche erlaubt.</p>
       <ul><li>Pflicht: Eigene <strong>Heimatregion</strong>.</li><li>Optional: weitere Regionen der Präsidentschaft und angrenzende.</li><li>Nie Heimatregion einer anderen Präsidentschaft!</li></ul>
       <p><strong>Test:</strong> £1 = 1 Würfel. –1W pro Fremd-Region.</p>
-      ${bg('<strong>Bei Erfolg:</strong><ul><li>Pro Schiff in Seeregion: 1 offenen Auftrag belegen (Heimathafen zuerst).</li><li>Kompanie: +£ laut Auftragswert.</li><li>Präsident: +£1/Auftrag.</li><li>Familie: +£1/eigenem Schreiber auf erfülltem Auftrag.</li></ul>')}
+      ${bg('<strong>Bei Erfolg:</strong><ul><li>Pro Schiff in Seeregion: 1 offenen Auftrag belegen. <strong>Heimathafen zuerst, dann nur Aufträge angrenzend an bereits belegte!</strong></li><li>Kompanie: +£ laut Auftragswert.</li><li>Präsident: +£1/Auftrag.</li><li>Familie: +£1/eigenem Schreiber auf erfülltem Auftrag.</li></ul>')}
     </div>
   </div>
   <div class="pres-cb" id="pcb-commander">
@@ -1646,7 +1649,8 @@ function s_ph5(){return `
 <div class="step-badge"><span class="step-num">Phase V</span><span class="step-phase">Boni</span></div>
 <div class="step-title">Familien-Boni</div>
 <div class="card">
-${bg('<ul><li><strong>£1</strong> pro Werft mit ausgerüstetem Schiff in einer Seeregion.</li><li><strong>£1</strong> pro eigenem Betrieb (Familienversion – investierte DEREG-Betriebe nicht!).</li></ul>')}
+${bg('<ul><li><strong>£1</strong> pro Werft mit ausgerüstetem Schiff in einer Seeregion.</li><li><strong>£1</strong> pro eigenem Betrieb (nur nicht-investierte Familienbetriebe).</li></ul>')}
+${bi('Investierte DEREG-Betriebe (umgedreht) zählen <strong>nicht</strong> für den Bonus.')}
 ${bi('Geht direkt ins Familienvermögen.')}
 </div>`;}
 
@@ -1674,7 +1678,7 @@ function s_ph6_dividends(){return `
 ${bExcept('Ansehen ganz links = Kompanie gescheitert!')}
 <h3>Schritt 4: Dividenden zahlen (optional)</h3>
 <p>Einziger Weg, Ansehen zu erhöhen! Pro Ausschüttung: <strong>£1/Anteil</strong> (inkl. Vorsitzender).</p>
-${bExcept('Nach Notkrediten: Vermögen auf 0 – keine Dividende möglich!')}
+${bExcept('Das Kompanievermögen wird nach Notkrediten auf <strong>0 gesetzt</strong> bevor Dividenden möglich sind – Dividenden können also nur gezahlt werden, wenn vorher noch Geld übrig ist!')}
 ${bAction('<strong>Öffentliche Euphorie:</strong> Dividende gesamt > Erwartungswert → <strong>Ansehen +1!</strong>')}
 <button class="btn btn-r mt" onclick="goToFinalScoring()">⚠ Kompanie gescheitert → Schlusswertung</button>
 </div>`;}
@@ -1699,7 +1703,7 @@ ${bExcept('<strong>Dilemma-Karte:</strong> Stoppt sofort – muss gewählt werde
 <h3>3. Abstimmung</h3>
 <p>PM markiert <strong>anfängliche Unterstützung</strong>. Dann im Uhrzeigersinn:</p>
 <ul><li><strong>Dafür:</strong> £1 = 1 Stimme, oder Karten erschöpfen.</li><li><strong>Dagegen:</strong> Gleiche Ressourcen → Marker sinkt.</li><li>PM darf nicht dagegen – außer beim Deregulierungsgesetz. <span class="badge bo">ERRATA</span></li></ul>
-${acc('ph8-opp','Opposition & Koalitionen',`<ul><li>Gegen = Opposition. Einmal dagegen, nicht mehr dafür.</li><li><strong>Oppositionsführer:</strong> Meiste Gegenstimmen.</li><li><strong>Koalition:</strong> Inaktive Familie kann Stimmen erhalten (mit Zustimmung).</li></ul>`)}
+${acc('ph8-opp','Opposition & Koalitionen',`<ul><li>Gegen = Opposition. Einmal dagegen, nicht mehr dafür.</li><li><strong>Oppositionsführer:</strong> Meiste Gegenstimmen.</li><li><strong>Koalition:</strong> Spieler können Stimmen im Namen eines anderen Spielers abgeben – dieser muss aber bereits gegen das Gesetz gestimmt haben oder dies commiten. Diese Stimmen zählen zu seinen Gegenstimmen (→ Oppositionsführer).</li></ul>`)}
 <h3>4. Ergebnis</h3>
 <ul><li><strong>Beschlossen (≥ 0):</strong> PM erhält 1 Gesetz-Marker (+1 Macht). Soforteffekte ausführen.</li><li><strong>Abgelehnt (< 0):</strong> Oppositionsführer → neuer PM. Dreht Zeiger 1 Position.</li></ul>
 ${acc('ph8-pol','Folgen der Politik',`${dt([['STEUER','£1/Zielobjekt. Nicht zahlen → zurück.'],['BONUS','£1/Zielobjekt aus Bank.'],['MACHT','Macht-Marker mit nächsthöherem tauschen.']])}`)}
@@ -1760,16 +1764,21 @@ function renderSetup(){
 ${bi('Zuerst Szenario wählen – Schulden, Ansehen, Indien variieren je nach Szenario.')}
 <h3>Szenarien</h3>
 ${acc('sc-1710','🕰 1710 – Die frühe Kompanie',`<div class="pill">📋 Empfohlen zum Lernen</div><p>Keine Schulden. „Königlicher Schutz" liegt aus.</p>${bi('DEREG- und GG-Toggles ausschalten.')}`)}
-${acc('sc-1758','⚔ 1758 – Gefährliche Zeiten',`<div class="pill">📋 Mittlere Komplexität</div><p>Schulden vorhanden, Krieg in Indien.</p>${bw('<strong>Deregulierungsabstimmung:</strong> Bei gestrichelten Feldern (Schulden/Ansehen) zu Beginn jeder Runde möglich.')}`)}
+${acc('sc-1758','⚔ 1758 – Gefährliche Zeiten',`<div class="pill">📋 Mittlere Komplexität</div><p>Schulden vorhanden, Krieg in Indien.</p>${bw('<strong>Deregulierungsabstimmung:</strong> Bei gestrichelten Feldern (Schulden/Ansehen) zu Beginn jeder Runde möglich.')}${bi('<span class="badge bo">ERRATA</span> Bengalen-Kontrolltoken → Bengalen-Präsidentschaft legen.')}`)}
 
-${acc('sc-1813','🏭 1813 – Das Zeitalter der Firmen',`<div class="pill">📋 Erfahrene Spieler</div><p>Deregulierung aktiv. DEREG-Toggle aktivieren!</p>${bw('<strong>Deregulierungsabstimmung:</strong> Bei gestrichelten Feldern (Schulden/Ansehen) zu Beginn jeder Runde möglich.')}`)}
-
+${acc('sc-1813','🏭 1813 – Das Zeitalter der Firmen',`<div class="pill">📋 Erfahrene Spieler</div><p>Deregulierung aktiv. DEREG-Toggle aktivieren!</p>${bw('<strong>Deregulierungsabstimmung:</strong> Bei gestrichelten Feldern (Schulden/Ansehen) zu Beginn jeder Runde möglich.')}${bi('<span class="badge bo">ERRATA</span> Kompanie-Anteile-SP-Token mit Seite <strong>+2/–2 VP</strong> ins Kollegium legen. Bengalen-Kontrolltoken → Bengalen-Präsidentschaft.')}`)}
+${acc('sc-long1710','🕰 Langes 1710 – Die volle Geschichte',`
+<div class="pill">📋 Erfahrene Spieler · bis zu 8 Runden</div>
+<p>Startet identisch wie das 1710-Szenario, aber mit den Werkzeugen der Deregulierung. Die Kompanie kann im Laufe der Zeit durch parlamentarische Abstimmung dereguliert werden.</p>
+${bi('Gleicher Aufbau wie 1710. DEREG-Toggle erst aktivieren, wenn die Deregulierung beschlossen wird.')}
+${bw('<strong>Deregulierungsabstimmung:</strong> Wenn Schulden/Ansehen auf gestricheltem Feld → Abstimmung möglich. Sternfeld → Pflichtabstimmung!')}
+`)}
 <h3>Schritt 1: Spielplan</h3>
 ${cl(['Spielplan · Marker auf Startfelder laut Szenariokarte.','Ansehen · Schulden · Rundenmarker auf Startfelder.','Kompanie-Vermögen auf 0 · PM-Scheibe · PM-Marker setzen.','Macht-Marker · Gesetzesstapel mischen.'])}
 <h3>Schritt 2: Präsidentschaften</h3>
 ${cl(['Tableaus aufbauen.','Schreiber · Offiziere · Regimenter · Amtskarten laut Szenario.'])}
 <h3>Schritt 3: Indien</h3>
-${cl(['Türme · Kuppeln · Flaggen laut Szenario.','Elefant auf Startregion · Ereignisstapel mischen.'])}
+${cl(['Türme · Kuppeln · Flaggen laut Szenario.','Elefant auf Startregion · Ereignisstapel mischen.','<strong>Beute-Token:</strong> Jeden Beute-Token in die entsprechende Region legen – <strong>£-Seite nach oben!</strong> <span class="badge bo">ERRATA</span>'])}
 <h3>Schritt 4: Familien</h3>
 ${cl(['Setup-Karten gleichzeitig abhandeln.','Familienmitglieder in Ämter · Versprechen-Karten (5 Stück) · Startgeld.'])}
 ${bw('<strong>Erste Runde:</strong> Phase I und III komplett überspringen! → Erste Runde Toggle aktivieren.')}
