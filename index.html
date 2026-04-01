@@ -1454,16 +1454,32 @@ function s_firms(){return `
 ${bi('Keine feste Reihenfolge. Zwei Schritte: Investitionen, dann Strategie.')}
 ${bw('<strong>Schwache Anteile:</strong> Ansehen/Schulden auf gestricheltem Feld → keine Anteile verwenden.')}
 ${bw('<strong>Unreife Anteile:</strong> In dieser Runde neu entstandene Anteile dürfen nicht investiert werden.')}
+<h3>Die zwei Firmenschatullen</h3>
+${bRule('<strong>London-Schatulle:</strong> Für Ausgaben und neue Schiffe. Hier landet das Geld aus Investitionen. <em>Kein Transfer zwischen Familienvermögen und Firmenschatullen!</em>')}
+${bRule('<strong>Indien-Schatulle:</strong> Hier landen Handelseinnahmen. Aus ihr werden Dividenden gezahlt. Rest → London-Schatulle am Ende der Phase VI.')}
 <h3>1. Investitionen</h3>
-${acc('fi-found','Firma gründen',`<ol><li>1 Anteil zurückgeben <em>oder</em> 1 Betrieb auf investierte Seite.</li><li>Familientableau umdrehen.</li><li>1 Familienmitglied als Firmen-Anteil.</li><li>Würfel auf Firmenwert-Leiste links.</li><li><strong>£5</strong> aus Bank → London-Schatulle.</li></ol>`)}
-${acc('fi-inv','Investieren (mit Zustimmung)',`<ol><li>1 Anteil oder Betrieb abgeben.</li><li>1 Familienmitglied als Anteil.</li><li>£5 → London-Schatulle.</li></ol>${bi('Max. 10 Anteile.')}`)}
-${acc('fi-ships','Schiffe ausrüsten',`<p>£3 aus London-Schatulle. <strong>Zustimmung des Werftbesitzers erforderlich!</strong></p>`)}
-${acc('fi-takeover','Feindliche Übernahme',`<p>Zustimmung der <strong>Mehrheit</strong> der Anteilsinhaber.</p>`)}
-${acc('fi-merger','Fusion',`<p><strong>Alle</strong> Anteilsinhaber müssen zustimmen. Max. 10 Anteile.</p>`)}
+${acc('fi-found','Firma gründen',`<ol><li>1 Anteil zurückgeben <em>oder</em> 1 Betrieb auf investierte Seite.</li><li>Familientableau umdrehen.</li><li>1 Familienmitglied als Firmen-Anteil.</li><li>Würfel auf Firmenwert-Leiste links.</li><li><strong>£5</strong> aus Bank → London-Schatulle.</li></ol>${bi('Investierte Betriebe generieren keinen Bonus mehr und zählen nicht bei Kompanie-Scheitern.')}`)}
+${acc('fi-inv','Investieren (mit Zustimmung)',`<ol><li>1 Anteil oder Betrieb abgeben.</li><li>1 Familienmitglied als Anteil.</li><li>£5 → London-Schatulle.</li></ol>${bi('Max. 10 Anteile. Weitere Investitionen möglich, aber ohne neue Anteile.')}`)}
+${acc('fi-ships','Schiffe ausrüsten / Rückkauf',`<p>£3 aus London-Schatulle. <strong>Zustimmung des Werftbesitzers erforderlich!</strong></p>${bi('<strong>Rückkauf von Kompanie-Schiffen:</strong> Unbeschädigt £3, beschädigt £2. Geld → Flottenverwalter-Schatulle. Keine Kompanie- oder Charterschiffe.')}`)}
+${acc('fi-takeover','Feindliche Übernahme',`<p>Zustimmung der <strong>Mehrheit</strong> der Anteilsinhaber. Nur möglich für Nicht-Verwalter.</p>`)}
+${acc('fi-merger','Fusion',`<p><strong>Alle</strong> Anteilsinhaber müssen zustimmen. Höchster Firmenwert = Primärfirma. Max. 10 Anteile.</p>`)}
 <h3>2. Strategie</h3>
 <p>Alle gleichzeitig & geheim: <strong>Seeregion + Heimathafen + Einsatzbetrag</strong>.</p>
-${bi('<strong>Hobnob-Strategie:</strong> Nicht handeln, kein Geld, Dividenden-Marker bleibt.')}
-${bw('<strong>Insolvenz:</strong> Ausgaben nicht zahlbar → aufgelöst. Alle Anteile ins Schuldgefängnis (–VP).')}
+${bi('<strong>Hobnob-Strategie:</strong> Nicht handeln, kein Geld, Dividenden-Marker bleibt. Schiffe sicher vor Stürmen.')}
+<h3>Aufträge erfüllen (zu Beginn der Präsidentschafts-Operationen)</h3>
+<p>Erfolgstest mit Würfeln = Geld der Strategie. <strong>Initiativwert</strong> = Schiffe minus Anzahl Erfolge (1er/2er). Niedriger Wert = früher dran. Firmen füllen <strong>Schiffe + 1</strong> Aufträge, Heimathafen zuerst.</p>
+${bRule('<strong>Bereits erfüllte Aufträge:</strong> Nur halber Wert (abrunden). Firmenwert +1 pro £6 in Indien-Schatulle.')}
+<h3>Ausgaben (Beginn Phase VI, vor Kompanie)</h3>
+${bExcept('<strong>Formel:</strong> £1/Schiff + max(£1 pro Anteil, Firmenwert). Aus London- oder Indien-Schatulle.')}
+${bw('<strong>Auflösung bei Zahlungsunfähigkeit:</strong> Alle Anteile ins Schuldner-Turm (–1 SP/Anteil!). Schiffe zurück auf Werften. Investierte Betriebe bleiben investiert.')}
+${acc('fi-emergency','Notinvestition & Notfusion',`<p><strong>Notinvestition:</strong> Dritte investieren um Auflösung zu verhindern. Firmenwert –1 pro Notinvestition. Überschuss verfällt.</p><p><strong>Notfusion:</strong> Andere Firma übernimmt Ausgaben. Nur 1 Firma als Partner.</p>`)}
+<h3>Dividenden (Phase VI, nach Ausgaben)</h3>
+${bg('<strong>Optional.</strong> £1/Anteil für Inhaber + <strong>£1 extra für Verwalter</strong> (als hätte er einen Extra-Anteil). Nur aus Indien-Schatulle. Anteilsinhaber dürfen mit Zustimmung des Verwalters auf Auszahlung verzichten.')}
+${bRule('<strong>Dividenden-Marker</strong> auf Kompanie-Vermögen-Leiste setzen. Bestimmt die max. Höhe des speziellen Ruhestands!')}
+<h3>Spezieller Ruhestand (Londoner Season)</h3>
+<p>1 zusätzliches Familienmitglied aus Vorrat in Rente. Ausgaben ≤ höchste ausgezahlte Dividende einer Firma, an der man Anteile hält. Nur 1× pro Familie, auch bei mehreren Firmen.</p>
+<h3>Firmen in der Schlusswertung</h3>
+${bAction('<strong>Zuerst:</strong> SP pro Anteil laut Firmenwert. Anteile im Schuldner-Turm → –SP statt +SP. Dann spezieller Ruhestand ohne Prestige-Karten.')}
 </div>`;}
 
 /* ══════════════════════ PHASE III ══════════════════════ */
@@ -1687,6 +1703,16 @@ ${acc('ph8-opp','Opposition & Koalitionen',`<ul><li>Gegen = Opposition. Einmal d
 <h3>4. Ergebnis</h3>
 <ul><li><strong>Beschlossen (≥ 0):</strong> PM erhält 1 Gesetz-Marker (+1 Macht). Soforteffekte ausführen.</li><li><strong>Abgelehnt (< 0):</strong> Oppositionsführer → neuer PM. Dreht Zeiger 1 Position.</li></ul>
 ${acc('ph8-pol','Folgen der Politik',`${dt([['STEUER','£1/Zielobjekt. Nicht zahlen → zurück.'],['BONUS','£1/Zielobjekt aus Bank.'],['MACHT','Macht-Marker mit nächsthöherem tauschen.']])}`)}
+${acc('ph8-dereg','Deregulierungs-Abstimmung <span class="badge bd">1758 · Lang-1710</span>',`
+<p><strong>Wann:</strong> Zu Beginn jeder Runde, <em>vor</em> Phase I, wenn Ansehen- oder Schuldenmarker auf einem gestrichelten Feld steht.</p>
+${bw('<strong>Sternfeld:</strong> Wenn mind. ein Marker auf einem Sternfeld steht, <em>muss</em> der PM eine Deregulierungs-Sitzung einberufen!')}
+<h4>Abstimmung</h4>
+<p>Wie normale Abstimmung, aber: <strong>PM darf gegen das Gesetz stimmen.</strong> Keine Politik-Folgen. Gesetz bleibt im Falle einer Ablehnung im Spiel (nicht abwerfen).</p>
+<h4>Bei Annahme</h4>
+${bg('<ul><li>Schuldenmarker: –1 pro 2 Schulden (abrunden).</li><li>Ansehen-Marker auf das Feld „S" setzen.</li><li>PM erhält 1 Gesetz-Marker.</li><li>Deregulierungsregeln gelten ab sofort!</li></ul>')}
+<h4>Bei Ablehnung</h4>
+${bw('<ul><li>Wert der Kompanie-Anteile um 1 erhöhen (Marker umdrehen/verschieben). Max. ±3 SP.</li><li>PM bleibt. Gesetz bleibt.</li></ul>')}
+`)}
 </div>`;}
 
 function s_ph9(){return `
@@ -1701,8 +1727,10 @@ function s_ph10(){return `
 <div class="step-title">Spielende & Schlusswertung</div>
 <div class="card">
 ${bRule('Endet nach letzter Runde <em>oder sofort</em> wenn Ansehen ganz links.')}
+${$('tog-dr').checked ? bAction('<strong>DEREG – Schlusswertung Zusatz (ZUERST ausführen):</strong><ol><li>Firmen-Wertung: Punkte pro Firmen-Anteil laut Firmenwert-Tabelle. Anteile im Schuldner-Turm geben Minus-Punkte.</li><li>Spezieller Ruhestand für Anteilsinhaber (keine Prestige-Karten).</li><li>Dann normale Schlusswertung.</li></ol>') : ''}
 <h3>Schlusswertung – Reihenfolge</h3>
 <ol>
+  ${$('tog-dr').checked ? '<li><em>(Schritt 0: Firmen-Wertung + spezieller Ruhestand – siehe oben)</em></li>' : ''}
   <li><strong>SP auf der Punkte-Leiste</strong> zählen.</li>
   <li><strong>Anteile/Betriebe:</strong> Überlebt → Kollegium-Tabelle. Scheitert → –1 SP/Anteil; +1 SP/Betrieb.</li>
   <li><strong>Macht:</strong> Trophäen (+1), PM (+2), Gesetze (+1), Karten laut Aufdruck.</li>
@@ -1732,8 +1760,10 @@ function renderSetup(){
 ${bi('Zuerst Szenario wählen – Schulden, Ansehen, Indien variieren je nach Szenario.')}
 <h3>Szenarien</h3>
 ${acc('sc-1710','🕰 1710 – Die frühe Kompanie',`<div class="pill">📋 Empfohlen zum Lernen</div><p>Keine Schulden. „Königlicher Schutz" liegt aus.</p>${bi('DEREG- und GG-Toggles ausschalten.')}`)}
-${acc('sc-1758','⚔ 1758 – Gefährliche Zeiten',`<div class="pill">📋 Mittlere Komplexität</div><p>Schulden vorhanden, Krieg in Indien.</p>`)}
-${acc('sc-1813','🏭 1813 – Das Zeitalter der Firmen',`<div class="pill">📋 Erfahrene Spieler</div><p>Deregulierung aktiv. DEREG-Toggle aktivieren!</p>`)}
+${acc('sc-1758','⚔ 1758 – Gefährliche Zeiten',`<div class="pill">📋 Mittlere Komplexität</div><p>Schulden vorhanden, Krieg in Indien.</p>${bw('<strong>Deregulierungsabstimmung:</strong> Bei gestrichelten Feldern (Schulden/Ansehen) zu Beginn jeder Runde möglich.')}`)}
+
+${acc('sc-1813','🏭 1813 – Das Zeitalter der Firmen',`<div class="pill">📋 Erfahrene Spieler</div><p>Deregulierung aktiv. DEREG-Toggle aktivieren!</p>${bw('<strong>Deregulierungsabstimmung:</strong> Bei gestrichelten Feldern (Schulden/Ansehen) zu Beginn jeder Runde möglich.')}`)}
+
 <h3>Schritt 1: Spielplan</h3>
 ${cl(['Spielplan · Marker auf Startfelder laut Szenariokarte.','Ansehen · Schulden · Rundenmarker auf Startfelder.','Kompanie-Vermögen auf 0 · PM-Scheibe · PM-Marker setzen.','Macht-Marker · Gesetzesstapel mischen.'])}
 <h3>Schritt 2: Präsidentschaften</h3>
@@ -2021,7 +2051,7 @@ region_loss:{title:'Region-Verlust',label:'Ergebnis: Region verloren',render:()=
   const step5=isInvCrisis
     ?'<strong>Lokale Autorität (Invasionskrise):</strong> Flagge des Angreifers auf Kuppel. Kuppel mit 1 Turmstufe. Kontroll-Marker zurück. <strong>Alle offenen Aufträge schließen → Kettenreaktion!</strong>'
     :isForeignInv
-      ?'<strong>Lokale Autorität (Ausländ. Invasion):</strong> Kuppel zurück. Kontroll-Marker zurück. ✅ Aufträge/Kettenreaktion bereits ausgeführt.'
+      ?'<strong>Lokale Autorität (Ausländ. Invasion):</strong> Kuppel zurück auf Region. Kontroll-Marker zurück (Beute-Seite nach unten). ✅ Aufträge/Kettenreaktion bereits ausgeführt. <span class="badge bo">Neu</span> <strong>Regionsstärke auf die Hälfte der Angriffsstärke setzen (abrunden).</strong>'
       :'<strong>Lokale Autorität (Rebellion):</strong> Kuppel mit 1 Turmstufe. Kontroll-Marker zurück. Keine neue Flagge. ✅ Aufträge/Kettenreaktion bereits ausgeführt.';
   return `
 <p>Schritte <strong>in dieser Reihenfolge</strong>:</p>
@@ -2034,6 +2064,7 @@ region_loss:{title:'Region-Verlust',label:'Ergebnis: Region verloren',render:()=
 <li><strong>Ansehen:</strong> 1. Region –1 · 2. Region –2 weitere · 3.+ –3 weitere.</li>
 </ol></div>
 ${isInvCrisis?cascadeBox('rloss-inv'):''}
+${isForeignInv ? bw('<strong>⚠ Ausländ. Invasion – Regionsstärke:</strong> Nach dem Verlust die Turmstufen der Region auf die Hälfte der Würfelstärke des Angriffs setzen (abrunden). Z.B. Angriffsstärke 5 → Kuppel + 2 Turmstufen.') : ''}
 <div style="background:var(--red-bg);border:2px solid var(--red);border-radius:var(--r-s);padding:11px 13px;margin-top:10px">
 <p style="font-weight:700;color:var(--red-l);margin-bottom:7px">⚠ Ansehen ganz links = Kompanie gescheitert!</p>
 <button class="btn btn-r" style="margin-bottom:0" onclick="goToFinalScoring()">⚠ Zur Schlusswertung</button>
