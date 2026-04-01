@@ -766,6 +766,7 @@ body.dark .gf-table td{color:var(--ink2)}
         <button class="ref-tab" data-tab="indien" onclick="refTab('indien')">🐘 Indien</button>
         <button class="ref-tab" data-tab="begriffe" onclick="refTab('begriffe')">📚 Begriffe</button>
         <button class="ref-tab" data-tab="wertung" onclick="refTab('wertung')">🏆 Wertung</button>
+        <button class="ref-tab" data-tab="literatur" onclick="refTab('literatur')">📚 Literatur</button>
       </div>
       <div class="ref-no-results" id="ref-no-results">Keine Treffer gefunden.</div>
 
@@ -884,11 +885,29 @@ body.dark .gf-table td{color:var(--ink2)}
           <div class="box box-i"><strong>Macht-Leiste:</strong> Die untersten zwei Felder der Leiste geben 0 Macht. Je höher ein Marker, desto mehr Macht pro Einheit.</div>
         </div>
       </div>
-    </div><!-- /panel-ref -->
+      </div><!-- /panel-ref -->
 
-    <!-- TAB 3: STRATEGIE -->
+      <!-- TAB 3: STRATEGIE -->
+
+      <div class="ref-tab-panel" id="reftab-literatur">
+        <div class="ref-item">
+          <h3>Weiterführende Literatur (laut Spielregel S. 48)</h3>
+          <ul>
+            <li><strong>John Keay</strong> – <em>The Honourable Company</em> (1991). Das beste einbändige Werk zur EIC.</li>
+            <li><strong>William Dalrymple</strong> – <em>The Anarchy</em> (2019). Der dramatische Aufstieg der Kompanie, sehr lesbar.</li>
+            <li><strong>Shashi Tharoor</strong> – <em>Inglorious Empire</em> (2018). Kritische Analyse des britischen Kolonialismus.</li>
+            <li><strong>Margot Finn &amp; Kate Smith</strong> – <em>The East India Company at Home</em> (2018). Die Familien hinter der Kompanie.</li>
+            <li><strong>Barbara Harlow &amp; Mia Carter</strong> – <em>Archives of Empire, Vol. I</em> (2003). Primärdokumente.</li>
+            <li><strong>Benedict Anderson</strong> – <em>Imagined Communities</em> (1983). Theoretische Grundlagen zu Kolonialismus und Nation.</li>
+          </ul>
+          <div class="box box-i" style="margin-top:10px"><em>John Company ist ein Werk historischer Fiktion. Es enthüllt sein Sujet und ermutigt Spieler, tiefer zu graben.</em></div>
+        </div>
+      </div>
     <div class="tab-panel" id="panel-strategy">
       <div class="sec-head">Die drei Geldsphären</div>
+      <div class="card" style="padding:12px 14px;margin-bottom:10px">
+        <p style="font-size:.9rem;color:var(--ink2);line-height:1.7;margin-bottom:0">In <em>John Company</em> ist Geld nicht einfach eine Ressource, sondern ein <strong>Instrument der Verflechtung</strong>. Der Historiker John Keay beschreibt die EIC als „Staat im Staate" – eine Handelsgesellschaft mit eigener Armee, eigenem Geldwesen und eigener Steuerpolitik. Der schottische Nabob John Johnstone kehrte 1765 mit einem Vermögen von £300.000 nach Schottland zurück. <em>Wer versteht, wie Geld zwischen den drei Sphären wandert, beherrscht das Spiel.</em></p>
+      </div>
       <div class="money-sphere">
         <div class="ms-title">💰 Familienvermögen – privat</div>
         <div class="ms-sub">Das persönliche Geld. Einziges Mittel für Ruhestand, Bestechung, Unternehmen.</div>
@@ -1024,20 +1043,122 @@ body.dark .gf-table td{color:var(--ink2)}
       <div class="sec-head">Geldflüsse – Wer bekommt was?</div>
       <div class="card" style="padding:10px 12px">
         <table class="gf-table">
-          <thead><tr><th>Quelle</th><th>Phase</th><th>Empfänger</th></tr></thead>
+          <thead><tr><th>Quelle</th><th>Phase</th><th>Empfänger</th><th>Strategische Priorität</th><th>Histor. Parallele</th></tr></thead>
           <tbody>
-            <tr><td>Handels-Aktion</td><td class="gf-phase">Ph IV</td><td class="gf-in">£1/Auftrag → Präsident · £1/Schreiber → Familie · Rest → Kompanie</td></tr>
-            <tr><td>China-Handel</td><td class="gf-phase">Ph IV</td><td class="gf-in">£4/Export → Kompanie · £1/Export → Superintendent</td></tr>
-            <tr><td>Gouverneur Steuern</td><td class="gf-phase">Ph IV</td><td class="gf-in">+£2 → Kompanie oder Schatulle · £1 → Gouverneur (Bonus)</td></tr>
-            <tr><td>Einsatz (Plünderung)</td><td class="gf-phase">Ph IV</td><td class="gf-in">Beute → Kommandant, Offiziere, Regimenter (Runden-System)</td></tr>
-            <tr><td>Familien-Boni</td><td class="gf-phase">Ph V</td><td class="gf-in">£1/Werft (ausgerüstet) + £1/Betrieb → Familie</td></tr>
-            <tr><td>Dividenden</td><td class="gf-phase">Ph VI</td><td class="gf-in">£1/Anteil (inkl. Vorsitzender) → Familien</td></tr>
-            <tr><td>Geldregen-Ereignis</td><td class="gf-phase">Ph VII</td><td class="gf-in">£1/Schreiber in Region → Familie</td></tr>
-            <tr><td>Parlament (Bonus)</td><td class="gf-phase">Ph VIII</td><td class="gf-in">£1/Zielobjekt → Familie</td></tr>
-            <tr><td>Parlament (Steuer)</td><td class="gf-phase">Ph VIII</td><td class="gf-out">£1/Zielobjekt → Bank</td></tr>
-            <tr><td>Ruhestand</td><td class="gf-phase">Ph I/IX</td><td class="gf-out">Kosten → Bank · SP → Familie</td></tr>
+            <tr><td>Handels-Aktion</td><td class="gf-phase">Ph IV</td><td class="gf-in">£1/Auftrag → Präsident · £1/Schreiber → Familie · Rest → Kompanie</td><td>Schreiber gezielt platzieren</td><td>Bengalen-Handel 1757+</td></tr>
+            <tr><td>China-Handel</td><td class="gf-phase">Ph IV</td><td class="gf-in">£4/Export → Kompanie · £1/Export → Superintendent</td><td>China früh eröffnen</td><td>Opiumhandel 1760–1834</td></tr>
+            <tr><td>Gouverneur Steuern</td><td class="gf-phase">Ph IV</td><td class="gf-in">+£2 → Kompanie oder Schatulle · £1 → Gouverneur (Bonus)</td><td>Schatulle vs. Kompanie abwägen</td><td>Permanent Settlement 1793</td></tr>
+            <tr><td>Einsatz (Plünderung)</td><td class="gf-phase">Ph IV</td><td class="gf-in">Beute → Kommandant, Offiziere, Regimenter (Runden-System)</td><td>Nur bei hoher Erfolgswahrscheinlichkeit</td><td>Plünderung Bengalen 1757</td></tr>
+            <tr><td>Familien-Boni</td><td class="gf-phase">Ph V</td><td class="gf-in">£1/Werft (ausgerüstet) + £1/Betrieb → Familie</td><td>Flottenverwalter-Kooperation sichern</td><td>Private Trade EIC-Angestellte</td></tr>
+            <tr><td>Dividenden</td><td class="gf-phase">Ph VI</td><td class="gf-in">£1/Anteil (inkl. Vorsitzender) → Familien</td><td>Anteilsdruck auf Vorsitzenden</td><td>EIC-Dividenden trotz Insolvenz 1813</td></tr>
+            <tr><td>Geldregen-Ereignis</td><td class="gf-phase">Ph VII</td><td class="gf-in">£1/Schreiber in Region → Familie</td><td>Schreiber in profitablen Regionen</td><td>Geldgeschenke lokaler Herrscher</td></tr>
+            <tr><td>Parlament (Bonus)</td><td class="gf-phase">Ph VIII</td><td class="gf-in">£1/Zielobjekt → Familie</td><td>Koalitionen für Bonusgesetze</td><td>Regulating Act 1773</td></tr>
+            <tr><td>Parlament (Steuer)</td><td class="gf-phase">Ph VIII</td><td class="gf-out">£1/Zielobjekt → Bank</td><td>Steuer auf Rivalen lenken</td><td>Fenstersteuer England</td></tr>
+            <tr><td>Ruhestand</td><td class="gf-phase">Ph I/IX</td><td class="gf-out">Kosten → Bank · SP → Familie</td><td>Reihenfolge durch Ausgabenhöhe steuern</td><td>Nabobs kaufen Ländereien</td></tr>
           </tbody>
         </table>
+      </div>
+
+      <div class="sec-head">Vollständige Geldquellen &amp; -senken</div>
+
+      <div class="acc strat-phase-acc" id="stracc-income">
+        <div class="acc-hd" onclick="tAcc('stracc-income')"><span>1.1 Woher bekommt die Familie Geld?</span><span class="ic">▼</span></div>
+        <div class="acc-bd">
+          <table class="gf-table">
+            <thead><tr><th>Quelle</th><th>Phase</th><th>Mechanismus</th><th>Strategische Überlegung</th></tr></thead>
+            <tbody>
+              <tr><td>Startkapital</td><td class="gf-phase">Setup</td><td>Laut Aufbaukarte</td><td>Ämter mit Einkommenspotenzial vs. sofortige Unternehmensinvestitionen</td></tr>
+              <tr><td>Boni</td><td class="gf-phase">Ph V</td><td>£1/Werft (ausgerüstet) · £1/Betrieb</td><td>Werften brauchen Flottenverwalter-Kooperation</td></tr>
+              <tr><td>Dividenden</td><td class="gf-phase">Ph VI</td><td>£1/Anteil (inkl. Vorsitzender)</td><td>Einziger direkter Transfer Kompanie→Familie</td></tr>
+              <tr><td>Präsidenten-Handel</td><td class="gf-phase">Ph IV</td><td>£1/Auftrag + £1/fremder Schreiber</td><td>Politische Gefälligkeiten durch Schreiberplatzierung</td></tr>
+              <tr><td>Gouverneur</td><td class="gf-phase">Ph IV</td><td>£1/Erfolg (£2 nach Fehlschlag)</td><td>Risiko-Ertrags-Abwägung beim Würfelpool</td></tr>
+              <tr><td>Superintendent China</td><td class="gf-phase">Ph IV</td><td>£1/Exportsymbol</td><td>Profitiert direkt von territorialer Expansion</td></tr>
+              <tr><td>Verhandlungen</td><td class="gf-phase">Jederzeit</td><td>Geldtransfer zwischen Familien</td><td>Geld als politisches Werkzeug</td></tr>
+              <tr><td>Prestige-/Erpressungskarten</td><td class="gf-phase">Ph I</td><td>Einmalig oder dauerhaft</td><td>Langfristige Rabatte vs. sofortige Aktionen</td></tr>
+            </tbody>
+          </table>
+          <div class="strat-hist-box">Historisch: Junge Angestellte der EIC begannen mit bescheidenem Gehalt, hatten aber Aussicht auf immense Gewinne durch den „private trade". John Johnstone nutzte seine Anteile 1767, um Strafverfahren gegen sich zu verhindern.</div>
+        </div>
+      </div>
+
+      <div class="acc strat-phase-acc" id="stracc-expenses-fam">
+        <div class="acc-hd" onclick="tAcc('stracc-expenses-fam')"><span>1.2 Wofür gibt die Familie Geld aus?</span><span class="ic">▼</span></div>
+        <div class="acc-bd">
+          <table class="gf-table">
+            <thead><tr><th>Ausgabe</th><th>Phase</th><th>Effekt</th><th>Strategische Überlegung</th></tr></thead>
+            <tbody>
+              <tr><td>Ruhestand</td><td class="gf-phase">Ph I</td><td>Kosten → Punkte</td><td>Ausgabenhöhe bestimmt Kartenziehreihenfolge</td></tr>
+              <tr><td>Werft £2 · Betrieb £5 · Luxus £4</td><td class="gf-phase">Ph II</td><td>Laufendes Einkommen · Punkte</td><td>Luxus: sofortige SP, Steuerrisiko; Betrieb: Stimmen</td></tr>
+              <tr><td>Kompanie-Anteile</td><td class="gf-phase">Ph II</td><td>Dividenden · Vorsitz-Einfluss</td><td>Früher Kauf günstiger, aber Kapital gebunden</td></tr>
+              <tr><td>Unterhalt Belohnungen</td><td class="gf-phase">Ph IX</td><td>Weißer Wert/Belohnung</td><td>Zu viele Belohnungen ohne Einkommen = Punktverlust</td></tr>
+              <tr><td>Steuern</td><td class="gf-phase">Ph VIII</td><td>£1/Zielobjekt → Bank</td><td>Gefahr für Liquidität; politisch beeinflussbar</td></tr>
+              <tr><td>Bestechung</td><td class="gf-phase">Ph VIII</td><td>£1 = 1 Stimme</td><td>Dosiert einsetzen; Drohung oft genug</td></tr>
+            </tbody>
+          </table>
+          <div class="strat-hist-box">Warren Hastings wurde durch die Kosten seines Amtsenthebungsverfahrens finanziell ruiniert. Die Fenstersteuer in England war besonders verhasst, weil sie sichtbaren Wohlstand bestrafte.</div>
+        </div>
+      </div>
+
+      <div class="acc strat-phase-acc" id="stracc-income-comp">
+        <div class="acc-hd" onclick="tAcc('stracc-income-comp')"><span>1.3 Woher bekommt die Kompanie Geld?</span><span class="ic">▼</span></div>
+        <div class="acc-bd">
+          <table class="gf-table">
+            <thead><tr><th>Quelle</th><th>Mechanismus</th><th>Strategische Überlegung</th></tr></thead>
+            <tbody>
+              <tr><td>Schuldenaufnahme (Vorsitz)</td><td>+£5 pro Schritt</td><td>Risiko des Unterhalts wächst mit jeder Schulde</td></tr>
+              <tr><td>Handel (Präsident)</td><td>Auftragswerte → Kompanie</td><td>Balance zwischen Expansion und Konsequenzen</td></tr>
+              <tr><td>China-Handel</td><td>£4/Exportsymbol</td><td>Wächst mit Kontrolle über Regionen</td></tr>
+              <tr><td>Steuern (Gouverneur/GG)</td><td>+£2 Option</td><td>Kompanie stärken oder eigene Schatulle füllen?</td></tr>
+              <tr><td>Plünderung (Einsatz)</td><td>Beute laut Turmstufen</td><td>Sofortgewinn vs. Unruhe und Folgerisiken</td></tr>
+            </tbody>
+          </table>
+          <div class="strat-hist-box">Robert Clive erhielt nach der Plünderung Bengalens 1757 allein £234.000. Die Schulden der EIC betrugen 1813 über £30 Millionen. Zwischen 1760 und 1834 finanzierte der Opiumhandel nach China praktisch die gesamte Indien-Administration.</div>
+        </div>
+      </div>
+
+      <div class="acc strat-phase-acc" id="stracc-expenses-comp">
+        <div class="acc-hd" onclick="tAcc('stracc-expenses-comp')"><span>1.4 Wofür gibt die Kompanie Geld aus?</span><span class="ic">▼</span></div>
+        <div class="acc-bd">
+          <table class="gf-table">
+            <thead><tr><th>Ausgabe</th><th>Phase</th><th>Strategische Überlegung</th></tr></thead>
+            <tbody>
+              <tr><td>Budgetverteilung (Vorsitz)</td><td class="gf-phase">Ph IV</td><td>Ämter bevorzugen oder aushungern = Machtinstrument</td></tr>
+              <tr><td>Aktionskosten (Würfel)</td><td class="gf-phase">Ph IV</td><td>Zu knauserig = Misserfolge; zu großzügig = kein Unterhalt</td></tr>
+              <tr><td>Unterhalt</td><td class="gf-phase">Ph VI</td><td>£1/Schulde + £1/Regiment + £1/Offizier + £1/Schiff</td></tr>
+              <tr><td>Dividenden</td><td class="gf-phase">Ph VI</td><td>Ansehen steigern vs. Kapital für Expansion</td></tr>
+              <tr><td>Notkredite</td><td class="gf-phase">Ph VI</td><td>Letzter Ausweg; Ansehen sinkt; Zinslast steigt</td></tr>
+            </tbody>
+          </table>
+          <div class="strat-hist-box">1813 gab die EIC über £5 Millionen allein für Schuldzinsen aus. Die staatlichen Rettungsaktionen von 1773 (Regulating Act) und 1784 (Pitt's India Act) kosteten die Kompanie ihre Unabhängigkeit.</div>
+        </div>
+      </div>
+
+      <div class="sec-head">Systemisches Beispiel</div>
+      <div class="acc strat-phase-acc" id="stracc-example">
+        <div class="acc-hd" onclick="tAcc('stracc-example')"><span>💡 Eine Interaktionskette – 7 Schritte</span><span class="ic">▼</span></div>
+        <div class="acc-bd">
+          <p style="font-size:.86rem;color:var(--ink2);margin-bottom:10px">Dieses Beispiel zeigt, wie Geldflüsse und strategische Entscheidungen ineinandergreifen:</p>
+          <ol>
+            <li><strong>Vorsitzender A</strong> nimmt 3 Schuldenschritte (+£15). <em>Frage: Wie viel Unterhalt kann die Kompanie tragen?</em> <span class="strat-hist-box" style="display:inline;font-style:normal;padding:2px 6px">Warren Hastings, 1780</span></li>
+            <li>Er verteilt £10 an den Bengalen-Präsidenten (Verbündeter), £5 an den Flottenverwalter (Rivale). <em>Budget = Druckmittel.</em></li>
+            <li><strong>Flottenverwalter B</strong> rüstet ein Schiff von Spieler C aus (Kooperation gegen Versprechen). <em>John Johnstone nutzte seine Position ähnlich.</em></li>
+            <li><strong>Präsident D (Bengalen)</strong> gibt £3 aus, handelt erfolgreich (£12 → Kompanie, £4 → D, je £1 → C und E). <em>Schreiberplatzierung als politisches Instrument.</em></li>
+            <li><strong>Phase VI:</strong> Unterhalt £14, aber Kompanievermögen nur £12 → 2 Notkredite (Ansehen –1). <em>1813 war die EIC faktisch insolvent.</em></li>
+            <li>Dividenden oder Sparen? A verzichtet auf Dividende – zu wenig Puffer. <em>John Johnstones Gegenpart hätte bestanden.</em></li>
+            <li><strong>Parlamentsphase:</strong> Betriebssteuer droht. D bietet A £2 für Gegenstimme. A verdient £2, D spart £3 Steuern. <em>Stimmenkauf, klassisch 18. Jh.</em></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="sec-head">Geldverlust – wo verschwindet Geld?</div>
+      <div class="acc strat-phase-acc" id="stracc-moneyloss">
+        <div class="acc-hd" onclick="tAcc('stracc-moneyloss')"><span>💸 Die drei Kategorien des Geldverlustes</span><span class="ic">▼</span></div>
+        <div class="acc-bd">
+          <div class="strat-tip-box"><strong>An die Bank (endgültig verloren):</strong> Ruhestandskosten, Kauf Unternehmen/Anteile, Würfelausgaben, Unterhalt Belohnungen, Steuern, Bestechung, Kompanie-Unterhalt. <em>Nur ausgeben wenn Nutzen &gt; Verlust.</em></div>
+          <div class="strat-tip-box"><strong>Zwischen Spielern (Machtverschiebung):</strong> Verhandlungen, Versprechenkarten, Dividenden, Boni, Geldregen. <em>Geld als politisches Kapital – geschickt führen!</em></div>
+          <div class="strat-tip-box"><strong>In der Kompanie (zirkuliert):</strong> Budgetverteilung, Amtshandlungen, Notkredite, Dividenden, Unterhalt. <em>Kompanie als Durchlauferhitzer: Ämter zur Umleitung nutzen.</em></div>
+          <div class="strat-hist-box">Geld floss aus London nach Indien, wurde in Ämtern verteilt, für Kriege ausgegeben und als Dividenden nach England zurücktransferiert – ein Kreislauf, der 250 Jahre lang funktionierte.</div>
+        </div>
       </div>
 
       <div class="sec-head">Historische Schlüsselfiguren</div>
@@ -1049,6 +1170,8 @@ body.dark .gf-table td{color:var(--ink2)}
             <tr><td><strong>Warren Hastings</strong> (1732–1818)</td><td>Der Vorsitzende, der an Widersprüchen scheitert – oder die Kompanie zu retten versucht.</td></tr>
             <tr><td><strong>Edmund Burke</strong> (1729–1797)</td><td>Der PM-Oppositionsführer, der das System anprangert und den Vorsitzenden zu stürzen versucht.</td></tr>
             <tr><td><strong>Robert Clive</strong> (1725–1774)</td><td>Der Kommandant mit maximalen Trophäen – Beute als Machtbasis.</td></tr>
+            <tr><td><strong>Sir Philip Francis</strong> (1740–1818)</td><td>Hastings' Intimfeind im Bengal-Rat, duellierte sich mit ihm. Der Rivale im Amt, der durch Intrigen den Vorsitzenden stürzen will.</td></tr>
+            <tr><td><strong>Die Familie Johnstone</strong></td><td>In den 1750ern „involved in every major event in the British Empire" – der Spieler, der durch Netzwerke das Spiel dominiert.</td></tr>
           </tbody>
         </table>
       </div>
@@ -1203,6 +1326,11 @@ const trail = (...p) => `<div class="trail">${p.map((t,i)=>`<span class="trail-i
 const cb = (atk,def,tie) => `<div class="cb"><div class="cb-row"><div class="cb-lbl">⚔ Angreifer</div><div class="cb-val">${atk}</div></div><hr class="cb-div"><div class="cb-row"><div class="cb-lbl">🛡 Verteidiger</div><div class="cb-val">${def}</div></div>${tie?`<div class="cb-tie">🔸 Gleichstand: ${tie}</div>`:''}</div>`;
 
 function tAcc(id){$(id)?.classList.toggle('open')}
+
+function acc_strat(title, content){
+  const uid='sacc-'+Math.random().toString(36).substr(2,8);
+  return `<div class="acc strat-acc" id="${uid}"><div class="acc-hd" onclick="tAcc('${uid}')"><span>🏛 ${title}</span><span class="ic">▼</span></div><div class="acc-bd"><p class="hist" style="font-size:.85rem;color:var(--ink2);line-height:1.65">${content}</p></div></div>`;
+}
 
 /* ═══════════════════════ TAB-NAVIGATION ═══════════════════════ */
 let currentTab = 'guide';
@@ -1406,6 +1534,7 @@ ${bRule('<strong>Wichtig:</strong> Das bezahlte Ruhestandsgeld <em>noch nicht</e
 ${bRule('<strong>Ehegatten-Rabatte:</strong> Nur 1× pro Londoner Season nutzbar.')}
 ${bExcept('<strong>Beachten:</strong> Belohnungen verursachen Unterhalt (Phase IX) und ggfs. Fenstersteuer!')}
 <p>Nicht verwendete Ruheständler-Marker → zurück in den Familienvorrat.</p>
+${acc_strat('Historischer Hintergrund – Nabobs und Ruhestand', 'John Johnstone erwarb nach seiner Rückkehr 1765 die Güter Alva, Hangingshaw und Denovan in Schottland und ließ Alva House von Robert Adam umbauen. Warren Hastings blieb trotz seiner Verdienste verschuldet – der Unterhalt von Anwesen und Titeln ruin...')}
 </div>`;}
 
 function s_ph1_prestige(){return `
@@ -1436,6 +1565,7 @@ ${acc('fam-l','Luxusgut kaufen',`<p><strong>£4</strong> → sofort <strong>+2 S
 ${acc('fam-ws','Betrieb kaufen',`<p><strong>£5</strong> → <strong>2 Parlamentsstimmen</strong>. Bei Scheitern: +1 SP. DEREG: umwandelbar.</p>`)}
 ${acc('fam-sh','Anteile erlangen',`<p>Familienmitglied auf freies Feld der <strong>Börsenleiste oberhalb des Kollegiums</strong>. Preis zahlen: laut aufgedrucktem Betrag auf dem Feld (steigt von links £1 bis rechts £6). ${bw('Kompanie scheitert → –1 SP/Anteil!')}</p>`)}
 ${bExcept('<strong>Keine Familienmitglieder mehr?</strong> Eines von Belohnung entfernen – SP gehen sofort verloren.')}
+${acc_strat('Historischer Hintergrund – Private Trade', 'Der „private trade" war für EIC-Angestellte eine Haupteinnahmequelle. Offiziere und Gouverneure nutzten ihre Position, um auf Kompanie-Schiffen eigene Waren zu transportieren. John Johnstone wurde 1764 entlassen, weil er private Geschäfte mit den Nawabs von Bengalen betrieben hatte – ein klassischer Interessenkonflikt.')}
 </div>`;}
 
 function s_ph2_shares(){return `
@@ -1516,6 +1646,7 @@ ${bRule('<strong>Mehr als 3×?</strong> Zustimmung der Mehrheit aller Kollegiums
 <h3>Schritt 2: Vermögen verteilen (Pflicht)</h3>
 <p>Das <strong>gesamte</strong> Kompanie-Vermögen vollständig auf Amtsschatullen verteilen. Nichts bleibt auf der Leiste.</p>
 ${bExcept('<strong>Kein Bestechungsgeld:</strong> Amtsvermögen und Familienvermögen immer strikt getrennt.')}
+${acc_strat('Historischer Hintergrund – Schuldenaufnahme', 'Warren Hastings nahm 1780 Schulden auf, um den Krieg gegen Hyder Ali zu finanzieren – eine Entscheidung, die später zu seinem Impeachment beitrug. Die Schuldenaufnahme war die Lebensader der Kompanie: 1813 betrugen die Schulden der EIC über £30 Millionen. Der Vorsitzende konnte durch die Budgetverteilung Rivalen aushungern und Verbündete bevorzugen – ein mächtiges politisches Instrument.')}
 </div>`;}
 
 function s_ph4_director(gg){
@@ -1717,6 +1848,7 @@ ${bg('<ul><li>Schuldenmarker: –1 pro 2 Schulden (abrunden).</li><li>Ansehen-Ma
 <h4>Bei Ablehnung</h4>
 ${bw('<ul><li>Wert der Kompanie-Anteile um 1 erhöhen (Marker umdrehen/verschieben). Max. ±3 SP.</li><li>PM bleibt. Gesetz bleibt.</li></ul>')}
 `)}
+${acc_strat('Historischer Hintergrund – Stimmenkauf & Parlament', 'Stimmenkauf war im 18. Jahrhundert in Großbritannien allgegenwärtig. John Johnstone sicherte sich seinen Parlamentssitz 1774 durch Bestechung der Delegierten von Burntisland und Kinghorn. Der Regulating Act (1773) und Pitts India Act (1784) unterwarfen die Kompanie immer stärker staatlicher Kontrolle – jede Abstimmung war damals wie heute ein Handel aus Eigeninteressen.')}
 </div>`;}
 
 function s_ph9(){return `
@@ -1741,6 +1873,7 @@ ${$('tog-dr').checked ? bAction('<strong>DEREG – Schlusswertung Zusatz (ZUERST
   <li><strong>Macht-Prämie:</strong> Top-2 Familien → SP laut Tabelle oben links am Spielplan.</li>
 </ol>
 ${bRule('<strong>Gleichstand Gesamt:</strong> Fenster-Symbole → PM-Reihenfolge.')}
+${acc_strat('Historischer Hintergrund – Die Nabobs und ihr Erbe', 'Die Schlusswertung spiegelt das Lebenswerk der „Nabobs" wider: Robert Clive, John Johnstone, Warren Hastings. Wer die Mechanismen des Systems zu seinen Gunsten nutzte – Ämter, Dividenden, politische Macht – kehrte als Gewinner heim. Wer sich von der Kompanie aufreiben ließ oder den Interessen der Institution zu sehr diente, scheiterte. Die EIC wurde 1874 endgültig aufgelöst, nachdem die Meuterei von 1857 zur Verstaatlichung geführt hatte. Das Spiel gibt keine moralische Bewertung vor – die Mechanismen sprechen für sich.')}
 <div class="btn-row mt">
   <button class="btn btn-g" onclick="showEndResult(true)">✓ Kompanie überlebt</button>
   <button class="btn btn-r" onclick="showEndResult(false)">✗ Kompanie gescheitert</button>
