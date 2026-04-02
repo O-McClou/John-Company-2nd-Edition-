@@ -1070,10 +1070,6 @@ body.dark .w-qs-tog{background:var(--surface)}
           <div class="box box-i"><strong>Macht-Leiste:</strong> Die untersten zwei Felder der Leiste geben 0 Macht. Je höher ein Marker, desto mehr Macht pro Einheit.</div>
         </div>
       </div>
-      </div><!-- /panel-ref -->
-
-      <!-- TAB 3: STRATEGIE -->
-
       <div class="ref-tab-panel" id="reftab-literatur">
         <div class="ref-item">
           <h3>Weiterführende Literatur (laut Spielregel S. 48)</h3>
@@ -1088,7 +1084,9 @@ body.dark .w-qs-tog{background:var(--surface)}
           <div class="box box-i" style="margin-top:10px"><em>John Company ist ein Werk historischer Fiktion. Es enthüllt sein Sujet und ermutigt Spieler, tiefer zu graben.</em></div>
         </div>
       </div>
+      </div><!-- /panel-ref -->
 
+      <!-- TAB 3: STRATEGIE -->
     <div class="tab-panel" id="panel-strategy">
       <div class="sec-head">Die drei Geldsphären</div>
       <div class="card" style="padding:12px 14px;margin-bottom:10px">
@@ -2161,27 +2159,22 @@ function nav(dir) {
   if (next < 0 || next >= steps.length) return;
   state.cur = next;
   saveState();
-  if (activeTab !== 'guide') switchTab('guide');
+  switchTab('guide');
   render();
   document.getElementById('tab-content')?.scrollTo(0, 0);
 }
 
 function updateBottomNav() {
-  const isGuide = (activeTab === 'guide');
   const prevBtn = document.getElementById('nb-prev');
   const nextBtn = document.getElementById('nb-next');
-  if (prevBtn) prevBtn.disabled = !isGuide || state.cur === 0;
-  if (nextBtn) nextBtn.disabled = !isGuide || state.cur >= steps.length - 1;
+  if (prevBtn) prevBtn.disabled = state.cur === 0;
+  if (nextBtn) nextBtn.disabled = state.cur >= steps.length - 1;
 
   const previewEl = document.getElementById('nbn-preview-txt');
   if (previewEl) {
-    if (isGuide) {
-      const nxt = steps[state.cur + 1];
-      const lbl = nxt ? (nxt.title.length > 22 ? nxt.title.slice(0, 21) + '…' : nxt.title) : '';
-      previewEl.textContent = lbl;
-    } else {
-      previewEl.textContent = '';
-    }
+    const nxt = steps[state.cur + 1];
+    const lbl = nxt ? (nxt.title.length > 22 ? nxt.title.slice(0, 21) + '…' : nxt.title) : '';
+    previewEl.textContent = lbl;
   }
 }
 
@@ -2195,6 +2188,7 @@ function render() {
   const step = steps[state.cur];
   if (!step) {
     M.innerHTML = '<p style="padding:20px;color:var(--ink3)">Kein Schritt gefunden.</p>';
+    updateBottomNav();
     return;
   }
 
@@ -2601,8 +2595,8 @@ function startMode(mode) {
 
   document.body.classList.toggle('kompakt', !!state.kompakt);
   saveState();
-  render();
   switchTab('guide');
+  render();
 
   if (mode === 'full') maybeShowSwipeHint();
 }
@@ -2680,8 +2674,8 @@ function init() {
     document.getElementById('W').style.display = 'none';
     document.getElementById('A').style.display = 'flex';
     document.body.classList.toggle('kompakt', !!state.kompakt);
-    render();
     switchTab('guide');
+    render();
   }
 }
 
