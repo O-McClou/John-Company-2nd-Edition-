@@ -401,6 +401,8 @@ body.kompakt .details-toggle.open{border-color:rgba(184,132,42,.45);color:var(--
   cursor:pointer;width:100%;margin-bottom:7px;transition:all .18s}
 .guided-trigger-btn:active{background:rgba(184,132,42,.07)}
 body.kompakt .guided-trigger-btn{display:none}
+/* E1: Elemente die im Kompakt-Modus grundsätzlich ausgeblendet werden */
+body.kompakt .kompakt-hide{display:none!important}
 
 /* ══ STRATEGIE-HINT in Schritten ══ */
 .strat-acc{background:linear-gradient(135deg,#0c1808,#141e0a);border:1px solid rgba(46,90,26,.5);
@@ -1522,7 +1524,7 @@ function tAcc(id){$(id)?.classList.toggle('open')}
 
 function acc_strat(title, content){
   const uid='sacc-'+Math.random().toString(36).substr(2,8);
-  return `<div class="acc strat-acc" id="${uid}"><div class="acc-hd" onclick="tAcc('${uid}')"><span>🏛 ${title}</span><span class="ic">▼</span></div><div class="acc-bd"><p class="hist" style="font-size:.85rem;color:var(--ink2);line-height:1.65">${content}</p></div></div>`;
+  return `<div class="acc strat-acc kompakt-hide" id="${uid}"><div class="acc-hd" onclick="tAcc('${uid}')"><span>🏛 ${title}</span><span class="ic">▼</span></div><div class="acc-bd"><p class="hist" style="font-size:.85rem;color:var(--ink2);line-height:1.65">${content}</p></div></div>`;
 }
 
 /* ═══════════════════════ TAB-NAVIGATION ═══════════════════════ */
@@ -1652,7 +1654,7 @@ const GUIDED_PHASES=new Set(['ph4-chairman','ph4-director','ph4-shipping','ph4-m
 function stratHtml(id){
   const s=STRATEGY_TIPS[id];
   if(!s)return '';
-  return `<div class="acc strat-acc" id="strat-${id}"><div class="acc-hd" onclick="tAcc('strat-${id}')"><span>📊 Strategietipp & Hintergrund</span><span class="ic">▼</span></div><div class="acc-bd"><p>${s.tip}</p>${s.hist?`<div class="hist">${s.hist}</div>`:''}</div></div>`;
+  return `<div class="acc strat-acc kompakt-hide" id="strat-${id}"><div class="acc-hd" onclick="tAcc('strat-${id}')"><span>📊 Strategietipp & Hintergrund</span><span class="ic">▼</span></div><div class="acc-bd"><p>${s.tip}</p>${s.hist?`<div class="hist">${s.hist}</div>`:''}</div></div>`;
 }
 function resetStepChecklist(id){
   const card=$('scl-'+id);if(!card)return;
@@ -1759,9 +1761,9 @@ ${bRule('<strong>Chancen-Marker:</strong> Liegt er auf der gewählten Aktion (gl
 <h3>Die 6 Aktionen</h3>
 ${acc('fam-w','Schreiber anheuern',`<p>1 Familienmitglied auf Schreiberposten. ${bi('Bei 4+ freien Ämtern: kostenlos 1 weiterer Schreiber (max. 3/Zug).')}</p>`)}
 ${acc('fam-o','Offizier rekrutieren',`<p>1 Familienmitglied in Offiziersanwärter-Feld → wird in Phase IV.4 zugewiesen.</p>`)}
-${acc('fam-y','Werft kaufen',`<p><strong>£2</strong> → Werftkarte. £1/Runde wenn ausgerüstet. 1 Parlamentsstimme.</p>`)}
+${acc('fam-y','Werft kaufen',`<ul><li><strong>£2</strong> → Werftkarte</li><li>£1/Runde wenn ausgerüstet</li><li>1 Parlamentsstimme</li></ul>`)}
 ${acc('fam-l','Luxusgut kaufen',`<p><strong>£4</strong> → sofort <strong>+2 SP</strong>. ${bw('Fenstersteuer beachten!')}</p>`)}
-${acc('fam-ws','Betrieb kaufen',`<p><strong>£5</strong> → <strong>2 Parlamentsstimmen</strong>. Bei Scheitern: +1 SP. DEREG: umwandelbar.</p>`)}
+${acc('fam-ws','Betrieb kaufen',`<ul><li><strong>£5</strong> → <strong>2 Parlamentsstimmen</strong></li><li>Bei Scheitern der Kompanie: +1 SP</li><li>DEREG: als investierter Betrieb umwandelbar</li></ul>`)}
 ${acc('fam-sh','Anteile erlangen',`<p>Familienmitglied auf freies Feld der <strong>Börsenleiste oberhalb des Kollegiums</strong>. Preis zahlen: laut aufgedrucktem Betrag auf dem Feld (steigt von links £1 bis rechts £6). ${bw('Kompanie scheitert → –1 SP/Anteil!')}</p>`)}
 ${bExcept('<strong>Keine Familienmitglieder mehr?</strong> Eines von Belohnung entfernen – SP gehen sofort verloren.')}
 ${acc_strat('Historischer Hintergrund – Private Trade', 'Der „private trade" war für EIC-Angestellte eine Haupteinnahmequelle. Offiziere und Gouverneure nutzten ihre Position, um auf Kompanie-Schiffen eigene Waren zu transportieren. John Johnstone wurde 1764 entlassen, weil er private Geschäfte mit den Nawabs von Bengalen betrieben hatte – ein klassischer Interessenkonflikt.')}
@@ -2057,7 +2059,7 @@ function s_ph9(){return `
 <div class="step-badge"><span class="step-num">Phase IX</span><span class="step-phase">Auffrischung</span></div>
 <div class="step-title">Unterhalt & Auffrischung</div>
 <div class="card">
-${cl(['<strong>Unterhalt zahlen:</strong> Weiße Zahl pro Belohnung. Nicht zahlen → Figur zurück + SP abziehen.','<strong>Letzte Runde?</strong> → Schlusswertung (Phase X).','Schreiber-Marker · Erfüllt-Marker · Präsidentschafts-Teiler → zurück.','<strong>Charterschiffe</strong> (schwarz) → zurück.','Erschöpfte <strong>Offiziere & Regimenter</strong> wieder aktivieren.','Aktivierte lokale Allianzen → erschöpfen.','<strong>Rundenmarker</strong> vorrücken.'])}
+${cl(['<strong>Unterhalt zahlen:</strong> Weiße Zahl pro Belohnung. Nicht zahlen → Figur zurück + SP abziehen.','<strong>Letzte Runde?</strong> → Schlusswertung (Phase X).','<strong>Schreiber-Marker</strong> → zurück in Vorrat.','<strong>Erfüllt-Marker & Präsidentschafts-Teiler</strong> → zurück.','<strong>Charterschiffe</strong> (schwarz) → zurück auf Schachtel.','Erschöpfte <strong>Offiziere & Regimenter</strong> wieder aktivieren.','Aktivierte lokale <strong>Allianzen</strong> → erschöpfen.','<strong>Rundenmarker</strong> vorrücken.'])}
 </div>`;}
 
 function s_ph10(){return `
@@ -2726,10 +2728,24 @@ if('serviceWorker' in navigator){
           const nw=reg.installing;
           nw.addEventListener('statechange',()=>{
             if(nw.state==='installed'&&navigator.serviceWorker.controller){
+              // Neues SW wartet – Banner anzeigen
               const b=document.createElement('div');
               b.style.cssText='position:fixed;bottom:80px;left:0;right:0;z-index:600;background:#1e3a12;color:#d8ecc8;text-align:center;padding:10px 14px;font-size:.83rem;display:flex;align-items:center;justify-content:center;gap:10px;';
-              b.innerHTML='🔄 Update verfügbar – <button onclick="navigator.serviceWorker.controller.postMessage({type:\'SKIP_WAITING\'})" style="background:#2e5a1a;color:#fff;border:none;padding:4px 11px;border-radius:4px;cursor:pointer;font-size:.8rem">Jetzt</button> <button onclick="this.parentElement.remove()" style="background:transparent;color:#9ab;border:none;padding:4px;cursor:pointer">✕</button>';
-              document.body.appendChild(b);setTimeout(()=>b.remove(),10000);
+              // Update-Button: SKIP_WAITING an den NEUEN (wartenden) SW senden
+              const updateBtn=document.createElement('button');
+              updateBtn.textContent='Jetzt laden';
+              updateBtn.style.cssText='background:#2e5a1a;color:#fff;border:none;padding:4px 11px;border-radius:4px;cursor:pointer;font-size:.8rem';
+              updateBtn.onclick=()=>{ nw.postMessage({type:'SKIP_WAITING'}); b.remove(); };
+              const closeBtn=document.createElement('button');
+              closeBtn.textContent='✕';
+              closeBtn.style.cssText='background:transparent;color:#9ab;border:none;padding:4px;cursor:pointer';
+              closeBtn.onclick=()=>b.remove();
+              b.appendChild(document.createTextNode('🔄 Update verfügbar – '));
+              b.appendChild(updateBtn);
+              b.appendChild(document.createTextNode(' '));
+              b.appendChild(closeBtn);
+              document.body.appendChild(b);
+              setTimeout(()=>{if(b.parentNode)b.remove();},10000);
             }
           });
         });
