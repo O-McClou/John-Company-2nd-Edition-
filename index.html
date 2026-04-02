@@ -1446,7 +1446,7 @@ const CHECKLISTS={
   'ph4-bengal':['Präsident legt <strong>Reihenfolge</strong> fest','<strong>Handel</strong> (1×/Runde): £1/Würfel · –1W/Fremd-Region','<strong>Einsatz</strong> (opt.): 1W/erschöpftem Offizier/Regiment','<strong>Verwalten</strong> (opt.): Würfelvorrat sinkt je Versuch'],
   'ph4-china':['<strong>Voraussetzung:</strong> mind. 1 Schiff in China-Schatulle + mind. 1 Exportsymbol','<strong>Handel</strong> (1×/Runde): 1W/Schiff · kein Abzug','Erfolg: +£4/Export → Kompanie · Superintendent +£1/Export'],
   'ph5-bonus':['Jede Familie: <strong>£1/Werft</strong> mit ausgerüstetem Schiff','Jede Familie: <strong>£1/Betrieb</strong> (Familienversion, nicht investierte DEREG-Betriebe)'],
-  'ph6-expenses':['<strong>Ausgaben:</strong> £1/Schuld + £1/Regiment + £1/Offizier + £1/Schiff','Notkredite: +1 Schuld · +£5 → wiederholen → <strong>Vermögen auf 0!</strong>','1–2 Notkredite → –1 Ansehen · 3+ → –2 Ansehen','<strong>⚠ Ansehen ganz links = Kompanie gescheitert!</strong>'],
+  'ph6-expenses':['<strong>Ausgaben:</strong> £1/Schuld + £1/Regiment + £1/Offizier (kein Kommandant!) + £1/Schiff','Notkredite: +1 Schuld · +£5 → wiederholen → <strong>Vermögen auf 0!</strong>','1–2 Notkredite → –1 Ansehen · 3+ → –2 Ansehen','<strong>⚠ Ansehen ganz links = Kompanie gescheitert!</strong>'],
   'ph6-dividends':['Vermögen < Erwartungswert? → <strong>Ansehen –1</strong>','Optional: <strong>Dividenden zahlen</strong> (£1/Anteil inkl. Vorsitzender)','Dividende > Erwartungswert? → <strong>Öffentliche Euphorie: Ansehen +1!</strong>','<strong>⚠ Ansehen ganz links = Kompanie gescheitert!</strong>'],
   'ph7-india':['Sturmwürfel · Stürme für <strong>blaue Schiffe</strong> abhandeln','Ereigniskarten festlegen · ziehen · abhandeln','Nach jedem Ereignis: <strong>Marsch des Elefanten</strong>'],
   'ph8-parli':['PM zieht Karten (max. 3) · <strong>Dilemma</strong> stoppt sofort · wählen','PM-Scheibe drehen','Abstimmung: £1 = 1 Stimme · Für oder Gegen','≥0 → <strong>Beschlossen</strong> · <0 → <strong>Abgelehnt</strong> (neuer PM)'],
@@ -1622,7 +1622,9 @@ function s_ph3_hiring(){return `
 ${bExcept('<strong>Erste Runde:</strong> Diese Phase wird übersprungen!')}
 <p>Ämterkarten in <strong>aufsteigender Nummerfolge</strong>.</p>
 ${bRule('<strong>Nepotismus:</strong> Eigenes Mitglied ernennen? Zustimmung aller anderen im Pool. Gilt nicht beim Vorsitz.')}
+${bExcept('<strong>Nur 1 Kandidat im Pool?</strong> Nepotismus entfällt – Ernennung ohne Zustimmung möglich.')}
 ${bRule('<strong>Beförderungen:</strong> Alte Ämterkarte sofort (in Nummernreihenfolge) in freie Ämter einordnen und ggf. neu besetzen. <strong>Ermattungs-Marker von der alten auf die neue Ämterkarte übertragen!</strong> <span class="badge bo">ERRATA</span>')}
+${bExcept('<strong>Kommandanten können nicht Gouverneur werden!</strong> Sie sind von der Gouverneurs-Ernennung ausgeschlossen.')}
 <h3>Wer ernennt wen?</h3>
 ${acc('hr-chair','Vorsitz',`<p>Kollegium wählt (Mehrheit). ${bw('Kein Konsens → ehemaliger Vorsitzender wählt selbst.')}</p>`)}
 ${acc('hr-dir','Direktor/GG',`<p>Vorsitzender → aus besetzten Ämtern außer Vorsitz, Gouverneure, Kommandanten.</p>`)}
@@ -1684,9 +1686,9 @@ ${bw('<strong>Pflicht:</strong> So viel ausgeben, bis max. <strong>£2</strong> 
 <h3>Option 1: Charterschiff mieten (schwarz) – £2 <span class="badge bo">ERRATA</span></h3>
 <p>In eine Seeregion. Wird in Phase IX automatisch zurückgelegt.</p>
 <h3>Option 2: Privates Schiff ausrüsten (blau) – £3</h3>
-<p>Von beliebiger Werft. <strong>Zustimmung des Werftbesitzers nicht erforderlich!</strong></p>
+<p>Von beliebiger Werft. <strong>Keine Zustimmung des Werftbesitzers nötig!</strong> £3 gehen an die Bank.</p>
 <h3>Option 3: Kompanie-Schiff kaufen (rot) – £5</h3>
-${bw('<strong>Nur möglich, wenn kein blaues Schiff auf einer Werft!</strong>')}
+${bw('<strong>Nur möglich, wenn kein Schiff (blau oder rot) auf irgendeiner Werft liegt!</strong>')}
 </div>`;}
 
 function s_ph4_mil(){return `
@@ -1723,7 +1725,7 @@ ${bExcept('Kein Präsident? Vorsitzender legt Reihenfolge fest, kann aber selbst
       <p>Nur <strong>1× pro Runde erfolgreich</strong>. Mehrere Versuche erlaubt.</p>
       <ul><li>Pflicht: Eigene <strong>Heimatregion</strong>.</li><li>Optional: weitere Regionen der Präsidentschaft und angrenzende.</li><li>Nie Heimatregion einer anderen Präsidentschaft!</li></ul>
       <p><strong>Test:</strong> £1 = 1 Würfel. –1W pro Fremd-Region.</p>
-      ${bg('<strong>Bei Erfolg:</strong><ul><li>Pro Schiff in Seeregion: 1 offenen Auftrag belegen. <strong>Heimathafen zuerst, dann nur Aufträge angrenzend an bereits belegte!</strong></li><li>Kompanie: +£ laut Auftragswert.</li><li>Präsident: +£1/Auftrag.</li><li>Familie: +£1/eigenem Schreiber auf erfülltem Auftrag.</li></ul>')}
+      ${bg('<strong>Bei Erfolg:</strong><ul><li>Pro Schiff in Seeregion: 1 offenen Auftrag belegen. <strong>1. Schreiber auf Heimathafen. Weitere nur angrenzend an bereits belegte Aufträge!</strong> <em>Heimatregionen anderer Präsidentschaften sind tabu!</em></li><li>Kompanie: +£ laut Auftragswert.</li><li>Präsident: +£1/Auftrag.</li><li>Familie: +£1/eigenem Schreiber auf erfülltem Auftrag.</li></ul>')}
     </div>
   </div>
   <div class="pres-cb" id="pcb-commander">
@@ -1791,7 +1793,8 @@ function s_ph6_expenses(){return `
 <div class="card">
 ${$('tog-dr').checked?bb('<strong>Firmen zahlen ZUERST</strong> <span class="badge bd">DEREG</span><br>Firmen-Ausgaben: £1/Schiff + max(£1/Anteil, Firmenwert).'):''}
 <h3>Schritt 1: Kompanie-Ausgaben</h3>
-<p>Kompanie-Vermögen –<strong>£1</strong> für jeden: Schuldenmarker-Schritt · Regiment · Offizier (nicht Kommandant) · Schiff</p>
+<p>Kompanie-Vermögen –<strong>£1</strong> für jeden: Schuldenmarker-Schritt · Regiment · Offizier · Schiff</p>
+${bExcept('<strong>Kommandanten zählen NICHT!</strong> Nur reguläre Offiziere (nicht der Kommandant der Armee) fließen in die Unterhaltskosten ein.')}
 <h3>Schritt 2: Notkredite (falls nötig)</h3>
 ${bExcept('Gesetz „Königlicher Schutz" kann alle Notkredite verhindern.')}
 <ol><li>Schuldenmarker +1 (auch bei Maximum!) → +£5.</li><li>Wiederholen bis bezahlt.</li><li><strong>Danach: Vermögen auf 0!</strong></li></ol>
@@ -1833,7 +1836,7 @@ ${bExcept('<strong>Dilemma-Karte:</strong> Stoppt sofort – muss gewählt werde
 <p>PM dreht PM-Scheiben-Zeiger auf das Feld laut Gesetz.</p>
 <h3>3. Abstimmung</h3>
 <p>PM markiert <strong>anfängliche Unterstützung</strong>. Dann im Uhrzeigersinn:</p>
-<ul><li><strong>Dafür:</strong> £1 = 1 Stimme, oder Karten erschöpfen.</li><li><strong>Dagegen:</strong> Gleiche Ressourcen → Marker sinkt.</li><li>PM darf nicht dagegen – außer beim Deregulierungsgesetz. <span class="badge bo">ERRATA</span></li></ul>
+<ul><li><strong>Dafür:</strong> £1 = 1 Stimme, oder Karten erschöpfen.</li><li><strong>Dagegen:</strong> Gleiche Ressourcen → Marker sinkt.</li><li>PM darf nicht dagegen stimmen und keine Versprechen-Karte nutzen – außer beim Deregulierungsgesetz. <span class="badge bo">ERRATA</span></li></ul>
 ${acc('ph8-opp','Opposition & Koalitionen',`<ul><li>Gegen = Opposition. Einmal dagegen, nicht mehr dafür.</li><li><strong>Oppositionsführer:</strong> Meiste Gegenstimmen.</li><li><strong>Koalition:</strong> Spieler können Stimmen im Namen eines anderen Spielers abgeben – dieser muss aber bereits gegen das Gesetz gestimmt haben oder dies commiten. Diese Stimmen zählen zu seinen Gegenstimmen (→ Oppositionsführer).</li></ul>`)}
 <h3>4. Ergebnis</h3>
 <ul><li><strong>Beschlossen (≥ 0):</strong> PM erhält 1 Gesetz-Marker (+1 Macht). Soforteffekte ausführen.</li><li><strong>Abgelehnt (< 0):</strong> Oppositionsführer → neuer PM. Dreht Zeiger 1 Position.</li></ul>
@@ -1961,7 +1964,24 @@ function goToFinalScoring(){if(!steps||steps.length===0)buildSteps();const n=ste
 function evOverview(){return `<div class="ev-grid"><div class="ev-tile" onclick="iGo('ev_tumulte')"><div class="ev-tile-ic">🌪</div><div class="ev-tile-n">Tumulte</div><div class="ev-tile-d">Aufträge schließen</div></div><div class="ev-tile" onclick="iGo('ev_geldregen')"><div class="ev-tile-ic">💰</div><div class="ev-tile-n">Geldregen</div><div class="ev-tile-d">£1/Schreiber</div></div><div class="ev-tile" onclick="iGo('ev_anfuehrer')"><div class="ev-tile-ic">👑</div><div class="ev-tile-n">Anführer</div><div class="ev-tile-d">Turm +1 oder Rebellion</div></div><div class="ev-tile" onclick="iGo('ev_frieden')"><div class="ev-tile-ic">🕊</div><div class="ev-tile-n">Frieden</div><div class="ev-tile-d">Aufträge öffnen</div></div><div class="ev-tile" onclick="IS.invSuccess=false;IS.crType='';iGo('ev_krise')"><div class="ev-tile-ic">⚔</div><div class="ev-tile-n">Krise</div><div class="ev-tile-d">Kampf laut Elefant</div></div><div class="ev-tile" onclick="IS.fromStorm=false;iGo('ev_ausland')"><div class="ev-tile-ic">🛡</div><div class="ev-tile-n">Ausländ. Invasion</div><div class="ev-tile-d">Angriff von außen</div></div><div class="ev-tile" onclick="iGo('ev_mischen')"><div class="ev-tile-ic">♻</div><div class="ev-tile-n">Neu Mischen</div><div class="ev-tile-d">Stapel mischen</div></div></div>`;}
 function kssText(){return bi('Kein Kommandant besetzt? → Militärische Belange übernimmt. Kein MA? → Vorsitzender.');}
 function cascadeBox(suf){const body=`<p>Eine <strong>Kettenreaktion</strong> tritt auf, wenn alle Aufträge einer Region geschlossen sind und noch einer geschlossen werden müsste.</p><ol><li>Nachbar-Aufträge schließen, die verbunden sind. Schreiber → Familienvorrat.</li><li>Verbundener Auftrag bereits geschlossen? → Nördlichsten offenen Auftrag der Nachbarregion schließen.</li><li>Alle Nachbar-Aufträge geschlossen? → Diese löst ihrerseits Kettenreaktion aus.</li></ol>${bw('Jede Region kann pro Ereignis nur 1× eine Kettenreaktion <em>auslösen</em>.')}`;return `<div class="xref-acc">${acc('casc-'+suf,'🔗 Kettenreaktion – Regeldetails',body)}</div>`;}
-function regionLossRuleBox(suf){const body=`<p>Wenn eine Kompanie-Region verloren geht:</p><ol><li><strong>Kommandant:</strong> Hälfte Trophäen abgeben. Figur zurück.</li><li><strong>Offizier-Verluste:</strong> 1W6 pro Offizier – bei 6: zurück. Regimenter: kein Wurf.</li><li><strong>Gouverneur:</strong> Zurück, Ämterkarte → freie Ämter. (Entfällt bei GG.)</li><li><strong>Aufräumen:</strong> Gouverneurs-Plättchen, Kompanie-Schiffe, Unruhe entfernen.</li><li><strong>Lokale Autorität:</strong> Je nach Ereignistyp.</li><li><strong>Ansehen:</strong> 1. Region –1 · 2. –2 weitere · 3.+ –3 weitere.</li></ol>`;return `<div class="xref-acc">${acc('rloss-'+suf,'⚠ Region-Verlust – alle Schritte',body)}</div>`;}
+
+/* ── C2: branchBox ──
+   Zeigt eine Ja/Nein-Entscheidung mit zusätzlichem "Einfach Weiter"-Pfad.
+   weiter_ziel ist optional – fällt auf nein_ziel zurück.
+*/
+function branchBox(frage, ja_ziel, nein_ziel, weiter_ziel){
+  const wz = weiter_ziel || nein_ziel;
+  return `<div class="box box-i" style="margin:8px 0">
+<span class="box-action-lbl">❓ ENTSCHEIDUNG</span>
+<p style="font-weight:600;color:var(--ink);margin-bottom:8px">${frage}</p>
+<div class="btn-row" style="margin-bottom:6px">
+  <button class="btn btn-g" style="flex:1;margin-bottom:0" onclick="iGo('${ja_ziel}')">✓ Ja</button>
+  <button class="btn btn-r" style="flex:1;margin-bottom:0" onclick="iGo('${nein_ziel}')">✗ Nein</button>
+</div>
+<button class="btn btn-d" style="margin-bottom:0;font-size:.72rem;opacity:.65" onclick="iGo('${wz}')">→ Einfach Weiter (überspringen)</button>
+</div>`;
+}
+function regionLossRuleBox(suf){const body=`<p>Wenn eine Kompanie-Region verloren geht:</p><ol><li><strong>Kommandant:</strong> Hälfte Trophäen abgeben. Figur zurück.</li><li><strong>Offizier-Verluste:</strong> 1W6 pro Offizier – bei 6: zurück. Regimenter: kein Wurf.</li><li><strong>Gouverneur:</strong> Zurück, Ämterkarte → freie Ämter. (Entfällt bei GG.)</li><li><strong>Aufräumen:</strong> Gouverneurs-Plättchen, Kompanie-Schiffe, Unruhe entfernen. <em>Nur bei Invasions-Krise:</em> Alle offenen Aufträge der Region schließen. Falls danach alle Aufträge geschlossen → Kettenreaktion!</li><li><strong>Lokale Autorität:</strong> Je nach Ereignistyp.</li><li><strong>Ansehen:</strong> 1. Region –1 · 2. –2 weitere · 3.+ –3 weitere.</li></ol>`;return `<div class="xref-acc">${acc('rloss-'+suf,'⚠ Region-Verlust – alle Schritte',body)}</div>`;}
 
 /* ══════════════════════ INDIEN EVENT HANDLERS (IV-Objekt) ══════════════════════ */
 const IV={
@@ -1969,7 +1989,7 @@ storm:{title:'Sturmwürfel & Stürme',label:'Schritt 1',render:()=>`
 ${evOverview()}
 <h3>Sturmwürfel werfen</h3>
 ${bw('Nur <strong>blaue Spieler-Schiffe</strong>! Charter und Kompanie-Schiffe nicht betroffen.')}
-${dt([['1–2','Nichts.'],['3–4','Schiff auf Schaden-Seite. Bereits beschädigt → Werft.'],['5–6','Zurück auf Werft (repariert).']])}
+${dt([['1–2','Nichts.'],['3–4','Schiff auf Schaden-Seite drehen. Bereits beschädigt → zurück auf Werft (<strong>reparierte Seite</strong>).'],['5–6','Sofort zurück auf Werft – <strong>reparierte (nicht-erschöpfte) Seite!</strong>']])}
 <h3>Wie viele Ereigniskarten?</h3>
 <div class="btn-row" style="flex-wrap:wrap;gap:6px">
   <button class="btn btn-d" style="flex:none;min-width:90px" onclick="IS.evTotal=1;IS.evDone=1;IS.fromStorm=false;IS.step='draw';renderIndia()">1 Ereignis</button>
