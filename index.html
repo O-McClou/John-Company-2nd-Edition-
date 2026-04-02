@@ -768,6 +768,60 @@ body.dark .cm-sheet{background:var(--surface)}
   pointer-events:none;opacity:0;transition:opacity .5s;z-index:120;white-space:nowrap}
 .swipe-hint.show{opacity:1}
 
+/* ══ A5: Welcome Quick-Settings ══ */
+.w-qs{width:100%;max-width:340px;margin:0 auto 18px}
+.w-qs-lbl{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size:.58rem;letter-spacing:2px;color:var(--gold-d);text-transform:uppercase;
+  text-align:center;margin-bottom:8px}
+.w-qs-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.w-qs-tog{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:8px 11px;background:var(--surface);border:1px solid var(--border-s);
+  border-radius:var(--r-s);cursor:pointer;transition:all .15s;user-select:none}
+.w-qs-tog.active{background:rgba(184,132,42,.1);border-color:rgba(184,132,42,.5)}
+.w-qs-tog:active{transform:scale(.97)}
+.w-qs-name{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size:.8rem;font-weight:700;color:var(--ink)}
+.w-qs-sl{width:34px;height:19px;border-radius:19px;background:#2a1a0a;
+  border:1px solid #4a3a20;position:relative;transition:.25s;flex-shrink:0}
+.w-qs-sl::after{content:'';position:absolute;width:13px;height:13px;
+  left:2px;top:2px;background:#7a6a48;border-radius:50%;transition:.25s}
+.w-qs-tog.active .w-qs-sl{background:var(--gold-d);border-color:var(--gold)}
+.w-qs-tog.active .w-qs-sl::after{transform:translateX(15px);background:var(--gold-l)}
+body.dark .w-qs-tog{background:var(--surface)}
+
+/* ══ C1: Step-Checkliste – Circle-Redesign ══ */
+.step-cl li{display:flex;align-items:flex-start;gap:9px;padding:6px 0;
+  border-bottom:1px solid rgba(184,132,42,.1);font-size:.88rem;line-height:1.5;
+  color:#e8d8b8;cursor:pointer;transition:color .2s}
+.step-cl li:last-child{border-bottom:none;padding-bottom:2px}
+.step-cl li.done{color:rgba(232,216,184,.38);text-decoration:line-through}
+.step-cl input[type=checkbox]{display:none}
+.scl-circle{width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(184,132,42,.45);display:flex;align-items:center;
+  justify-content:center;font-size:.72rem;color:transparent;
+  transition:all .18s;margin-top:1px;background:transparent}
+.step-cl li.done .scl-circle{background:var(--gold-d);border-color:var(--gold-l);
+  color:#fff;font-size:.75rem}
+.step-cl strong{color:#fde8c0}
+.scl-mark-all{background:transparent;border:1px dashed rgba(184,132,42,.35);
+  color:rgba(184,132,42,.65);font-size:.68rem;font-style:italic;
+  cursor:pointer;padding:4px 10px;border-radius:12px;margin:6px 0 0;
+  font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  transition:all .15s;display:block;flex:1;text-align:center}
+.scl-mark-all:active{background:rgba(184,132,42,.08);color:var(--gold-l)}
+
+/* ══ F3: Indien Sturm-Ereignisanzahl-Grid ══ */
+.storm-cnt-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.storm-cnt-btn{background:linear-gradient(160deg,#1a0e08,#2c1808);
+  border:1.5px solid rgba(184,132,42,.38);border-radius:var(--r);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;padding:14px 6px;cursor:pointer;transition:all .15s;width:100%}
+.storm-cnt-btn:active{transform:scale(.95);border-color:var(--gold);
+  background:linear-gradient(160deg,#2a1808,#3e2410)}
+.storm-cnt-ic{font-size:2.1rem;line-height:1;color:var(--gold-l)}
+.storm-cnt-lbl{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size:.7rem;color:rgba(212,168,69,.7);letter-spacing:.4px}
+
 /* ══ RESPONSIVE TABLET ══ */
 @media(min-width:768px){
   :root{--header-h:56px;--tabbar-h:62px;--nav-h:70px}
@@ -798,12 +852,36 @@ body.dark .cm-sheet{background:var(--surface)}
   <div class="w-sub">Zweite Auflage · Spielführer</div>
   <div class="w-line"><span style="color:var(--gold)">✦</span></div>
   <p class="w-desc">Vollständiger Regelbegleiter für alle Phasen – kompakt oder mit allen Details.</p>
+
+  <!-- A5: Quick-Settings -->
+  <div class="w-qs">
+    <div class="w-qs-lbl">Spieloptionen</div>
+    <div class="w-qs-grid">
+      <div class="w-qs-tog" id="wqs-r1" onclick="wqsToggle('r1')" role="switch" aria-label="Erste Runde">
+        <span class="w-qs-name">1. Runde</span>
+        <div class="w-qs-sl"></div>
+      </div>
+      <div class="w-qs-tog" id="wqs-dr" onclick="wqsToggle('dr')" role="switch" aria-label="Deregulierung">
+        <span class="w-qs-name">DEREG</span>
+        <div class="w-qs-sl"></div>
+      </div>
+      <div class="w-qs-tog" id="wqs-gg" onclick="wqsToggle('gg')" role="switch" aria-label="General-Gouverneur">
+        <span class="w-qs-name">General-Gov.</span>
+        <div class="w-qs-sl"></div>
+      </div>
+      <div class="w-qs-tog" id="wqs-cn" onclick="wqsToggle('cn')" role="switch" aria-label="China aktiv">
+        <span class="w-qs-name">China</span>
+        <div class="w-qs-sl"></div>
+      </div>
+    </div>
+  </div>
+
   <button class="w-start-btn f-cin" onclick="startMode('full')">📜 Spielführer starten</button>
   <div class="w-secondary">
     <button class="w-sec-btn" onclick="startMode('setup')">
       <span class="w-sec-ic">🎲</span>
       <div class="w-sec-body">
-        <div class="w-sec-title">Setup & Spielvorbereitung</div>
+        <div class="w-sec-title">Setup &amp; Spielvorbereitung</div>
         <div class="w-sec-desc">Szenario, Spielplan, Familien einrichten</div>
       </div>
     </button>
@@ -811,7 +889,7 @@ body.dark .cm-sheet{background:var(--surface)}
       <span class="w-sec-ic">🐘</span>
       <div class="w-sec-body">
         <div class="w-sec-title">Nur Ereignisse in Indien</div>
-        <div class="w-sec-desc">Phase VII – Stürme & Krisen direkt</div>
+        <div class="w-sec-desc">Phase VII – Stürme &amp; Krisen direkt</div>
       </div>
     </button>
   </div>
@@ -1578,7 +1656,12 @@ function stratHtml(id){
 }
 function resetStepChecklist(id){
   const card=$('scl-'+id);if(!card)return;
-  card.querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;cb.closest('li')?.classList.remove('done');});
+  card.querySelectorAll('.step-cl li').forEach(li=>li.classList.remove('done'));
+  card.querySelectorAll('input[type=checkbox]').forEach(cb=>{cb.checked=false;});
+}
+function sclMarkAll(id){
+  const card=$('scl-'+id);if(!card)return;
+  card.querySelectorAll('.step-cl li').forEach(li=>li.classList.add('done'));
 }
 function toggleDetailsSection(id){
   const section=$('details-'+id),btn=$('dtbtn-'+id);if(!section||!btn)return;
@@ -1593,7 +1676,8 @@ function wrapWithChecklist(step,content){
   let detHidden=true;
   try{const s=localStorage.getItem('jc2e_det_'+step.id);if(s==='1')detHidden=false;}catch(e){}
   const guidedBtn=GUIDED_PHASES.has(step.id)?`<button class="guided-trigger-btn" onclick="startGuidedMode('${step.id}')">🎯 Geführter Modus – Schritt für Schritt</button>`:'';
-  const cl=`<div class="step-checklist-card" id="scl-${step.id}"><div class="scl-header"><span class="scl-phase">${step.phase}</span><span class="scl-dot">·</span><span class="scl-title-txt">${step.title}</span></div><div class="scl-divider"></div><div class="scl-label">✔ Checkliste – Was tue ich jetzt?</div><ul class="step-cl">${items.map(i=>`<li><input type="checkbox" onchange="this.closest('li').classList.toggle('done',this.checked)"> <span>${i}</span></li>`).join('')}</ul><button class="scl-reset" onclick="resetStepChecklist('${step.id}')">✕ Zurücksetzen</button></div>`;
+  const liHtml=items.map(i=>`<li onclick="this.classList.toggle('done')"><span class="scl-circle">✓</span><span>${i}</span></li>`).join('');
+  const cl=`<div class="step-checklist-card" id="scl-${step.id}"><div class="scl-header"><span class="scl-phase">${step.phase}</span><span class="scl-dot">·</span><span class="scl-title-txt">${step.title}</span></div><div class="scl-divider"></div><div class="scl-label">✔ Checkliste – Was tue ich jetzt?</div><ul class="step-cl">${liHtml}</ul><div style="display:flex;gap:7px;margin-top:4px"><button class="scl-mark-all" onclick="sclMarkAll('${step.id}')">☑ Alle markieren</button><button class="scl-reset" onclick="resetStepChecklist('${step.id}')">✕ Zurücksetzen</button></div></div>`;
   const tog=`<button class="details-toggle" id="dtbtn-${step.id}" onclick="toggleDetailsSection('${step.id}')"><span class="dt-txt">▼ Detailregeln anzeigen</span><span class="dt-ic">▼</span></button>`;
   const det=`<div class="details-section${detHidden?' hidden':''}" id="details-${step.id}">${content}</div>`;
   return cl+guidedBtn+tog+det+stratHtml(step.id);
@@ -2106,10 +2190,19 @@ ${evOverview()}
 ${bw('Nur <strong>blaue Spieler-Schiffe</strong>! Charter und Kompanie-Schiffe nicht betroffen.')}
 ${dt([['1–2','Nichts.'],['3–4','Schiff auf Schaden-Seite drehen. Bereits beschädigt → zurück auf Werft (<strong>reparierte Seite</strong>).'],['5–6','Sofort zurück auf Werft – <strong>reparierte (nicht-erschöpfte) Seite!</strong>']])}
 <h3>Wie viele Ereigniskarten?</h3>
-<div class="btn-row" style="flex-wrap:wrap;gap:6px">
-  <button class="btn btn-d" style="flex:none;min-width:90px" onclick="IS.evTotal=1;IS.evDone=1;IS.fromStorm=false;IS.step='draw';renderIndia()">1 Ereignis</button>
-  <button class="btn btn-d" style="flex:none;min-width:90px" onclick="IS.evTotal=2;IS.evDone=1;IS.fromStorm=false;IS.step='draw';renderIndia()">2 Ereignisse</button>
-  <button class="btn btn-d" style="flex:none;min-width:90px" onclick="IS.evTotal=3;IS.evDone=1;IS.fromStorm=false;IS.step='draw';renderIndia()">3 Ereignisse</button>
+<div class="storm-cnt-grid">
+  <button class="storm-cnt-btn" onclick="IS.evTotal=1;IS.evDone=1;IS.fromStorm=false;IS.step='draw';renderIndia()">
+    <span class="storm-cnt-ic">①</span>
+    <span class="storm-cnt-lbl">Ereignis</span>
+  </button>
+  <button class="storm-cnt-btn" onclick="IS.evTotal=2;IS.evDone=1;IS.fromStorm=false;IS.step='draw';renderIndia()">
+    <span class="storm-cnt-ic">②</span>
+    <span class="storm-cnt-lbl">Ereignisse</span>
+  </button>
+  <button class="storm-cnt-btn" onclick="IS.evTotal=3;IS.evDone=1;IS.fromStorm=false;IS.step='draw';renderIndia()">
+    <span class="storm-cnt-ic">③</span>
+    <span class="storm-cnt-lbl">Ereignisse</span>
+  </button>
 </div>`},
 draw:{title:'Ereigniskarte ziehen',label:'Karte wählen',render:()=>`
 ${bi('<strong>Rückseite zuerst:</strong> Region auf Rückseite notieren. Ausnahme: bei Krise/Frieden zählt Elefantenposition.')}
@@ -2498,13 +2591,42 @@ function updateActiveChips(){
     hRow.innerHTML=active.map(a=>`<span class="a-chip ${a.cls}">${a.label}</span>`).join('');
 }
 
+/* ══ A5: Welcome Quick-Settings ══ */
+function wqsToggle(key){
+  const wEl=$('wqs-'+key),iEl=$('tog-'+key);
+  if(!wEl)return;
+  const isActive=wEl.classList.toggle('active');
+  if(iEl)iEl.checked=isActive;
+  updateActiveChips();
+}
+function syncWqs(){
+  ['r1','dr','gg','cn'].forEach(k=>{
+    const w=$('wqs-'+k),i=$('tog-'+k);
+    if(w&&i)w.classList.toggle('active',!!i.checked);
+  });
+}
+
+/* ══ F1: Swipe-Onboarding (einmaliger Hinweis beim ersten Start) ══ */
+function showSwipeOnboarding(){
+  try{if(localStorage.getItem('jc2e_swipe_seen'))return;}catch(e){}
+  const h=$('swipe-hint');if(!h)return;
+  setTimeout(()=>{
+    h.classList.add('show');
+    setTimeout(()=>{
+      h.classList.remove('show');
+      try{localStorage.setItem('jc2e_swipe_seen','1');}catch(e){}
+    },4000);
+  },1200);
+}
+
 function startMode(mode){
+  syncWqs();            // A5: Welcome-Buttons mit internem Zustand abgleichen
   currentAppMode=mode;
   $('W').style.display='none';
   const app=$('A');app.style.display='flex';app.style.flexDirection='column';
   if(mode==='india'){indiaStandalone=true;$('h-pj-btn').style.display='none';startIndia();}
   else if(mode==='setup'){indiaStandalone=false;renderSetup();}
-  else{indiaStandalone=false;buildSteps();cur=0;render();updateActiveChips();$('h-pj-btn').style.display='';}
+  else{indiaStandalone=false;buildSteps();cur=0;render();updateActiveChips();$('h-pj-btn').style.display='';showSwipeOnboarding();}// F1
 }
 /* A3: Menü-Schutz – Bestätigungs-Modal */
 function confirmBackToMenu(){
@@ -2521,6 +2643,7 @@ function backToMenu(){
   $('pj-overlay').classList.remove('open');$('guided-overlay').classList.remove('open');
   $('guide-nav').classList.add('hidden');
   indiaStandalone=false;IS={};clearState();
+  syncWqs(); // A5: Welcome-Toggles aktualisieren
 }
 
 /* A4: Kompakt-Mode Toggle */
@@ -2591,6 +2714,7 @@ window.addEventListener('load',()=>{
     showBanner();
   }
   updateActiveChips();
+  syncWqs(); // A5: Welcome-Toggles nach Restore abgleichen
 });
 
 /* ══════════════════════ SERVICE WORKER ══════════════════════ */
