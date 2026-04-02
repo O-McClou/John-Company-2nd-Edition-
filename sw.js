@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════
    John Company 2E – Spielführer
-   Service Worker v1.3
-   Strategie: Cache First mit Netzwerk-Fallback
+   Service Worker v2.0
+   Strategie: Cache First mit Stale-While-Revalidate
 ═══════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'jc2e-v1.9';
+const CACHE_NAME = 'jc2e-v2.0';
 
 // Alle Dateien, die offline verfügbar sein sollen
 const STATIC_ASSETS = [
@@ -58,7 +58,7 @@ self.addEventListener('activate', event => {
   );
 });
 
-/* ── FETCH: Cache First, Netzwerk als Fallback ── */
+/* ── FETCH: Cache First mit Stale-While-Revalidate ── */
 self.addEventListener('fetch', event => {
   // Nur GET-Anfragen abfangen
   if (event.request.method !== 'GET') return;
@@ -73,17 +73,16 @@ self.addEventListener('fetch', event => {
         if (cachedResponse) {
           // Cache-Hit: sofort zurückgeben
           // Im Hintergrund aktualisieren (Stale-While-Revalidate)
-          const fetchPromise = fetch(event.request)
+          fetch(event.request)
             .then(networkResponse => {
               if (networkResponse && networkResponse.status === 200) {
                 const responseClone = networkResponse.clone();
                 caches.open(CACHE_NAME)
                   .then(cache => cache.put(event.request, responseClone));
               }
-              return networkResponse;
             })
             .catch(() => {
-              // Netzwerk nicht verfügbar – kein Problem, Cache wird verwendet
+              // Netzwerk nicht verfügbar – kein Problem, Cache wird genutzt
             });
           return cachedResponse;
         }
@@ -91,7 +90,11 @@ self.addEventListener('fetch', event => {
         // Cache-Miss: Netzwerk versuchen und in Cache speichern
         return fetch(event.request)
           .then(networkResponse => {
-            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type === 'opaque') {
+            if (
+              !networkResponse ||
+              networkResponse.status !== 200 ||
+              networkResponse.type === 'opaque'
+            ) {
               return networkResponse;
             }
             const responseClone = networkResponse.clone();
@@ -101,8 +104,11 @@ self.addEventListener('fetch', event => {
           })
           .catch(err => {
             console.warn('[SW] Netzwerk nicht verfügbar:', err);
-            // Falls index.html angefragt wird, aus Cache nehmen
-            if (event.request.url.includes('index.html') || event.request.url.endsWith('/')) {
+            // index.html als Fallback aus dem Cache
+            if (
+              event.request.url.includes('index.html') ||
+              event.request.url.endsWith('/')
+            ) {
               return caches.match('./index.html');
             }
           });
