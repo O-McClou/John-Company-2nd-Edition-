@@ -85,10 +85,12 @@ body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:var(
 
 /* ══ HEADER ══ */
 header{background:linear-gradient(180deg,#0a0502,#180e08,#1e1208);
-  height:var(--header-h);padding:0 12px;
-  display:flex;align-items:center;gap:8px;
+  height:auto;padding:0;
+  display:flex;flex-direction:column;
   border-bottom:1.5px solid var(--gold-d);
   flex-shrink:0;position:relative;z-index:100}
+.h-row1{display:flex;align-items:center;gap:8px;
+  padding:0 12px;min-height:var(--header-h)}
 .h-logo{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7a5818,#d4a845,#7a5818);
   display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
 .h-text{flex:1;min-width:0}
@@ -97,11 +99,16 @@ header{background:linear-gradient(180deg,#0a0502,#180e08,#1e1208);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .h-phase{font-size:.72rem;color:var(--gold-l);margin-top:1px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* A4: Kompakt-Badge als funktionaler Toggle-Button */
 .kompakt-badge{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
   font-size:.58rem;background:var(--gold-d);color:#fff;
-  padding:2px 6px;border-radius:3px;font-weight:700;letter-spacing:.5px;
-  display:none;flex-shrink:0}
-body.kompakt .kompakt-badge{display:inline-block}
+  padding:2px 7px;border-radius:3px;font-weight:700;letter-spacing:.5px;
+  display:none;flex-shrink:0;border:none;cursor:pointer;
+  transition:background .15s,transform .1s}
+.kompakt-badge:active{transform:scale(.92)}
+body.kompakt .kompakt-badge{display:inline-block;background:rgba(122,88,24,.55);
+  border:1px solid rgba(184,132,42,.55)}
+body.kompakt .kompakt-badge::before{content:'✓ '}
 .h-dm{background:transparent;border:1px solid rgba(184,132,42,.35);color:#f0e4c8;
   padding:0;width:36px;height:36px;border-radius:4px;font-size:.9rem;cursor:pointer;
   display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -111,6 +118,12 @@ body.kompakt .kompakt-badge{display:inline-block}
   font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
   font-size:.72rem;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .h-menu:active{background:rgba(184,132,42,.12)}
+/* A1: Header-Chips-Row */
+#header-chips-row{display:flex;align-items:center;flex-wrap:wrap;gap:4px;
+  padding:3px 12px 5px;min-height:0;
+  border-top:1px solid rgba(184,132,42,.12)}
+#header-chips-row:empty{display:none}
+#header-chips-row .a-chip{font-size:.62rem;padding:2px 7px}
 /* Progress bar */
 .prog{height:3px;background:#1a0a04;flex-shrink:0}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold-l));transition:width .35s ease}
@@ -143,6 +156,34 @@ body.kompakt .kompakt-badge{display:inline-block}
 .nav-prog-fill{height:100%;background:var(--gold);border-radius:1px;transition:width .3s}
 .nav-next{font-size:.6rem;color:rgba(184,132,42,.45);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav-next span{color:var(--gold-d)}
+/* A2: Großer Weiter-Button */
+#nb-next{background:linear-gradient(150deg,var(--gold-d),var(--gold-l) 50%,var(--gold-d));
+  color:#fff;border:none;border-radius:var(--r-s);
+  font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size:.82rem;font-weight:700;letter-spacing:.6px;
+  min-height:52px;padding:6px 14px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  box-shadow:0 3px 14px rgba(122,88,24,.5);min-width:100px;flex-shrink:0}
+#nb-next:active{transform:scale(.97)}
+#nb-next:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#nb-next .nbn-main{font-size:.84rem;font-weight:700;letter-spacing:.7px;white-space:nowrap}
+#nb-next .nbn-preview{font-size:.6rem;color:rgba(255,255,255,.72);font-weight:400;
+  letter-spacing:0;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-style:italic}
+/* A6: End-of-card Weiter-Button */
+.eoc-next-btn{display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;min-height:52px;margin-top:14px;
+  background:linear-gradient(150deg,var(--gold-d),var(--gold-l) 50%,var(--gold-d));
+  color:#fff;border:none;border-radius:var(--r-s);
+  font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size:.88rem;font-weight:700;letter-spacing:.7px;cursor:pointer;
+  box-shadow:0 4px 18px rgba(122,88,24,.45);text-transform:uppercase;
+  transition:transform .12s}
+.eoc-next-btn:active{transform:scale(.97)}
+.eoc-next-btn .eoc-arrow{font-size:1rem}
+.eoc-next-btn .eoc-lbl{display:flex;flex-direction:column;align-items:flex-start;gap:1px}
+.eoc-next-btn .eoc-lbl-main{font-size:.84rem;font-weight:700;letter-spacing:.7px}
+.eoc-next-btn .eoc-lbl-sub{font-size:.7rem;font-weight:400;opacity:.82;font-style:italic;letter-spacing:0}
 
 /* ══ TAB BAR ══ */
 .tab-bar{background:linear-gradient(180deg,#0f0804,#060300);
@@ -692,6 +733,33 @@ body.dark .strat-tip-box{background:linear-gradient(135deg,#050e02,#0a1606)}
 body.dark .gf-table th{background:rgba(184,132,42,.1)}
 body.dark .gf-table td{color:var(--ink2)}
 
+/* ══ A3: BESTÄTIGUNGS-MODAL ══ */
+#confirm-menu-modal{position:fixed;inset:0;z-index:700;
+  background:rgba(10,5,2,.78);backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;padding:20px}
+#confirm-menu-modal.open{display:flex}
+.cm-sheet{background:var(--surface);border:1.5px solid var(--gold-d);border-top:3px solid var(--gold-l);
+  border-radius:var(--r);padding:22px 20px 18px;width:100%;max-width:340px;
+  box-shadow:0 8px 40px rgba(0,0,0,.55);animation:slideUp .2s cubic-bezier(.25,.46,.45,.94)}
+.cm-icon{font-size:1.6rem;text-align:center;margin-bottom:10px}
+.cm-title{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size:1.05rem;font-weight:700;color:var(--ink);text-align:center;margin-bottom:6px}
+.cm-desc{font-size:.83rem;color:var(--ink3);text-align:center;line-height:1.55;margin-bottom:18px}
+.cm-desc strong{color:var(--green-l)}
+.cm-actions{display:flex;gap:8px}
+.cm-cancel{flex:1;padding:11px;border:1.5px solid var(--border);background:transparent;
+  border-radius:var(--r-s);color:var(--ink2);cursor:pointer;
+  font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size:.82rem;font-weight:700;transition:all .15s}
+.cm-cancel:active{background:var(--bg2)}
+.cm-confirm{flex:1;padding:11px;border:none;
+  background:linear-gradient(150deg,#1a0e08,#2c1808);
+  border-radius:var(--r-s);color:#f2ead8;cursor:pointer;
+  font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+  font-size:.82rem;font-weight:700;letter-spacing:.4px;transition:all .15s}
+.cm-confirm:active{transform:scale(.97)}
+body.dark .cm-sheet{background:var(--surface)}
+
 /* ══ SWIPE HINT ══ */
 .swipe-hint{position:fixed;bottom:calc(var(--tabbar-h) + var(--nav-h) + 12px);left:50%;
   transform:translateX(-50%);background:rgba(26,14,4,.82);color:var(--gold-l);
@@ -753,15 +821,22 @@ body.dark .gf-table td{color:var(--ink2)}
 <div id="A">
   <!-- HEADER -->
   <header>
-    <div class="h-logo">⚓</div>
-    <div class="h-text">
-      <div class="h-title">John Company 2E</div>
-      <div class="h-phase" id="H-ph">Spielführer</div>
+    <div class="h-row1">
+      <div class="h-logo">⚓</div>
+      <div class="h-text">
+        <div class="h-title">John Company 2E</div>
+        <div class="h-phase" id="H-ph">Spielführer</div>
+      </div>
+      <!-- A4: Kompakt-Badge als Toggle-Button -->
+      <button class="kompakt-badge f-cin" id="kompakt-toggle-btn"
+              onclick="toggleKompaktMode()" title="Kompakt-Modus umschalten">Kompakt</button>
+      <button class="h-menu" onclick="openPJ()" id="h-pj-btn" title="Zu Phase springen">☰</button>
+      <!-- A3: Menü-Schutz -->
+      <button class="h-menu" onclick="confirmBackToMenu()" style="margin-left:4px">← Menü</button>
+      <button class="h-dm" id="dm-btn" onclick="toggleDarkMode()" title="Hell/Dunkel">🌙</button>
     </div>
-    <span class="kompakt-badge f-cin">Kompakt</span>
-    <button class="h-menu" onclick="openPJ()" id="h-pj-btn" title="Zu Phase springen">☰</button>
-    <button class="h-menu" onclick="backToMenu()" style="margin-left:4px">← Menü</button>
-    <button class="h-dm" id="dm-btn" onclick="toggleDarkMode()" title="Hell/Dunkel">🌙</button>
+    <!-- A1: Header-Chips-Row -->
+    <div id="header-chips-row"></div>
   </header>
   <div class="prog"><div class="prog-fill" id="prog" style="width:5%"></div></div>
 
@@ -1258,7 +1333,7 @@ body.dark .gf-table td{color:var(--ink2)}
 
       <div class="settings-group">
         <div class="settings-group-lbl">Sitzung</div>
-        <button class="btn btn-d" onclick="backToMenu()" style="margin-bottom:0">← Zurück zum Startmenü</button>
+        <button class="btn btn-d" onclick="confirmBackToMenu()" style="margin-bottom:0">← Zurück zum Startmenü</button>
       </div>
     </div><!-- /panel-settings -->
 
@@ -1270,9 +1345,14 @@ body.dark .gf-table td{color:var(--ink2)}
     <div class="nav-info">
       <div class="nav-lbl" id="nav-lbl">Phase I · 1/9</div>
       <div class="nav-prog"><div class="nav-prog-fill" id="nav-prog" style="width:5%"></div></div>
-      <div class="nav-next" id="nav-next-preview"></div>
+      <!-- A2: Preview-Text ist jetzt im #nb-next Button integriert (ausgeblendet hier) -->
+      <div class="nav-next" id="nav-next-preview" style="display:none"></div>
     </div>
-    <button class="nav-btn" id="nb-next" onclick="nav(1)">Weiter ▶</button>
+    <!-- A2: Großer Weiter-Button mit zweizeiliger Vorschau -->
+    <button id="nb-next" onclick="nav(1)">
+      <span class="nbn-main">Weiter ▶</span>
+      <span class="nbn-preview" id="nbn-preview-txt"></span>
+    </button>
   </div>
 
   <!-- TAB BAR -->
@@ -1326,6 +1406,19 @@ body.dark .gf-table td{color:var(--ink2)}
 </div>
 
 <div class="swipe-hint" id="swipe-hint">← Wischen zum Navigieren →</div>
+
+<!-- A3: MENÜ-VERLASSEN-BESTÄTIGUNG -->
+<div id="confirm-menu-modal">
+  <div class="cm-sheet">
+    <div class="cm-icon">📜</div>
+    <div class="cm-title">Spielführer verlassen?</div>
+    <div class="cm-desc">Dein Fortschritt ist <strong>automatisch gespeichert</strong> und wird beim nächsten Start wiederhergestellt.</div>
+    <div class="cm-actions">
+      <button class="cm-cancel" onclick="closeConfirmMenu()">Abbrechen</button>
+      <button class="cm-confirm" onclick="backToMenu()">← Zum Menü</button>
+    </div>
+  </div>
+</div>
 
 <script>
 /* ══════════════════════════════════════════════════════════
@@ -2322,28 +2415,54 @@ function buildSteps(){
 function render(){
   const s=steps[cur];if(!s)return;
   $('M').innerHTML=wrapWithChecklist(s,s.render());
+
   // B2: Phasen-Farb-Klasse auf die erste Karte anwenden
   (function applyPhaseClass(){
     const card=$('M').querySelector('.card');
     if(!card)return;
-    // Klassen ph1–ph9 entfernen, dann passende setzen
     for(let i=1;i<=9;i++)card.classList.remove('ph'+i);
     const m=s.phase.match(/Phase\s+([IVX]+)/i);
     if(m){const roman={I:1,II:2,III:3,IV:4,V:5,VI:6,VII:7,VIII:8,IX:9};
       const n=roman[m[1].toUpperCase()];if(n)card.classList.add('ph'+n);}
-    // Sonderfall "Firmen"-Phase → ph3-Farbe als Neutral
     else if(s.phase==='Firmen')card.classList.add('ph3');
   })();
+
   const tot=steps.length,n=cur+1;
+  const isLast=(cur===steps.length-1);
+  const ns=!isLast?steps[cur+1]:null;
+
   $('nav-lbl').textContent=`${s.phase} · ${n} / ${tot}`;
   $('nav-prog').style.width=`${(n/tot)*100}%`;
   $('prog').style.width=`${(n/tot)*100}%`;
   $('H-ph').textContent=s.title;
   $('nb-prev').disabled=(cur===0);
-  $('nb-next').textContent=(cur===steps.length-1)?'↺ Neustart':'Weiter ▶';
-  const np=$('nav-next-preview');
-  if(np){if(cur<steps.length-1){const ns=steps[cur+1];np.innerHTML=`Weiter: <span>${ns.phase} · ${ns.title}</span>`;}else{np.innerHTML='<span>Letzte Phase</span>';}}
+
+  // A2: Zweizeiliger Weiter-Button
+  const mainLbl=$('nb-next').querySelector('.nbn-main');
+  const prevTxt=$('nbn-preview-txt');
+  if(mainLbl)mainLbl.textContent=isLast?'↺ Neustart':'Weiter ▶';
+  if(prevTxt)prevTxt.textContent=ns?`${ns.phase} · ${ns.title}`:'Letzte Phase';
+
   $('guide-nav').classList.remove('hidden');
+
+  // A6: End-of-card Weiter-Button unter JEDEM Karteninhalt
+  (function appendEocButton(){
+    const container=$('M');
+    if(!container)return;
+    const eocLabel=isLast
+      ?{main:'↺ Von vorne beginnen',sub:'Zurück zu Phase I'}
+      :{main:`Weiter →`,sub:ns?`${ns.phase} · ${ns.title}`:''};
+    const btn=document.createElement('button');
+    btn.className='eoc-next-btn';
+    btn.onclick=()=>nav(1);
+    btn.innerHTML=`<span class="eoc-arrow">${isLast?'↺':'→'}</span>
+      <span class="eoc-lbl">
+        <span class="eoc-lbl-main">${eocLabel.main}</span>
+        ${eocLabel.sub?`<span class="eoc-lbl-sub">${eocLabel.sub}</span>`:''}
+      </span>`;
+    container.appendChild(btn);
+  })();
+
   const tc=$('tab-content');if(tc)tc.scrollTop=0;
   saveState();
   if(currentTab!=='guide')switchTab('guide');
@@ -2371,8 +2490,12 @@ function closePJ(){$('pj-overlay').classList.remove('open');}
 function updateActiveChips(){
   const r1=$('tog-r1')?.checked,dr=$('tog-dr')?.checked,gg=$('tog-gg')?.checked,cn=$('tog-cn')?.checked;
   const active=[r1&&{cls:'chip-r1',label:'1.Runde'},dr&&{cls:'chip-dr',label:'DEREG'},gg&&{cls:'chip-gg',label:'GG'},cn&&{cls:'chip-cn',label:'China'}].filter(Boolean);
-  const wrap=$('active-chips-wrap');if(!wrap)return;
-  wrap.innerHTML=active.length?active.map(a=>`<span class="a-chip ${a.cls}">${a.label}</span>`).join(''):'<span style="font-size:.8rem;color:var(--ink3);font-style:italic">Keine Optionen aktiv</span>';
+  // Settings-Panel chips-wrap
+  const wrap=$('active-chips-wrap');if(wrap)
+    wrap.innerHTML=active.length?active.map(a=>`<span class="a-chip ${a.cls}">${a.label}</span>`).join(''):'<span style="font-size:.8rem;color:var(--ink3);font-style:italic">Keine Optionen aktiv</span>';
+  // A1: Header-Chips-Row
+  const hRow=$('header-chips-row');if(hRow)
+    hRow.innerHTML=active.map(a=>`<span class="a-chip ${a.cls}">${a.label}</span>`).join('');
 }
 
 function startMode(mode){
@@ -2383,12 +2506,30 @@ function startMode(mode){
   else if(mode==='setup'){indiaStandalone=false;renderSetup();}
   else{indiaStandalone=false;buildSteps();cur=0;render();updateActiveChips();$('h-pj-btn').style.display='';}
 }
+/* A3: Menü-Schutz – Bestätigungs-Modal */
+function confirmBackToMenu(){
+  $('confirm-menu-modal').classList.add('open');
+}
+function closeConfirmMenu(){
+  $('confirm-menu-modal').classList.remove('open');
+}
+
 function backToMenu(){
+  closeConfirmMenu();
   currentAppMode='menu';
   $('A').style.display='none';$('W').style.display='flex';
   $('pj-overlay').classList.remove('open');$('guided-overlay').classList.remove('open');
   $('guide-nav').classList.add('hidden');
   indiaStandalone=false;IS={};clearState();
+}
+
+/* A4: Kompakt-Mode Toggle */
+function toggleKompaktMode(){
+  const isKompakt=document.body.classList.toggle('kompakt');
+  currentDisplayMode=isKompakt?'kompakt':'vollstaendig';
+  $('mode-btn-voll')?.classList.toggle('active',!isKompakt);
+  $('mode-btn-komp')?.classList.toggle('active',isKompakt);
+  try{localStorage.setItem('jc2e_mode',currentDisplayMode);}catch(e){}
 }
 
 /* ══════════════════════ DARK MODE ══════════════════════ */
