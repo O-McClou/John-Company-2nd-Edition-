@@ -794,9 +794,10 @@ body.dark .cm-sheet{background:var(--surface)}
 body.dark .w-qs-tog{background:var(--surface)}
 
 /* ══ C1: Step-Checkliste – Circle-Redesign ══ */
-.step-cl li{display:flex;align-items:flex-start;gap:9px;padding:6px 0;
+.step-cl li{display:flex;align-items:flex-start;gap:9px;padding:9px 4px 9px 0;
   border-bottom:1px solid rgba(184,132,42,.1);font-size:.88rem;line-height:1.5;
-  color:#e8d8b8;cursor:pointer;transition:color .2s}
+  color:#e8d8b8;cursor:pointer;transition:color .2s;min-height:44px;
+  -webkit-tap-highlight-color:transparent}
 .step-cl li:last-child{border-bottom:none;padding-bottom:2px}
 .step-cl li.done{color:rgba(232,216,184,.38);text-decoration:line-through}
 .step-cl input[type=checkbox]{display:none}
@@ -813,6 +814,8 @@ body.dark .w-qs-tog{background:var(--surface)}
   font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
   transition:all .15s;display:block;flex:1;text-align:center}
 .scl-mark-all:active{background:rgba(184,132,42,.08);color:var(--gold-l)}
+.scl-hint{display:block;font-size:.7rem;color:rgba(184,132,42,.5);font-style:italic;
+  margin:8px 0 2px;line-height:1.5;letter-spacing:.1px;text-align:center}
 
 /* ══ F3: Indien Sturm-Ereignisanzahl-Grid ══ */
 .storm-cnt-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
@@ -1730,7 +1733,7 @@ function wrapWithChecklist(step,content){
   try{const s=localStorage.getItem('jc2e_det_'+step.id);if(s==='1')detHidden=false;}catch(e){}
   const guidedBtn=GUIDED_PHASES.has(step.id)?`<button class="guided-trigger-btn" onclick="startGuidedMode('${step.id}')">🎯 Geführter Modus – Schritt für Schritt</button>`:'';
   const liHtml=items.map(i=>`<li onclick="this.classList.toggle('done')"><span class="scl-circle">✓</span><span>${i}</span></li>`).join('');
-  const cl=`<div class="step-checklist-card" id="scl-${step.id}"><div class="scl-header"><span class="scl-phase">${step.phase}</span><span class="scl-dot">·</span><span class="scl-title-txt">${step.title}</span></div><div class="scl-divider"></div><div class="scl-label">✔ Checkliste – Was tue ich jetzt?</div><ul class="step-cl">${liHtml}</ul><div style="display:flex;gap:7px;margin-top:4px"><button class="scl-mark-all" onclick="sclMarkAll('${step.id}')">☑ Alle markieren</button><button class="scl-reset" onclick="resetStepChecklist('${step.id}')">✕ Zurücksetzen</button></div></div>`;
+  const cl=`<div class="step-checklist-card" id="scl-${step.id}"><div class="scl-header"><span class="scl-phase">${step.phase}</span><span class="scl-dot">·</span><span class="scl-title-txt">${step.title}</span></div><div class="scl-divider"></div><div class="scl-label">✔ Checkliste – Was tue ich jetzt?</div><ul class="step-cl">${liHtml}</ul><em class="scl-hint">Optional: Punkte zur Übersicht antippen – Weiter jederzeit möglich</em><div style="display:flex;gap:7px;margin-top:4px"><button class="scl-mark-all" onclick="sclMarkAll('${step.id}')">☑ Alle markieren</button><button class="scl-reset" onclick="resetStepChecklist('${step.id}')">✕ Zurücksetzen</button></div></div>`;
   const tog=`<button class="details-toggle" id="dtbtn-${step.id}" onclick="toggleDetailsSection('${step.id}')"><span class="dt-txt">▼ Detailregeln anzeigen</span><span class="dt-ic">▼</span></button>`;
   const det=`<div class="details-section${detHidden?' hidden':''}" id="details-${step.id}">${content}</div>`;
   return cl+guidedBtn+tog+det+stratBox(step.id);
@@ -1872,7 +1875,7 @@ function s_ph3_hiring(){return `
 ${bExcept('<strong>Erste Runde:</strong> Diese Phase wird übersprungen!')}
 <p>Ämterkarten in <strong>aufsteigender Nummerfolge</strong>.</p>
 ${bRule('<strong>Nepotismus:</strong> Eigenes Mitglied ernennen? Zustimmung aller anderen im Pool. Gilt nicht beim Vorsitz.')}
-${bExcept('<strong>Nur 1 Kandidat im Pool?</strong> Nepotismus entfällt – Ernennung ohne Zustimmung möglich.')}
+${bExcept('<strong>Nur 1 Kandidat im Pool?</strong> Gibt es nur einen einzigen Kandidaten im Pool, entfällt die Nepotismus-Regel vollständig – Ernennung ohne Zustimmung der anderen möglich.')}
 ${bRule('<strong>Beförderungen:</strong> Alte Ämterkarte sofort (in Nummernreihenfolge) in freie Ämter einordnen und ggf. neu besetzen. <strong>Ermattungs-Marker von der alten auf die neue Ämterkarte übertragen!</strong> <span class="badge bo">ERRATA</span>')}
 ${bExcept('<strong>Kommandanten können nicht Gouverneur werden!</strong> Sie sind von der Gouverneurs-Ernennung ausgeschlossen.')}
 <h3>Wer ernennt wen?</h3>
@@ -1935,7 +1938,7 @@ ${bw('<strong>Pflicht:</strong> So viel ausgeben, bis max. <strong>£2</strong> 
 <h3>Option 1: Charterschiff mieten (schwarz) – £2 <span class="badge bo">ERRATA</span></h3>
 <p>In eine Seeregion. Wird in Phase IX automatisch zurückgelegt.</p>
 <h3>Option 2: Privates Schiff ausrüsten (blau) – £3</h3>
-<p>Von beliebiger Werft. <strong>Keine Zustimmung des Werftbesitzers nötig!</strong> £3 gehen an die Bank.</p>
+<p>Von beliebiger Werft. <strong>Keine Zustimmung des Werftbesitzers nötig!</strong> <em>(Diese Regelausnahme gilt nur für die Kompanie/den Flottenverwalter – nicht für private Firmen!)</em> £3 gehen an die Bank.</p>
 <h3>Option 3: Kompanie-Schiff kaufen (rot) – £5</h3>
 ${bw('<strong>Nur möglich, wenn kein Schiff (blau oder rot) auf irgendeiner Werft liegt!</strong>')}
 </div>`;}
@@ -2043,7 +2046,7 @@ function s_ph6_expenses(){return `
 ${$('tog-dr').checked?bb('<strong>Firmen zahlen ZUERST</strong> <span class="badge bd">DEREG</span><br>Firmen-Ausgaben: £1/Schiff + max(£1/Anteil, Firmenwert).'):''}
 <h3>Schritt 1: Kompanie-Ausgaben</h3>
 <p>Kompanie-Vermögen –<strong>£1</strong> für jeden: Schuldenmarker-Schritt · Regiment · Offizier · Schiff</p>
-${bExcept('<strong>Kommandanten zählen NICHT!</strong> Nur reguläre Offiziere (nicht der Kommandant der Armee) fließen in die Unterhaltskosten ein.')}
+${bw('<strong>⚠ Kommandanten zählen NICHT zu den Ausgaben!</strong> Nur reguläre Offiziere (nicht der Kommandant der Armee) fließen in die Unterhaltskosten ein.')}
 <h3>Schritt 2: Notkredite (falls nötig)</h3>
 ${bExcept('Gesetz „Königlicher Schutz" kann alle Notkredite verhindern.')}
 <ol><li>Schuldenmarker +1 (auch bei Maximum!) → +£5.</li><li>Wiederholen bis bezahlt.</li><li><strong>Danach: Vermögen auf 0!</strong></li></ol>
@@ -2085,7 +2088,7 @@ ${bExcept('<strong>Dilemma-Karte:</strong> Stoppt sofort – muss gewählt werde
 <p>PM dreht PM-Scheiben-Zeiger auf das Feld laut Gesetz.</p>
 <h3>3. Abstimmung</h3>
 <p>PM markiert <strong>anfängliche Unterstützung</strong>. Dann im Uhrzeigersinn:</p>
-<ul><li><strong>Dafür:</strong> £1 = 1 Stimme, oder Karten erschöpfen.</li><li><strong>Dagegen:</strong> Gleiche Ressourcen → Marker sinkt.</li><li>PM darf nicht dagegen stimmen und keine Versprechen-Karte nutzen – außer beim Deregulierungsgesetz. <span class="badge bo">ERRATA</span></li></ul>
+<ul><li><strong>Dafür:</strong> £1 = 1 Stimme, oder Karten erschöpfen.</li><li><strong>Dagegen:</strong> Gleiche Ressourcen → Marker sinkt.</li><li><strong>PM darf für ‚Dafür'-Stimmen nicht seine eigenen Unternehmen nutzen</strong> – außer mit einer passenden Versprechen-Karte. Er darf auch <strong>nicht dagegen stimmen</strong>, außer bei der Deregulierung. <span class="badge bo">ERRATA</span></li></ul>
 ${acc('ph8-opp','Opposition & Koalitionen',`<ul><li>Gegen = Opposition. Einmal dagegen, nicht mehr dafür.</li><li><strong>Oppositionsführer:</strong> Meiste Gegenstimmen.</li><li><strong>Koalition:</strong> Spieler können Stimmen im Namen eines anderen Spielers abgeben – dieser muss aber bereits gegen das Gesetz gestimmt haben oder dies commiten. Diese Stimmen zählen zu seinen Gegenstimmen (→ Oppositionsführer).</li></ul>`)}
 <h3>4. Ergebnis</h3>
 <ul><li><strong>Beschlossen (≥ 0):</strong> PM erhält 1 Gesetz-Marker (+1 Macht). Soforteffekte ausführen.</li><li><strong>Abgelehnt (< 0):</strong> Oppositionsführer → neuer PM. Dreht Zeiger 1 Position.</li></ul>
@@ -2228,7 +2231,7 @@ function branchBox(frage, ja_ziel, nein_ziel, weiter_ziel){
 <button class="btn btn-d" style="margin-bottom:0;font-size:.72rem;opacity:.65" onclick="iGo('${wz}')">→ Einfach Weiter (überspringen)</button>
 </div>`;
 }
-function regionLossRuleBox(suf){const body=`<p>Wenn eine Kompanie-Region verloren geht:</p><ol><li><strong>Kommandant:</strong> Hälfte Trophäen abgeben. Figur zurück.</li><li><strong>Offizier-Verluste:</strong> 1W6 pro Offizier – bei 6: zurück. Regimenter: kein Wurf.</li><li><strong>Gouverneur:</strong> Zurück, Ämterkarte → freie Ämter. (Entfällt bei GG.)</li><li><strong>Aufräumen:</strong> Gouverneurs-Plättchen, Kompanie-Schiffe, Unruhe entfernen. <em>Nur bei Invasions-Krise:</em> Alle offenen Aufträge der Region schließen. Falls danach alle Aufträge geschlossen → Kettenreaktion!</li><li><strong>Lokale Autorität:</strong> Je nach Ereignistyp.</li><li><strong>Ansehen:</strong> 1. Region –1 · 2. –2 weitere · 3.+ –3 weitere.</li></ol>`;return `<div class="xref-acc">${acc('rloss-'+suf,'⚠ Region-Verlust – alle Schritte',body)}</div>`;}
+function regionLossRuleBox(suf){const body=`<p>Wenn eine Kompanie-Region verloren geht:</p><ol><li><strong>Kommandant:</strong> Hälfte Trophäen abgeben. Figur zurück.</li><li><strong>Offizier-Verluste:</strong> 1W6 pro Offizier – bei 6: zurück. Regimenter: kein Wurf.</li><li><strong>Gouverneur:</strong> Zurück, Ämterkarte → freie Ämter. (Entfällt bei GG.)</li><li><strong>Aufräumen:</strong> Gouverneurs-Plättchen, Kompanie-Schiffe, Unruhe entfernen. <em>Nur bei Invasions-Krise:</em> <strong>Zuerst alle offenen Aufträge schließen (Kettenreaktion prüfen!)</strong>, bevor Trophäen/Offiziere abgehandelt werden. Alle offenen Aufträge der Region schließen. Falls danach alle Aufträge geschlossen → Kettenreaktion!</li><li><strong>Lokale Autorität:</strong> Je nach Ereignistyp.</li><li><strong>Ansehen:</strong> 1. Region –1 · 2. –2 weitere · 3.+ –3 weitere.</li></ol>`;return `<div class="xref-acc">${acc('rloss-'+suf,'⚠ Region-Verlust – alle Schritte',body)}</div>`;}
 
 /* ══════════════════════ INDIEN EVENT HANDLERS (IV-Objekt) ══════════════════════ */
 const IV={

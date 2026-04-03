@@ -4,7 +4,7 @@
    Strategie: Cache First mit Netzwerk-Fallback
 ═══════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'jc2e-v1.9';
+const CACHE_NAME = 'jc2e-v2.0';
 
 // Alle Dateien, die offline verfügbar sein sollen
 const STATIC_ASSETS = [
