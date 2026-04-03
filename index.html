@@ -415,7 +415,7 @@ body.kompakt .kompakt-hide{display:none!important}
 .strat-acc .acc-bd{background:rgba(10,18,6,.4);padding:10px 11px}
 .strat-acc .acc-bd p{color:#c8e8b0;font-size:.85rem}
 .strat-acc .acc-bd strong{color:#d8f0c0}
-.strat-acc .acc-bd .hist{font-size:.78rem;color:rgba(160,210,120,.65);font-style:italic;margin-top:6px;padding-top:6px;border-top:1px solid rgba(46,90,26,.2)}
+.strat-acc .acc-bd .hist{font-size:.81rem;color:rgba(160,210,120,.7);font-style:italic;margin-top:10px;padding-top:10px;border-top:1px solid rgba(46,90,26,.35);line-height:1.6}
 
 /* ══ STEP BADGE ══ */
 .step-badge{display:inline-flex;align-items:center;gap:6px;margin-bottom:5px}
@@ -1524,9 +1524,31 @@ const cb = (atk,def,tie) => `<div class="cb"><div class="cb-row"><div class="cb-
 
 function tAcc(id){$(id)?.classList.toggle('open')}
 
-function acc_strat(title, content){
-  const uid='sacc-'+Math.random().toString(36).substr(2,8);
-  return `<div class="acc strat-acc kompakt-hide" id="${uid}"><div class="acc-hd" onclick="tAcc('${uid}')"><span>🏛 ${title}</span><span class="ic">▼</span></div><div class="acc-bd"><p class="hist" style="font-size:.85rem;color:var(--ink2);line-height:1.65">${content}</p></div></div>`;
+/**
+ * Einheitliche Strategie- & Historien-Box.
+ * Ersetzt acc_strat() und stratHtml() vollständig.
+ *
+ * @param {string|null} id       – Schlüssel in STRATEGY_TIPS (für Regelkarten-Tipps)
+ * @param {string|null} histOnly – Nur-Historien-Text, wenn kein id vorhanden
+ */
+function stratBox(id, histOnly){
+  const s      = id ? STRATEGY_TIPS[id] : null;
+  const tip    = s?.tip    || null;
+  const hist   = histOnly  || s?.hist || null;
+
+  if(!tip && !hist) return '';
+
+  const uid    = id ? 'strat-' + id : 'sacc-' + Math.random().toString(36).substr(2, 8);
+  const tipHtml  = tip  ? `<p>${tip}</p>`               : '';
+  const histHtml = hist ? `<div class="hist">${hist}</div>` : '';
+
+  return `<div class="acc strat-acc kompakt-hide" id="${uid}">`
+       + `<div class="acc-hd" onclick="tAcc('${uid}')">`
+       +   `<span>💡 Strategie &amp; Historie</span>`
+       +   `<span class="ic">▼</span>`
+       + `</div>`
+       + `<div class="acc-bd">${tipHtml}${histHtml}</div>`
+       + `</div>`;
 }
 
 /* ═══════════════════════ TAB-NAVIGATION ═══════════════════════ */
@@ -1607,13 +1629,13 @@ function setMode(mode){
 /* ══════════════════════ STRATEGIE-TIPPS ══════════════════════ */
 const STRATEGY_TIPS={
   'ph1-attrition':{tip:'Ämter mit Ermattungs-Markern sind riskant. Rechtzeitig befördern, bevor +2/+3 Ruhestand fast sicher macht.',hist:'Viele EIC-Angestellte blieben nur wenige Jahre in Indien. Krankheiten und Intrigen sorgten für hohe Fluktuation.'},
-  'ph1-retire':{tip:'Die Höhe der Ausgaben bestimmt die Zugreihenfolge. Manchmal lohnt Mehrausgabe für eine wertvolle Karte (Ehegatte, Unternehmen).',hist:'John Johnstone erwarb 1765 die Güter Alva, Hangingshaw und Denovan und ließ Alva House von Robert Adam umbauen.'},
+  'ph1-retire':{tip:'Die Höhe der Ausgaben bestimmt die Zugreihenfolge. Manchmal lohnt Mehrausgabe für eine wertvolle Karte (Ehegatte, Unternehmen).',hist:'John Johnstone erwarb nach seiner Rückkehr 1765 die Güter Alva, Hangingshaw und Denovan in Schottland und ließ Alva House von Robert Adam umbauen. Warren Hastings blieb trotz seiner Verdienste verschuldet – der Unterhalt von Anwesen und Titeln ruin...'},
   'ph1-prestige':{tip:'Erpressungskarten darf man vor der Entscheidung ansehen. Ehegatten bieten dauerhafte Rabatte – besonders wertvoll bei mehreren Ruhestandsplänen.',hist:'Die „Nabobs" nutzten ihr Vermögen, um in die britische Elite aufzusteigen.'},
-  'ph2-family':{tip:'Betriebe (£5): sichere £1/Runde + 2 Parlamentsstimmen. Werften (£2): günstiger, aber Bonus hängt vom Flottenverwalter ab.',hist:'Private Investitionen waren nach 1813 der wichtigste Weg, unabhängig von der Kompanie zu werden.'},
+  'ph2-family':{tip:'Betriebe (£5): sichere £1/Runde + 2 Parlamentsstimmen. Werften (£2): günstiger, aber Bonus hängt vom Flottenverwalter ab.',hist:'Der „private trade" war für EIC-Angestellte eine Haupteinnahmequelle. Offiziere und Gouverneure nutzten ihre Position, um auf Kompanie-Schiffen eigene Waren zu transportieren. John Johnstone wurde 1764 entlassen, weil er private Geschäfte mit den Nawabs von Bengalen betrieben hatte – ein klassischer Interessenkonflikt.'},
   'ph2-shares':{tip:'Anteile aktivieren sich, wenn die Kompanie Schulden hat. Wer darauf spekuliert, kann günstig kaufen und profitiert früh von Dividenden.',hist:'EIC-Anteile brachten nicht nur Dividenden, sondern auch politischen Einfluss. John Johnstone nutzte seine 1767, um Strafverfahren zu verhindern.'},
   'firms':{tip:'Firmengründung kostet einen Anteil oder Betrieb. Droht die Kompanie zu scheitern (Anteile = –1 SP), wird ein Anteil für eine Firma opfern attraktiv.',hist:'Die Charter Act von 1813 öffnete Indien für private Handelshäuser und untergrub die Kompanie von innen.'},
   'ph3-hiring':{tip:'Wer einen Rivalen befördern lässt, kann im Gegenzug etwas verlangen. Manchmal ist der Aufstieg des Gegners taktisch klug.',hist:'Die Familie Johnstone kontrollierte so viele EIC-Positionen, dass Historiker sie in „every major event in the British Empire" sehen.'},
-  'ph4-chairman':{tip:'Der Vorsitzende kann Ämter durch Mittelkürzung schwächen. Ein Rivale mit £0 kann kaum handeln. Verbündete bevorzugen, Gegner aushungern.',hist:'Warren Hastings nahm 1780 Schulden auf, um den Krieg gegen Hyder Ali zu finanzieren – später ein Impeachment-Argument gegen ihn.'},
+  'ph4-chairman':{tip:'Der Vorsitzende kann Ämter durch Mittelkürzung schwächen. Ein Rivale mit £0 kann kaum handeln. Verbündete bevorzugen, Gegner aushungern.',hist:'Warren Hastings nahm 1780 Schulden auf, um den Krieg gegen Hyder Ali zu finanzieren – eine Entscheidung, die später zu seinem Impeachment beitrug. Die Schuldenaufnahme war die Lebensader der Kompanie: 1813 betrugen die Schulden der EIC über £30 Millionen. Der Vorsitzende konnte durch die Budgetverteilung Rivalen aushungern und Verbündete bevorzugen – ein mächtiges politisches Instrument.'},
   'ph4-director':{tip:'China-Handel früh eröffnen und das Amt selbst besetzen. Jede kontrollierte Region = £1/Runde für den Superintendent.',hist:'Der Opiumhandel nach China finanzierte zwischen 1760 und 1834 praktisch die gesamte Indien-Administration.'},
   'ph4-shipping':{tip:'Der Flottenverwalter kann private Werften (eigene oder verbündete) auf Kompanie-Kosten ausrüsten – eine legale Direktsubvention!',hist:'John Johnstone transportierte auf Kompanie-Schiffen eigene Waren, bevor er 1764 entlassen wurde.'},
   'ph4-mil':{tip:'Wer die meisten Figuren in einer Armee hat, stellt den Kommandanten (+1 Macht/Trophäe). Gezielte Bewegungen können die Kommandantenschaft wechseln.',hist:'Nach Plassey 1757 begann der Aufstieg der Kompanie zur Militärmacht.'},
@@ -1624,9 +1646,9 @@ const STRATEGY_TIPS={
   'ph5-bonus':{tip:'Regelmäßiges Basiseinkommen – Grundlage aller langfristigen Ausgaben. Wer viele Betriebe hat, ist unabhängiger von Amtserfolgen.',hist:'John Johnstone finanzierte seinen Lebensstil aus Investitionserträgen – nicht aus offiziellem Gehalt.'},
   'ph6-expenses':{tip:'Formel: £1/Schuld + £1/Regiment + £1/Offizier + £1/Schiff. Diese Zahl VOR Phase IV kennen – damit man weiß, wie viel Ertrag die Kompanie braucht.',hist:'1813 betrugen allein die EIC-Zinsen über £5 Millionen. Chronische Unterkapitalisierung war Hauptgrund für staatliche Eingriffe.'},
   'ph6-dividends':{tip:'Dividenden sind EINZIGER Weg, Ansehen zu erhöhen (Öffentliche Euphorie). Anteilsinhaber setzen den Vorsitzenden unter Druck!',hist:'Zwischen 1793 und 1813 wurden EIC-Dividenden aus Schulden finanziert – ein frühes Beispiel für „financial engineering".'},
-  'ph8-parli':{tip:'Als PM: Gesetz wählen, das Rivalen besteuert. Als Opposition: Stimmenkauf dosiert – eine glaubwürdige Drohung reicht oft.',hist:'Der Regulating Act (1773) und Pitts India Act (1784) unterwarfen die Kompanie staatlicher Kontrolle.'},
+  'ph8-parli':{tip:'Als PM: Gesetz wählen, das Rivalen besteuert. Als Opposition: Stimmenkauf dosiert – eine glaubwürdige Drohung reicht oft.',hist:'Stimmenkauf war im 18. Jahrhundert in Großbritannien allgegenwärtig. John Johnstone sicherte sich seinen Parlamentssitz 1774 durch Bestechung der Delegierten von Burntisland und Kinghorn. Der Regulating Act (1773) und Pitts India Act (1784) unterwarfen die Kompanie immer stärker staatlicher Kontrolle – jede Abstimmung war damals wie heute ein Handel aus Eigeninteressen.'},
   'ph9-upkeep':{tip:'Kurz vor Spielende Belohnungen kaufen? Nur wenn keine weitere Unterhaltsphase folgt. Genau zählen: letzte Runde = kein Unterhalt mehr.',hist:'Warren Hastings wurde durch die Kosten seines Impeachment-Verfahrens (1787–1795) finanziell ruiniert.'},
-  'ph10-scoring':{tip:'Macht-Prämie kann entscheidend sein: Trophäen früh sammeln. PM-Position (+2 Macht) wird oft unterschätzt.',hist:'Die endgültige Auflösung der EIC erfolgte 1874 – nach der Meuterei von 1857 und dem Government of India Act von 1858.'}
+  'ph10-scoring':{tip:'Macht-Prämie kann entscheidend sein: Trophäen früh sammeln. PM-Position (+2 Macht) wird oft unterschätzt.',hist:'Die Schlusswertung spiegelt das Lebenswerk der „Nabobs" wider: Robert Clive, John Johnstone, Warren Hastings. Wer die Mechanismen des Systems zu seinen Gunsten nutzte – Ämter, Dividenden, politische Macht – kehrte als Gewinner heim. Die EIC wurde 1874 endgültig aufgelöst, nachdem die Meuterei von 1857 zur Verstaatlichung geführt hatte. Das Spiel gibt keine moralische Bewertung vor – die Mechanismen sprechen für sich.'}
 };
 
 /* ══════════════════════ CHECKLISTEN ══════════════════════ */
@@ -1657,11 +1679,6 @@ const CHECKLISTS={
 
 const GUIDED_PHASES=new Set(['ph4-chairman','ph4-director','ph4-shipping','ph4-mil','ph4-bombay','ph4-madras','ph4-bengal','ph4-china','ph6-expenses','ph6-dividends','ph8-parli','ph9-upkeep']);
 
-function stratHtml(id){
-  const s=STRATEGY_TIPS[id];
-  if(!s)return '';
-  return `<div class="acc strat-acc kompakt-hide" id="strat-${id}"><div class="acc-hd" onclick="tAcc('strat-${id}')"><span>📊 Strategietipp & Hintergrund</span><span class="ic">▼</span></div><div class="acc-bd"><p>${s.tip}</p>${s.hist?`<div class="hist">${s.hist}</div>`:''}</div></div>`;
-}
 function resetStepChecklist(id){
   const card=$('scl-'+id);if(!card)return;
   card.querySelectorAll('.step-cl li').forEach(li=>li.classList.remove('done'));
@@ -1688,7 +1705,7 @@ function wrapWithChecklist(step,content){
   const cl=`<div class="step-checklist-card" id="scl-${step.id}"><div class="scl-header"><span class="scl-phase">${step.phase}</span><span class="scl-dot">·</span><span class="scl-title-txt">${step.title}</span></div><div class="scl-divider"></div><div class="scl-label">✔ Checkliste – Was tue ich jetzt?</div><ul class="step-cl">${liHtml}</ul><div style="display:flex;gap:7px;margin-top:4px"><button class="scl-mark-all" onclick="sclMarkAll('${step.id}')">☑ Alle markieren</button><button class="scl-reset" onclick="resetStepChecklist('${step.id}')">✕ Zurücksetzen</button></div></div>`;
   const tog=`<button class="details-toggle" id="dtbtn-${step.id}" onclick="toggleDetailsSection('${step.id}')"><span class="dt-txt">▼ Detailregeln anzeigen</span><span class="dt-ic">▼</span></button>`;
   const det=`<div class="details-section${detHidden?' hidden':''}" id="details-${step.id}">${content}</div>`;
-  return cl+guidedBtn+tog+det+stratHtml(step.id);
+  return cl+guidedBtn+tog+det+stratBox(step.id);
 }
 
 /* ══════════════════════ PRÄSIDENTEN-BLÖCKE ══════════════════════ */
@@ -1741,7 +1758,6 @@ ${bRule('<strong>Wichtig:</strong> Das bezahlte Ruhestandsgeld <em>noch nicht</e
 ${bRule('<strong>Ehegatten-Rabatte:</strong> Nur 1× pro Londoner Season nutzbar.')}
 ${bExcept('<strong>Beachten:</strong> Belohnungen verursachen Unterhalt (Phase IX) und ggfs. Fenstersteuer!')}
 <p>Nicht verwendete Ruheständler-Marker → zurück in den Familienvorrat.</p>
-${acc_strat('Historischer Hintergrund – Nabobs und Ruhestand', 'John Johnstone erwarb nach seiner Rückkehr 1765 die Güter Alva, Hangingshaw und Denovan in Schottland und ließ Alva House von Robert Adam umbauen. Warren Hastings blieb trotz seiner Verdienste verschuldet – der Unterhalt von Anwesen und Titeln ruin...')}
 </div>`;}
 
 function s_ph1_prestige(){return `
@@ -1772,7 +1788,6 @@ ${acc('fam-l','Luxusgut kaufen',`<p><strong>£4</strong> → sofort <strong>+2 S
 ${acc('fam-ws','Betrieb kaufen',`<ul><li><strong>£5</strong> → <strong>2 Parlamentsstimmen</strong></li><li>Bei Scheitern der Kompanie: +1 SP</li><li>DEREG: als investierter Betrieb umwandelbar</li></ul>`)}
 ${acc('fam-sh','Anteile erlangen',`<p>Familienmitglied auf freies Feld der <strong>Börsenleiste oberhalb des Kollegiums</strong>. Preis zahlen: laut aufgedrucktem Betrag auf dem Feld (steigt von links £1 bis rechts £6). ${bw('Kompanie scheitert → –1 SP/Anteil!')}</p>`)}
 ${bExcept('<strong>Keine Familienmitglieder mehr?</strong> Eines von Belohnung entfernen – SP gehen sofort verloren.')}
-${acc_strat('Historischer Hintergrund – Private Trade', 'Der „private trade" war für EIC-Angestellte eine Haupteinnahmequelle. Offiziere und Gouverneure nutzten ihre Position, um auf Kompanie-Schiffen eigene Waren zu transportieren. John Johnstone wurde 1764 entlassen, weil er private Geschäfte mit den Nawabs von Bengalen betrieben hatte – ein klassischer Interessenkonflikt.')}
 </div>`;}
 
 function s_ph2_shares(){return `
@@ -1855,7 +1870,6 @@ ${bRule('<strong>Mehr als 3×?</strong> Zustimmung der Mehrheit aller Kollegiums
 <h3>Schritt 2: Vermögen verteilen (Pflicht)</h3>
 <p>Das <strong>gesamte</strong> Kompanie-Vermögen vollständig auf Amtsschatullen verteilen. Nichts bleibt auf der Leiste.</p>
 ${bExcept('<strong>Kein Bestechungsgeld:</strong> Amtsvermögen und Familienvermögen immer strikt getrennt.')}
-${acc_strat('Historischer Hintergrund – Schuldenaufnahme', 'Warren Hastings nahm 1780 Schulden auf, um den Krieg gegen Hyder Ali zu finanzieren – eine Entscheidung, die später zu seinem Impeachment beitrug. Die Schuldenaufnahme war die Lebensader der Kompanie: 1813 betrugen die Schulden der EIC über £30 Millionen. Der Vorsitzende konnte durch die Budgetverteilung Rivalen aushungern und Verbündete bevorzugen – ein mächtiges politisches Instrument.')}
 </div>`;}
 
 function s_ph4_director(gg){
@@ -2058,7 +2072,6 @@ ${bg('<ul><li>Schuldenmarker: –1 pro 2 Schulden (abrunden).</li><li>Ansehen-Ma
 <h4>Bei Ablehnung</h4>
 ${bw('<ul><li>Wert der Kompanie-Anteile um 1 erhöhen (Marker umdrehen/verschieben). Max. ±3 SP.</li><li>PM bleibt. Gesetz bleibt.</li></ul>')}
 `)}
-${acc_strat('Historischer Hintergrund – Stimmenkauf & Parlament', 'Stimmenkauf war im 18. Jahrhundert in Großbritannien allgegenwärtig. John Johnstone sicherte sich seinen Parlamentssitz 1774 durch Bestechung der Delegierten von Burntisland und Kinghorn. Der Regulating Act (1773) und Pitts India Act (1784) unterwarfen die Kompanie immer stärker staatlicher Kontrolle – jede Abstimmung war damals wie heute ein Handel aus Eigeninteressen.')}
 </div>`;}
 
 function s_ph9(){return `
@@ -2083,7 +2096,6 @@ ${$('tog-dr').checked ? bAction('<strong>DEREG – Schlusswertung Zusatz (ZUERST
   <li><strong>Macht-Prämie:</strong> Top-2 Familien → SP laut Tabelle oben links am Spielplan.</li>
 </ol>
 ${bRule('<strong>Gleichstand Gesamt:</strong> Fenster-Symbole → PM-Reihenfolge.')}
-${acc_strat('Historischer Hintergrund – Die Nabobs und ihr Erbe', 'Die Schlusswertung spiegelt das Lebenswerk der „Nabobs" wider: Robert Clive, John Johnstone, Warren Hastings. Wer die Mechanismen des Systems zu seinen Gunsten nutzte – Ämter, Dividenden, politische Macht – kehrte als Gewinner heim. Wer sich von der Kompanie aufreiben ließ oder den Interessen der Institution zu sehr diente, scheiterte. Die EIC wurde 1874 endgültig aufgelöst, nachdem die Meuterei von 1857 zur Verstaatlichung geführt hatte. Das Spiel gibt keine moralische Bewertung vor – die Mechanismen sprechen für sich.')}
 <div class="btn-row mt">
   <button class="btn btn-g" onclick="showEndResult(true)">✓ Kompanie überlebt</button>
   <button class="btn btn-r" onclick="showEndResult(false)">✗ Kompanie gescheitert</button>
