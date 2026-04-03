@@ -91,8 +91,12 @@ header{background:linear-gradient(180deg,#0a0502,#180e08,#1e1208);
   flex-shrink:0;position:relative;z-index:100}
 .h-row1{display:flex;align-items:center;gap:8px;
   padding:0 12px;min-height:var(--header-h)}
-.h-logo{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7a5818,#d4a845,#7a5818);
-  display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.h-logo{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7a5818,#d4a845,#7a5818);
+  display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;
+  border:none;cursor:pointer;padding:0;
+  box-shadow:0 0 0 2px rgba(184,132,42,.22);
+  transition:transform .13s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
+.h-logo:active{transform:scale(.88);box-shadow:0 0 0 3px rgba(212,168,69,.45)}
 .h-text{flex:1;min-width:0}
 .h-title{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
   font-size:.78rem;font-weight:700;color:#f2ead8;letter-spacing:.8px;
@@ -110,6 +114,13 @@ header{background:linear-gradient(180deg,#0a0502,#180e08,#1e1208);
 /* Kompakt-Modus aktiv: Badge leuchtet auf */
 body.kompakt .kompakt-badge{
   background:var(--gold-d);color:#fff;border-color:var(--gold)}
+/* Modus-Icon-Button im Header */
+.h-mode{background:transparent;border:1px solid rgba(184,132,42,.35);color:#f0e4c8;
+  padding:0;width:36px;height:36px;border-radius:8px;font-size:1.05rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
+.h-mode:active{background:rgba(184,132,42,.14)}
+body.kompakt .h-mode{border-color:rgba(184,132,42,.65);background:rgba(184,132,42,.1)}
 .h-dm{background:transparent;border:1px solid rgba(184,132,42,.35);color:#f0e4c8;
   padding:0;width:36px;height:36px;border-radius:4px;font-size:.9rem;cursor:pointer;
   display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -771,6 +782,27 @@ body.dark .gf-table td{color:var(--ink2)}
 .cm-confirm:active{transform:scale(.97)}
 body.dark .cm-sheet{background:var(--surface)}
 
+/* ══ PHASE-JUMP FAB ══ */
+.pj-fab{
+  position:fixed;
+  bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 14px);
+  right:16px;
+  width:52px;height:52px;
+  border-radius:50%;
+  background:linear-gradient(145deg,var(--gold-d),var(--gold-l),var(--gold-d));
+  border:none;
+  color:#fff;
+  font-size:1.25rem;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(122,88,24,.55),0 0 0 2px rgba(184,132,42,.25);
+  z-index:110;
+  transition:transform .15s,opacity .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.pj-fab:active{transform:scale(.91)}
+.pj-fab.hidden{display:none}
+
 /* ══ SWIPE HINT ══ */
 .swipe-hint{position:fixed;bottom:calc(var(--tabbar-h) + 14px);left:50%;
   transform:translateX(-50%);background:rgba(26,14,4,.82);color:var(--gold-l);
@@ -942,17 +974,12 @@ body.dark .w-qs-tog{background:var(--surface)}
   <!-- HEADER -->
   <header>
     <div class="h-row1">
-      <div class="h-logo">⚓</div>
+      <button class="h-logo" onclick="confirmBackToMenu()" title="Zurück zum Startmenü" aria-label="Menü">⚓</button>
       <div class="h-text">
         <div class="h-title">John Company 2E</div>
         <div class="h-phase" id="H-ph">Spielführer</div>
       </div>
-      <!-- A4: Kompakt-Badge als Toggle-Button – immer sichtbar, zeigt aktuellen Modus -->
-      <button class="kompakt-badge f-cin" id="kompakt-toggle-btn"
-              onclick="toggleKompaktMode()" title="Kompakt-Modus umschalten">📖 Vollständig</button>
-      <button class="h-menu" onclick="openPJ()" id="h-pj-btn" title="Zu Phase springen">☰</button>
-      <!-- A3: Menü-Schutz -->
-      <button class="h-menu" onclick="confirmBackToMenu()" style="margin-left:4px">← Menü</button>
+      <button class="h-mode" id="kompakt-toggle-btn" onclick="toggleKompaktMode()" title="Anzeigemodus umschalten" aria-label="Anzeigemodus">📖</button>
       <button class="h-dm" id="dm-btn" onclick="toggleDarkMode()" title="Hell/Dunkel">🌙</button>
     </div>
     <!-- A1: Header-Chips-Row -->
@@ -1498,6 +1525,9 @@ body.dark .w-qs-tog{background:var(--surface)}
       <span class="t-dot"></span>
     </button>
   </div>
+  <!-- PHASE JUMP FAB – schwebt über Inhalt im Guide-Tab -->
+  <button class="pj-fab hidden" id="pj-fab" onclick="openPJ()" title="Zu Phase springen">☰</button>
+
 </div><!-- /A -->
 
 <!-- PHASE JUMP OVERLAY -->
@@ -1599,8 +1629,8 @@ function switchTab(tab){
   $('tab-'+tab)?.classList.add('active');
   const gn=$('guide-nav');
   if(gn) gn.classList.toggle('hidden', tab!=='guide');
-  const pjb=$('h-pj-btn');
-  if(pjb) pjb.style.display=(tab==='guide'&&currentAppMode==='full')?'':'none';
+  const fab=$('pj-fab');
+  if(fab) fab.classList.toggle('hidden', !(tab==='guide'&&currentAppMode==='full'));
   const tc=$('tab-content');
   if(tc) tc.scrollTop=0;
   const hp=$('H-ph');
@@ -1646,7 +1676,7 @@ function setMode(mode){
   $('mode-btn-voll')?.classList.toggle('active',!k);
   $('mode-btn-komp')?.classList.toggle('active',k);
   const badge=$('kompakt-toggle-btn');
-  if(badge)badge.innerHTML=k?'⚡ Kompakt':'📖 Vollständig';
+  if(badge)badge.textContent=k?'⚡':'📖';
   try{localStorage.setItem('jc2e_mode',mode);}catch(e){}
 }
 (function initMode(){
@@ -1658,7 +1688,7 @@ function setMode(mode){
         $('mode-btn-voll')?.classList.remove('active');
         $('mode-btn-komp')?.classList.add('active');
         const badge=$('kompakt-toggle-btn');
-        if(badge)badge.innerHTML='⚡ Kompakt';
+        if(badge)badge.textContent='⚡';
       });
     }
   }catch(e){}
@@ -2178,7 +2208,7 @@ ${bw('<strong>Erste Runde:</strong> Phase I und III komplett überspringen! → 
 <button class="btn btn-p mt" onclick="startMode('full')">📜 Zum Spielführer →</button>
 </div>`;
   $('guide-nav').classList.add('hidden');
-  $('h-pj-btn').style.display='none';
+  $('pj-fab')?.classList.add('hidden');
   switchTab('guide');
 }
 
@@ -2682,9 +2712,9 @@ function startMode(mode){
   currentAppMode=mode;
   $('W').style.display='none';
   const app=$('A');app.style.display='flex';app.style.flexDirection='column';
-  if(mode==='india'){indiaStandalone=true;$('h-pj-btn').style.display='none';startIndia();}
+  if(mode==='india'){indiaStandalone=true;$('pj-fab')?.classList.add('hidden');startIndia();}
   else if(mode==='setup'){indiaStandalone=false;renderSetup();}
-  else{indiaStandalone=false;buildSteps();cur=0;render();updateActiveChips();$('h-pj-btn').style.display='';showSwipeOnboarding();}// F1
+  else{indiaStandalone=false;buildSteps();cur=0;render();updateActiveChips();$('pj-fab')?.classList.remove('hidden');showSwipeOnboarding();}// F1
 }
 /* A3: Menü-Schutz – Bestätigungs-Modal */
 function confirmBackToMenu(){
@@ -2711,7 +2741,7 @@ function toggleKompaktMode(){
   $('mode-btn-voll')?.classList.toggle('active',!isKompakt);
   $('mode-btn-komp')?.classList.toggle('active',isKompakt);
   const badge=$('kompakt-toggle-btn');
-  if(badge)badge.innerHTML=isKompakt?'⚡ Kompakt':'📖 Vollständig';
+  if(badge)badge.textContent=isKompakt?'⚡':'📖';
   try{localStorage.setItem('jc2e_mode',currentDisplayMode);}catch(e){}
 }
 
@@ -2770,7 +2800,7 @@ window.addEventListener('load',()=>{
     const savedMode=JSON.parse(localStorage.getItem(LS_KEY)||'{}').mode||'full';
     if(Object.keys(IS).length&&IS.step){currentAppMode='india';renderIndia();}
     else if(savedMode==='setup'){currentAppMode='setup';renderSetup();}
-    else{currentAppMode='full';buildSteps();cur=Math.min(cur,steps.length-1);render();updateActiveChips();$('h-pj-btn').style.display='';}
+    else{currentAppMode='full';buildSteps();cur=Math.min(cur,steps.length-1);render();updateActiveChips();$('pj-fab')?.classList.remove('hidden');}
     showBanner();
   }
   updateActiveChips();
