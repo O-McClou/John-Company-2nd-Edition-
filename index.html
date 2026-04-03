@@ -980,6 +980,7 @@ body.dark .w-qs-tog{background:var(--surface)}
         <div class="h-phase" id="H-ph">Spielführer</div>
       </div>
       <button class="h-mode" id="kompakt-toggle-btn" onclick="toggleKompaktMode()" title="Anzeigemodus umschalten" aria-label="Anzeigemodus">📖</button>
+      <button class="h-dm hidden" id="pj-header-btn" onclick="openPJ()" title="Zu Phase springen" aria-label="Zu Phase springen">☰</button>
       <button class="h-dm" id="dm-btn" onclick="toggleDarkMode()" title="Hell/Dunkel">🌙</button>
     </div>
     <!-- A1: Header-Chips-Row -->
@@ -2209,6 +2210,7 @@ ${bw('<strong>Erste Runde:</strong> Phase I und III komplett überspringen! → 
 </div>`;
   $('guide-nav').classList.add('hidden');
   $('pj-fab')?.classList.add('hidden');
+  $('pj-header-btn')?.classList.add('hidden');
   switchTab('guide');
 }
 
@@ -2712,9 +2714,9 @@ function startMode(mode){
   currentAppMode=mode;
   $('W').style.display='none';
   const app=$('A');app.style.display='flex';app.style.flexDirection='column';
-  if(mode==='india'){indiaStandalone=true;$('pj-fab')?.classList.add('hidden');startIndia();}
+  if(mode==='india'){indiaStandalone=true;$('pj-fab')?.classList.add('hidden');$('pj-header-btn')?.classList.add('hidden');startIndia();}
   else if(mode==='setup'){indiaStandalone=false;renderSetup();}
-  else{indiaStandalone=false;buildSteps();cur=0;render();updateActiveChips();$('pj-fab')?.classList.remove('hidden');showSwipeOnboarding();}// F1
+  else{indiaStandalone=false;buildSteps();cur=0;render();updateActiveChips();$('pj-fab')?.classList.remove('hidden');$('pj-header-btn')?.classList.remove('hidden');showSwipeOnboarding();}// F1
 }
 /* A3: Menü-Schutz – Bestätigungs-Modal */
 function confirmBackToMenu(){
@@ -2800,7 +2802,7 @@ window.addEventListener('load',()=>{
     const savedMode=JSON.parse(localStorage.getItem(LS_KEY)||'{}').mode||'full';
     if(Object.keys(IS).length&&IS.step){currentAppMode='india';renderIndia();}
     else if(savedMode==='setup'){currentAppMode='setup';renderSetup();}
-    else{currentAppMode='full';buildSteps();cur=Math.min(cur,steps.length-1);render();updateActiveChips();$('pj-fab')?.classList.remove('hidden');}
+    else{currentAppMode='full';buildSteps();cur=Math.min(cur,steps.length-1);render();updateActiveChips();$('pj-fab')?.classList.remove('hidden');$('pj-header-btn')?.classList.remove('hidden');}
     showBanner();
   }
   updateActiveChips();
