@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>John Company 2E</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="John Company">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon" href="icon.png">
@@ -544,7 +544,7 @@ body.kompakt .kompakt-hide{display:none!important}
 .ref-item.hidden-by-search{display:none}
 
 /* ══ STRATEGIE TAB ══ */
-#panel-strategy .sec-head{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+#panel-strategy .sec-head,#reftab-strategie .sec-head{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
   font-size:.62rem;letter-spacing:2px;color:var(--gold-d);text-transform:uppercase;
   margin:14px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--border-s)}
 .money-sphere{background:var(--surface);border:1px solid var(--border-s);border-radius:var(--r);
@@ -772,7 +772,7 @@ body.dark .gf-table td{color:var(--ink2)}
 body.dark .cm-sheet{background:var(--surface)}
 
 /* ══ SWIPE HINT ══ */
-.swipe-hint{position:fixed;bottom:calc(var(--tabbar-h) + 14px);left:50%;
+.swipe-hint{position:fixed;bottom:calc(140px + 14px);left:50%;
   transform:translateX(-50%);background:rgba(26,14,4,.82);color:var(--gold-l);
   font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:.7rem;
   padding:4px 13px;border-radius:20px;border:1px solid rgba(184,132,42,.35);
@@ -882,6 +882,119 @@ body.dark .w-qs-tog{background:var(--surface)}
   .guide-nav{max-width:none}
   .guide-nav .nav-inner{max-width:860px;margin:0 auto;padding:0 40px}
 }
+
+/* ══ UNIFIED DOCK (Strategic Command Center) ══ */
+header { display: none !important; }
+#A > .prog { display: none !important; }
+
+/* Tab-Content bekommt Platz nach unten für das Dock */
+.tab-content {
+  padding-top: calc(env(safe-area-inset-top) + 10px) !important;
+  padding-bottom: 140px !important;
+}
+
+/* Das Unified Dock */
+.unified-dock {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2000;
+  background: linear-gradient(180deg, #1a0f08 0%, #0a0502 100%);
+  border-top: 1px solid var(--gold-d);
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.6);
+}
+
+.dock-prog { height: 3px; background: #1a0a04; flex-shrink: 0; }
+.dock-prog-fill { height: 100%; background: linear-gradient(90deg, var(--gold-d), var(--gold-l)); transition: width .35s ease; }
+
+.dock-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 14px;
+  background: rgba(184, 132, 42, 0.05);
+  border-bottom: 1px solid rgba(184, 132, 42, 0.1);
+}
+
+.phase-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+.phase-name {
+  font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  font-weight: bold;
+  font-size: 0.78rem;
+  color: var(--gold-l);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menu-trigger { color: rgba(184,132,42,.6); font-size: 0.9rem; flex-shrink: 0; }
+
+.compact-btn {
+  background: rgba(184, 132, 42, 0.15);
+  border: 1px solid var(--gold-d);
+  color: #f0e4c8;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  transition: background .15s;
+}
+.compact-btn:active { background: rgba(184, 132, 42, 0.3); }
+body.kompakt .compact-btn { background: var(--gold-d); color: #fff; border-color: var(--gold); }
+
+/* Neue Tab-Bar im Dock */
+.unified-dock .tab-bar {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  height: 58px !important;
+  background: transparent !important;
+  border-top: none !important;
+  padding-bottom: 0 !important;
+  align-items: stretch;
+}
+
+.unified-dock .tab-btn {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: none !important;
+  border: none !important;
+  color: rgba(184, 132, 42, 0.45) !important;
+  cursor: pointer;
+  gap: 2px;
+  padding: 6px 0 !important;
+  min-height: unset !important;
+  transition: background .15s;
+  flex: unset !important;
+}
+.unified-dock .tab-btn:active { background: rgba(184,132,42,.06) !important; }
+.unified-dock .tab-btn.active { color: var(--gold-l) !important; }
+.unified-dock .tab-btn .icon { font-size: 1.35rem; line-height: 1; }
+.unified-dock .tab-btn .label {
+  font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  font-size: 0.63rem;
+  letter-spacing: 0.3px;
+}
+.unified-dock .tab-btn .t-dot { display: none !important; }
+
+/* Dark-Mode Anpassungen für Dock */
+body.dark .unified-dock { background: linear-gradient(180deg, #100a04 0%, #060300 100%); }
+body.dark .compact-btn { color: var(--ink2); }
+
 </style>
 </head>
 <body>
@@ -945,7 +1058,7 @@ body.dark .w-qs-tog{background:var(--surface)}
       <div class="h-logo">⚓</div>
       <div class="h-text">
         <div class="h-title">John Company 2E</div>
-        <div class="h-phase" id="H-ph">Spielführer</div>
+        <div class="h-phase" data-old-id="H-ph">Spielführer</div>
       </div>
       <!-- A4: Kompakt-Badge als Toggle-Button – immer sichtbar, zeigt aktuellen Modus -->
       <button class="kompakt-badge f-cin" id="kompakt-toggle-btn"
@@ -958,7 +1071,7 @@ body.dark .w-qs-tog{background:var(--surface)}
     <!-- A1: Header-Chips-Row -->
     <div id="header-chips-row"></div>
   </header>
-  <div class="prog"><div class="prog-fill" id="prog" style="width:5%"></div></div>
+  <div class="prog"><div class="prog-fill" data-old-id="prog" style="width:5%"></div></div>
 
   <!-- SCROLLABLE CONTENT -->
   <div class="tab-content" id="tab-content">
@@ -984,6 +1097,7 @@ body.dark .w-qs-tog{background:var(--surface)}
         <button class="ref-tab" data-tab="begriffe" onclick="refTab('begriffe')">📚 Begriffe</button>
         <button class="ref-tab" data-tab="wertung" onclick="refTab('wertung')">🏆 Wertung</button>
         <button class="ref-tab" data-tab="literatur" onclick="refTab('literatur')">📚 Literatur</button>
+        <button class="ref-tab" data-tab="strategie" onclick="refTab('strategie')">📊 Strategie</button>
       </div>
       <div class="ref-no-results" id="ref-no-results">Keine Treffer gefunden.</div>
 
@@ -1102,10 +1216,6 @@ body.dark .w-qs-tog{background:var(--surface)}
           <div class="box box-i"><strong>Macht-Leiste:</strong> Die untersten zwei Felder der Leiste geben 0 Macht. Je höher ein Marker, desto mehr Macht pro Einheit.</div>
         </div>
       </div>
-      </div><!-- /panel-ref -->
-
-      <!-- TAB 3: STRATEGIE -->
-
       <div class="ref-tab-panel" id="reftab-literatur">
         <div class="ref-item">
           <h3>Weiterführende Literatur (laut Spielregel S. 48)</h3>
@@ -1120,8 +1230,8 @@ body.dark .w-qs-tog{background:var(--surface)}
           <div class="box box-i" style="margin-top:10px"><em>John Company ist ein Werk historischer Fiktion. Es enthüllt sein Sujet und ermutigt Spieler, tiefer zu graben.</em></div>
         </div>
       </div>
-    <div class="tab-panel" id="panel-strategy">
-      <div class="sec-head">Die drei Geldsphären</div>
+      <div class="ref-tab-panel" id="reftab-strategie">
+<div class="sec-head">Die drei Geldsphären</div>
       <div class="card" style="padding:12px 14px;margin-bottom:10px">
         <p style="font-size:.9rem;color:var(--ink2);line-height:1.7;margin-bottom:0">In <em>John Company</em> ist Geld nicht einfach eine Ressource, sondern ein <strong>Instrument der Verflechtung</strong>. Der Historiker John Keay beschreibt die EIC als „Staat im Staate" – eine Handelsgesellschaft mit eigener Armee, eigenem Geldwesen und eigener Steuerpolitik. Der schottische Nabob John Johnstone kehrte 1765 mit einem Vermögen von £300.000 nach Schottland zurück. <em>Wer versteht, wie Geld zwischen den drei Sphären wandert, beherrscht das Spiel.</em></p>
       </div>
@@ -1392,7 +1502,8 @@ body.dark .w-qs-tog{background:var(--surface)}
           </tbody>
         </table></div>
       </div>
-    </div><!-- /panel-strategy -->
+      </div><!-- /reftab-strategie -->
+    </div><!-- /panel-ref -->
 
     <!-- TAB 4: EINSTELLUNGEN -->
     <div class="tab-panel" id="panel-settings">
@@ -1475,29 +1586,31 @@ body.dark .w-qs-tog{background:var(--surface)}
     </button>
   </div>
 
-  <!-- TAB BAR -->
-  <div class="tab-bar">
-    <button class="tab-btn active" id="tab-guide" onclick="switchTab('guide')">
-      <span class="t-ic">📜</span>
-      <span class="t-lbl">Spielführer</span>
-      <span class="t-dot"></span>
-    </button>
-    <button class="tab-btn" id="tab-ref" onclick="switchTab('ref')">
-      <span class="t-ic">📖</span>
-      <span class="t-lbl">Referenz</span>
-      <span class="t-dot"></span>
-    </button>
-    <button class="tab-btn" id="tab-strategy" onclick="switchTab('strategy')">
-      <span class="t-ic">📊</span>
-      <span class="t-lbl">Strategie</span>
-      <span class="t-dot"></span>
-    </button>
-    <button class="tab-btn" id="tab-settings" onclick="switchTab('settings')">
-      <span class="t-ic">⚙</span>
-      <span class="t-lbl">Einstellungen</span>
-      <span class="t-dot"></span>
-    </button>
-  </div>
+
+  <!-- UNIFIED DOCK – Strategic Command Center -->
+  <nav class="unified-dock" id="unified-dock">
+    <div class="dock-prog"><div class="dock-prog-fill" id="prog" style="width:5%"></div></div>
+
+    <div class="dock-status">
+      <div class="phase-info" onclick="dockPhaseClick()">
+        <span class="phase-name" id="H-ph">Spielführer</span>
+        <span class="menu-trigger">☰</span>
+      </div>
+      <button class="compact-btn" id="dock-compact-btn" onclick="toggleKompaktMode()">📖 Vollständig</button>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" id="tab-guide" onclick="switchTab('guide')">
+        <span class="icon">📜</span><span class="label">Spielführer</span>
+      </button>
+      <button class="tab-btn" id="tab-ref" onclick="switchTab('ref')">
+        <span class="icon">📖</span><span class="label">Referenz</span>
+      </button>
+      <button class="tab-btn" id="tab-settings" onclick="switchTab('settings')">
+        <span class="icon">⚙️</span><span class="label">Menü</span>
+      </button>
+    </div>
+  </nav>
 </div><!-- /A -->
 
 <!-- PHASE JUMP OVERLAY -->
@@ -1595,18 +1708,19 @@ function switchTab(tab){
   currentTab = tab;
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   $('panel-'+tab)?.classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.unified-dock .tab-btn').forEach(b=>b.classList.remove('active'));
   $('tab-'+tab)?.classList.add('active');
   const gn=$('guide-nav');
   if(gn) gn.classList.toggle('hidden', tab!=='guide');
-  const pjb=$('h-pj-btn');
-  if(pjb) pjb.style.display=(tab==='guide'&&currentAppMode==='full')?'':'none';
   const tc=$('tab-content');
   if(tc) tc.scrollTop=0;
   const hp=$('H-ph');
-  if(hp&&tab!=='guide'){const lbls={ref:'Schnellreferenz',strategy:'Strategie',settings:'Einstellungen'};hp.textContent=lbls[tab]||'';}
-  const pr=document.querySelector('.prog');
-  if(pr) pr.style.display=(tab==='guide')?'':'none';
+  if(hp&&tab!=='guide'){const lbls={ref:'Referenz',settings:'Einstellungen'};hp.textContent=lbls[tab]||'';}
+}
+
+/* Dock-Klick: Phase-Jump oder Referenz-Navigation */
+function dockPhaseClick(){
+  if(currentTab==='guide'&&currentAppMode==='full'){openPJ();}
 }
 
 /* ═════════════════════ REFERENZ TAB ═════════════════════ */
@@ -1614,7 +1728,12 @@ function refTab(tab){
   document.querySelectorAll('.ref-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   document.querySelectorAll('.ref-tab-panel').forEach(p=>p.classList.toggle('active',p.id==='reftab-'+tab));
   const inp=$('ref-search-input');
-  if(inp&&inp.value){inp.value='';refSearch('');}
+  // Suchfeld nur bei nicht-Strategie leeren
+  if(tab!=='strategie'&&inp&&inp.value){inp.value='';refSearch('');}
+  // Bei Strategie-Tab: Suche ausblenden
+  const rsw=document.querySelector('.ref-search-wrap');
+  const rts=$('ref-tabs');
+  // Strategie braucht keine Suche (Suche bleibt sichtbar, Inhalt passt sich an)
 }
 function refSearch(q){
   const term=q.trim().toLowerCase();
@@ -1659,6 +1778,7 @@ function setMode(mode){
         $('mode-btn-komp')?.classList.add('active');
         const badge=$('kompakt-toggle-btn');
         if(badge)badge.innerHTML='⚡ Kompakt';
+        const dockBtn=$('dock-compact-btn');if(dockBtn)dockBtn.innerHTML='⚡ Kompakt';
       });
     }
   }catch(e){}
@@ -2178,7 +2298,6 @@ ${bw('<strong>Erste Runde:</strong> Phase I und III komplett überspringen! → 
 <button class="btn btn-p mt" onclick="startMode('full')">📜 Zum Spielführer →</button>
 </div>`;
   $('guide-nav').classList.add('hidden');
-  $('h-pj-btn').style.display='none';
   switchTab('guide');
 }
 
@@ -2682,9 +2801,9 @@ function startMode(mode){
   currentAppMode=mode;
   $('W').style.display='none';
   const app=$('A');app.style.display='flex';app.style.flexDirection='column';
-  if(mode==='india'){indiaStandalone=true;$('h-pj-btn').style.display='none';startIndia();}
+  if(mode==='india'){indiaStandalone=true;startIndia();}
   else if(mode==='setup'){indiaStandalone=false;renderSetup();}
-  else{indiaStandalone=false;buildSteps();cur=0;render();updateActiveChips();$('h-pj-btn').style.display='';showSwipeOnboarding();}// F1
+  else{indiaStandalone=false;buildSteps();cur=0;render();updateActiveChips();showSwipeOnboarding();}// F1
 }
 /* A3: Menü-Schutz – Bestätigungs-Modal */
 function confirmBackToMenu(){
@@ -2712,6 +2831,8 @@ function toggleKompaktMode(){
   $('mode-btn-komp')?.classList.toggle('active',isKompakt);
   const badge=$('kompakt-toggle-btn');
   if(badge)badge.innerHTML=isKompakt?'⚡ Kompakt':'📖 Vollständig';
+  const dockBtn=$('dock-compact-btn');
+  if(dockBtn)dockBtn.innerHTML=isKompakt?'⚡ Kompakt':'📖 Vollständig';
   try{localStorage.setItem('jc2e_mode',currentDisplayMode);}catch(e){}
 }
 
@@ -2788,7 +2909,7 @@ if('serviceWorker' in navigator){
             if(nw.state==='installed'&&navigator.serviceWorker.controller){
               // Neues SW wartet – Banner anzeigen
               const b=document.createElement('div');
-              b.style.cssText='position:fixed;bottom:80px;left:0;right:0;z-index:600;background:#1e3a12;color:#d8ecc8;text-align:center;padding:10px 14px;font-size:.83rem;display:flex;align-items:center;justify-content:center;gap:10px;';
+              b.style.cssText='position:fixed;bottom:145px;left:0;right:0;z-index:600;background:#1e3a12;color:#d8ecc8;text-align:center;padding:10px 14px;font-size:.83rem;display:flex;align-items:center;justify-content:center;gap:10px;';
               // Update-Button: SKIP_WAITING an den NEUEN (wartenden) SW senden
               const updateBtn=document.createElement('button');
               updateBtn.textContent='Jetzt laden';
