@@ -99,16 +99,17 @@ header{background:linear-gradient(180deg,#0a0502,#180e08,#1e1208);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .h-phase{font-size:.72rem;color:var(--gold-l);margin-top:1px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* A4: Kompakt-Badge als funktionaler Toggle-Button */
+/* A4: Kompakt-Badge als funktionaler Toggle-Button – immer sichtbar */
 .kompakt-badge{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
-  font-size:.58rem;background:var(--gold-d);color:#fff;
-  padding:2px 7px;border-radius:3px;font-weight:700;letter-spacing:.5px;
-  display:none;flex-shrink:0;border:none;cursor:pointer;
-  transition:background .15s,transform .1s}
+  font-size:.58rem;background:rgba(184,132,42,.14);color:rgba(212,168,69,.85);
+  padding:3px 8px;border-radius:3px;font-weight:700;letter-spacing:.4px;
+  display:inline-flex;align-items:center;gap:3px;
+  flex-shrink:0;border:1px solid rgba(184,132,42,.32);cursor:pointer;
+  transition:background .18s,transform .1s,color .18s,border-color .18s}
 .kompakt-badge:active{transform:scale(.92)}
-body.kompakt .kompakt-badge{display:inline-block;background:rgba(122,88,24,.55);
-  border:1px solid rgba(184,132,42,.55)}
-body.kompakt .kompakt-badge::before{content:'✓ '}
+/* Kompakt-Modus aktiv: Badge leuchtet auf */
+body.kompakt .kompakt-badge{
+  background:var(--gold-d);color:#fff;border-color:var(--gold)}
 .h-dm{background:transparent;border:1px solid rgba(184,132,42,.35);color:#f0e4c8;
   padding:0;width:36px;height:36px;border-radius:4px;font-size:.9rem;cursor:pointer;
   display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -138,12 +139,13 @@ body.kompakt .kompakt-badge::before{content:'✓ '}
 /* Guide-Panel: no bottom padding of its own – nav bar handles spacing */
 #panel-guide{padding-bottom:0}
 
-/* ══ GUIDE NAV BAR ══ */
+/* ══ GUIDE NAV BAR – dauerhaft ausgeblendet (eoc-next-btn übernimmt Navigation) ══ */
 .guide-nav{background:linear-gradient(180deg,#0c0804,#0a0502);
   border-top:1px solid rgba(184,132,42,.3);
   padding:8px 12px 8px;display:flex;align-items:center;gap:10px;
-  flex-shrink:0}
-.guide-nav.hidden{display:none}
+  flex-shrink:0;
+  display:none !important}
+.guide-nav.hidden{display:none !important}
 .nav-btn{background:transparent;border:1px solid rgba(184,132,42,.4);color:#d4a845;
   padding:9px 14px;border-radius:var(--r-s);
   font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
@@ -763,7 +765,7 @@ body.dark .gf-table td{color:var(--ink2)}
 body.dark .cm-sheet{background:var(--surface)}
 
 /* ══ SWIPE HINT ══ */
-.swipe-hint{position:fixed;bottom:calc(var(--tabbar-h) + var(--nav-h) + 12px);left:50%;
+.swipe-hint{position:fixed;bottom:calc(var(--tabbar-h) + 14px);left:50%;
   transform:translateX(-50%);background:rgba(26,14,4,.82);color:var(--gold-l);
   font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:.7rem;
   padding:4px 13px;border-radius:20px;border:1px solid rgba(184,132,42,.35);
@@ -907,9 +909,9 @@ body.dark .w-qs-tog{background:var(--surface)}
         <div class="h-title">John Company 2E</div>
         <div class="h-phase" id="H-ph">Spielführer</div>
       </div>
-      <!-- A4: Kompakt-Badge als Toggle-Button -->
+      <!-- A4: Kompakt-Badge als Toggle-Button – immer sichtbar, zeigt aktuellen Modus -->
       <button class="kompakt-badge f-cin" id="kompakt-toggle-btn"
-              onclick="toggleKompaktMode()" title="Kompakt-Modus umschalten">Kompakt</button>
+              onclick="toggleKompaktMode()" title="Kompakt-Modus umschalten">📖 Vollständig</button>
       <button class="h-menu" onclick="openPJ()" id="h-pj-btn" title="Zu Phase springen">☰</button>
       <!-- A3: Menü-Schutz -->
       <button class="h-menu" onclick="confirmBackToMenu()" style="margin-left:4px">← Menü</button>
@@ -1583,6 +1585,8 @@ function setMode(mode){
   document.body.classList.toggle('kompakt',k);
   $('mode-btn-voll')?.classList.toggle('active',!k);
   $('mode-btn-komp')?.classList.toggle('active',k);
+  const badge=$('kompakt-toggle-btn');
+  if(badge)badge.innerHTML=k?'⚡ Kompakt':'📖 Vollständig';
   try{localStorage.setItem('jc2e_mode',mode);}catch(e){}
 }
 (function initMode(){
@@ -1593,6 +1597,8 @@ function setMode(mode){
       window.addEventListener('load',()=>{
         $('mode-btn-voll')?.classList.remove('active');
         $('mode-btn-komp')?.classList.add('active');
+        const badge=$('kompakt-toggle-btn');
+        if(badge)badge.innerHTML='⚡ Kompakt';
       });
     }
   }catch(e){}
@@ -2648,12 +2654,14 @@ function backToMenu(){
   syncWqs(); // A5: Welcome-Toggles aktualisieren
 }
 
-/* A4: Kompakt-Mode Toggle */
+/* A4: Kompakt-Mode Toggle – Badge-Text spiegelt immer den aktuellen Modus */
 function toggleKompaktMode(){
   const isKompakt=document.body.classList.toggle('kompakt');
   currentDisplayMode=isKompakt?'kompakt':'vollstaendig';
   $('mode-btn-voll')?.classList.toggle('active',!isKompakt);
   $('mode-btn-komp')?.classList.toggle('active',isKompakt);
+  const badge=$('kompakt-toggle-btn');
+  if(badge)badge.innerHTML=isKompakt?'⚡ Kompakt':'📖 Vollständig';
   try{localStorage.setItem('jc2e_mode',currentDisplayMode);}catch(e){}
 }
 
