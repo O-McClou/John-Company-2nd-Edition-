@@ -569,12 +569,19 @@ body.kompakt .kompakt-hide{display:none!important}
   border-radius:10px;padding:2px 8px;margin:3px 0 6px;
   font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif}
 /* Geldfluss table */
-.gf-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.8rem}
+.gf-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border-radius:var(--r-s);margin:8px 0;
+  scrollbar-width:thin;scrollbar-color:rgba(184,132,42,.35) transparent}
+.gf-wrap::-webkit-scrollbar{height:4px}
+.gf-wrap::-webkit-scrollbar-thumb{background:rgba(184,132,42,.35);border-radius:2px}
+.gf-wrap::-webkit-scrollbar-track{background:transparent}
+.gf-table{width:100%;min-width:480px;border-collapse:collapse;margin:0;font-size:.8rem}
 .gf-table th{background:rgba(184,132,42,.12);color:var(--gold-d);
   font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
   font-size:.7rem;letter-spacing:.5px;padding:6px 9px;text-align:left;font-weight:700;
-  border-bottom:1px solid var(--border)}
-.gf-table td{padding:6px 9px;color:var(--ink2);border-bottom:1px solid var(--border-s);vertical-align:top}
+  border-bottom:1px solid var(--border);white-space:nowrap}
+.gf-table td{padding:6px 9px;color:var(--ink2);border-bottom:1px solid var(--border-s);
+  vertical-align:top;word-break:break-word;overflow-wrap:break-word;hyphens:auto}
 .gf-table tr:last-child td{border-bottom:none}
 .gf-table .gf-phase{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
   font-size:.7rem;color:var(--gold-d);font-weight:700;white-space:nowrap}
@@ -1252,7 +1259,7 @@ body.dark .w-qs-tog{background:var(--surface)}
 
       <div class="sec-head">Geldflüsse – Wer bekommt was?</div>
       <div class="card" style="padding:10px 12px">
-        <table class="gf-table">
+        <div class="gf-wrap"><table class="gf-table">
           <thead><tr><th>Quelle</th><th>Phase</th><th>Empfänger</th><th>Strategische Priorität</th><th>Histor. Parallele</th></tr></thead>
           <tbody>
             <tr><td>Handels-Aktion</td><td class="gf-phase">Ph IV</td><td class="gf-in">£1/Auftrag → Präsident · £1/Schreiber → Familie · Rest → Kompanie</td><td>Schreiber gezielt platzieren</td><td>Bengalen-Handel 1757+</td></tr>
@@ -1266,7 +1273,7 @@ body.dark .w-qs-tog{background:var(--surface)}
             <tr><td>Parlament (Steuer)</td><td class="gf-phase">Ph VIII</td><td class="gf-out">£1/Zielobjekt → Bank</td><td>Steuer auf Rivalen lenken</td><td>Fenstersteuer England</td></tr>
             <tr><td>Ruhestand</td><td class="gf-phase">Ph I/IX</td><td class="gf-out">Kosten → Bank · SP → Familie</td><td>Reihenfolge durch Ausgabenhöhe steuern</td><td>Nabobs kaufen Ländereien</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
 
       <div class="sec-head">Vollständige Geldquellen &amp; -senken</div>
@@ -1274,7 +1281,7 @@ body.dark .w-qs-tog{background:var(--surface)}
       <div class="acc strat-phase-acc" id="stracc-income">
         <div class="acc-hd" onclick="tAcc('stracc-income')"><span>1.1 Woher bekommt die Familie Geld?</span><span class="ic">▼</span></div>
         <div class="acc-bd">
-          <table class="gf-table">
+          <div class="gf-wrap"><table class="gf-table">
             <thead><tr><th>Quelle</th><th>Phase</th><th>Mechanismus</th><th>Strategische Überlegung</th></tr></thead>
             <tbody>
               <tr><td>Startkapital</td><td class="gf-phase">Setup</td><td>Laut Aufbaukarte</td><td>Ämter mit Einkommenspotenzial vs. sofortige Unternehmensinvestitionen</td></tr>
@@ -1286,7 +1293,7 @@ body.dark .w-qs-tog{background:var(--surface)}
               <tr><td>Verhandlungen</td><td class="gf-phase">Jederzeit</td><td>Geldtransfer zwischen Familien</td><td>Geld als politisches Werkzeug</td></tr>
               <tr><td>Prestige-/Erpressungskarten</td><td class="gf-phase">Ph I</td><td>Einmalig oder dauerhaft</td><td>Langfristige Rabatte vs. sofortige Aktionen</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="strat-hist-box">Historisch: Junge Angestellte der EIC begannen mit bescheidenem Gehalt, hatten aber Aussicht auf immense Gewinne durch den „private trade". John Johnstone nutzte seine Anteile 1767, um Strafverfahren gegen sich zu verhindern.</div>
         </div>
       </div>
@@ -1294,7 +1301,7 @@ body.dark .w-qs-tog{background:var(--surface)}
       <div class="acc strat-phase-acc" id="stracc-expenses-fam">
         <div class="acc-hd" onclick="tAcc('stracc-expenses-fam')"><span>1.2 Wofür gibt die Familie Geld aus?</span><span class="ic">▼</span></div>
         <div class="acc-bd">
-          <table class="gf-table">
+          <div class="gf-wrap"><table class="gf-table">
             <thead><tr><th>Ausgabe</th><th>Phase</th><th>Effekt</th><th>Strategische Überlegung</th></tr></thead>
             <tbody>
               <tr><td>Ruhestand</td><td class="gf-phase">Ph I</td><td>Kosten → Punkte</td><td>Ausgabenhöhe bestimmt Kartenziehreihenfolge</td></tr>
@@ -1304,7 +1311,7 @@ body.dark .w-qs-tog{background:var(--surface)}
               <tr><td>Steuern</td><td class="gf-phase">Ph VIII</td><td>£1/Zielobjekt → Bank</td><td>Gefahr für Liquidität; politisch beeinflussbar</td></tr>
               <tr><td>Bestechung</td><td class="gf-phase">Ph VIII</td><td>£1 = 1 Stimme</td><td>Dosiert einsetzen; Drohung oft genug</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="strat-hist-box">Warren Hastings wurde durch die Kosten seines Amtsenthebungsverfahrens finanziell ruiniert. Die Fenstersteuer in England war besonders verhasst, weil sie sichtbaren Wohlstand bestrafte.</div>
         </div>
       </div>
@@ -1312,7 +1319,7 @@ body.dark .w-qs-tog{background:var(--surface)}
       <div class="acc strat-phase-acc" id="stracc-income-comp">
         <div class="acc-hd" onclick="tAcc('stracc-income-comp')"><span>1.3 Woher bekommt die Kompanie Geld?</span><span class="ic">▼</span></div>
         <div class="acc-bd">
-          <table class="gf-table">
+          <div class="gf-wrap"><table class="gf-table">
             <thead><tr><th>Quelle</th><th>Mechanismus</th><th>Strategische Überlegung</th></tr></thead>
             <tbody>
               <tr><td>Schuldenaufnahme (Vorsitz)</td><td>+£5 pro Schritt</td><td>Risiko des Unterhalts wächst mit jeder Schulde</td></tr>
@@ -1321,7 +1328,7 @@ body.dark .w-qs-tog{background:var(--surface)}
               <tr><td>Steuern (Gouverneur/GG)</td><td>+£2 Option</td><td>Kompanie stärken oder eigene Schatulle füllen?</td></tr>
               <tr><td>Plünderung (Einsatz)</td><td>Beute laut Turmstufen</td><td>Sofortgewinn vs. Unruhe und Folgerisiken</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="strat-hist-box">Robert Clive erhielt nach der Plünderung Bengalens 1757 allein £234.000. Die Schulden der EIC betrugen 1813 über £30 Millionen. Zwischen 1760 und 1834 finanzierte der Opiumhandel nach China praktisch die gesamte Indien-Administration.</div>
         </div>
       </div>
@@ -1329,7 +1336,7 @@ body.dark .w-qs-tog{background:var(--surface)}
       <div class="acc strat-phase-acc" id="stracc-expenses-comp">
         <div class="acc-hd" onclick="tAcc('stracc-expenses-comp')"><span>1.4 Wofür gibt die Kompanie Geld aus?</span><span class="ic">▼</span></div>
         <div class="acc-bd">
-          <table class="gf-table">
+          <div class="gf-wrap"><table class="gf-table">
             <thead><tr><th>Ausgabe</th><th>Phase</th><th>Strategische Überlegung</th></tr></thead>
             <tbody>
               <tr><td>Budgetverteilung (Vorsitz)</td><td class="gf-phase">Ph IV</td><td>Ämter bevorzugen oder aushungern = Machtinstrument</td></tr>
@@ -1338,7 +1345,7 @@ body.dark .w-qs-tog{background:var(--surface)}
               <tr><td>Dividenden</td><td class="gf-phase">Ph VI</td><td>Ansehen steigern vs. Kapital für Expansion</td></tr>
               <tr><td>Notkredite</td><td class="gf-phase">Ph VI</td><td>Letzter Ausweg; Ansehen sinkt; Zinslast steigt</td></tr>
             </tbody>
-          </table>
+          </table></div>
           <div class="strat-hist-box">1813 gab die EIC über £5 Millionen allein für Schuldzinsen aus. Die staatlichen Rettungsaktionen von 1773 (Regulating Act) und 1784 (Pitt's India Act) kosteten die Kompanie ihre Unabhängigkeit.</div>
         </div>
       </div>
@@ -1373,7 +1380,7 @@ body.dark .w-qs-tog{background:var(--surface)}
 
       <div class="sec-head">Historische Schlüsselfiguren</div>
       <div class="card" style="padding:10px 12px">
-        <table class="gf-table">
+        <div class="gf-wrap"><table class="gf-table">
           <thead><tr><th>Person</th><th>Entsprechung</th></tr></thead>
           <tbody>
             <tr><td><strong>John Johnstone</strong> (1734–1795)</td><td>Idealer Spieler: nutzt Ämter zur Bereicherung, übersteht Skandale, wandelt Geld in politische Macht um.</td></tr>
@@ -1383,7 +1390,7 @@ body.dark .w-qs-tog{background:var(--surface)}
             <tr><td><strong>Sir Philip Francis</strong> (1740–1818)</td><td>Hastings' Intimfeind im Bengal-Rat, duellierte sich mit ihm. Der Rivale im Amt, der durch Intrigen den Vorsitzenden stürzen will.</td></tr>
             <tr><td><strong>Die Familie Johnstone</strong></td><td>In den 1750ern „involved in every major event in the British Empire" – der Spieler, der durch Netzwerke das Spiel dominiert.</td></tr>
           </tbody>
-        </table>
+        </table></div>
       </div>
     </div><!-- /panel-strategy -->
 
