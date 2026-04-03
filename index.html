@@ -229,17 +229,17 @@ h3{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-si
 h3:first-child{margin-top:0}
 h4{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;font-size:.76rem;
   font-weight:600;color:var(--gold-d);margin:10px 0 4px;letter-spacing:.5px}
-p{font-size:1rem;line-height:1.65;margin-bottom:7px;color:var(--ink2)}
+p{font-size:1rem;line-height:1.6;margin-bottom:7px;color:var(--ink2)}
 p:last-child{margin-bottom:0}
 strong{color:var(--ink);font-weight:600}
 em{color:var(--ink3)}
 ul{list-style:none;padding:0;margin:5px 0 7px}
-ul li{padding:5px 0 5px 18px;font-size:.96rem;line-height:1.55;color:var(--ink2);position:relative;
-  border-bottom:1px solid rgba(184,132,42,.08)}
+ul li{padding:6px 0 6px 22px;font-size:1rem;line-height:1.6;color:var(--ink2);position:relative;
+  border-bottom:1px solid rgba(184,132,42,.14)}
 ul li:last-child{border-bottom:none}
-ul li::before{content:'◆';position:absolute;left:0;color:var(--gold);font-size:.38rem;top:9px}
+ul li::before{content:'◆';position:absolute;left:0;color:var(--gold);font-size:.52rem;top:10px}
 ol{list-style:none;padding:0;margin:5px 0 7px;counter-reset:step}
-ol li{padding:5px 0 5px 28px;font-size:.96rem;line-height:1.55;color:var(--ink2);position:relative;counter-increment:step}
+ol li{padding:6px 0 6px 28px;font-size:1rem;line-height:1.6;color:var(--ink2);position:relative;counter-increment:step}
 ol li::before{content:counter(step);position:absolute;left:0;width:19px;height:19px;
   background:linear-gradient(145deg,var(--gold),var(--gold-d));color:#fff;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
@@ -248,8 +248,8 @@ ol li::before{content:counter(step);position:absolute;left:0;width:19px;height:1
 
 /* ══ INFO BOXES ══ */
 .box{border-radius:var(--r-s);padding:10px 12px;margin:7px 0;font-size:.94rem;line-height:1.6}
-.box p{font-size:.94rem;margin-bottom:4px}
-.box ul li{font-size:.92rem}
+.box p{font-size:.94rem;margin-bottom:4px;line-height:1.6}
+.box ul li{font-size:.92rem;line-height:1.6}
 .box-i{background:linear-gradient(135deg,#fef8e8,#f8edbe);border:1px solid var(--gold);border-left:4px solid var(--gold-l);color:#3a2400}
 .box-i strong{color:#1c0e00}
 .box-w{background:#fff0ee;border:1px solid var(--red);border-left:4px solid var(--red-l);color:#5a0808}
@@ -299,9 +299,9 @@ body.kompakt .box-except{display:block!important}
 .acc-hd .ic{color:var(--gold);font-size:.68rem;transition:transform .22s;flex-shrink:0}
 .acc.open .acc-hd{color:var(--red);background:rgba(122,24,24,.04);border-bottom:1px solid var(--border-s)}
 .acc.open .acc-hd .ic{transform:rotate(180deg)}
-.acc-bd{display:none;padding:11px 12px;font-size:.88rem;color:var(--ink2)}
-.acc-bd p{font-size:.88rem}
-.acc-bd ul li,.acc-bd ol li{font-size:.85rem}
+.acc-bd{display:none;padding:11px 12px;font-size:.94rem;color:var(--ink2)}
+.acc-bd p{font-size:.94rem}
+.acc-bd ul li,.acc-bd ol li{font-size:.9rem}
 .acc.open .acc-bd{display:block;animation:su .18s ease}
 .xref-acc .acc-hd{font-size:.74rem;color:var(--gold-d);background:rgba(184,132,42,.05);padding:7px 10px;min-height:36px}
 .xref-acc .acc-bd{padding:9px 10px}
@@ -826,14 +826,42 @@ body.dark .w-qs-tog{background:var(--surface)}
 .storm-cnt-lbl{font-family:'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
   font-size:.7rem;color:rgba(212,168,69,.7);letter-spacing:.4px}
 
+/* ══ #M / panel-guide – List-Optimierung für Regeltext ══ */
+#M ul li,#panel-guide ul li{
+  padding:7px 0 7px 24px;
+  font-size:1rem;
+  line-height:1.6;
+  border-bottom:1px solid rgba(184,132,42,.15);
+}
+#M ul li:last-child,#panel-guide ul li:last-child{border-bottom:none}
+#M ul li::before,#panel-guide ul li::before{
+  content:'◆';position:absolute;left:0;
+  color:var(--gold-l);font-size:.55rem;top:10px;
+}
+#M ol li,#panel-guide ol li{
+  padding:7px 0 7px 30px;
+  font-size:1rem;
+  line-height:1.6;
+  border-bottom:1px solid rgba(184,132,42,.1);
+}
+#M ol li:last-child,#panel-guide ol li:last-child{border-bottom:none}
+
 /* ══ RESPONSIVE TABLET ══ */
 @media(min-width:768px){
   :root{--header-h:56px;--tabbar-h:62px;--nav-h:70px}
   .tab-panel{padding:16px 20px 20px;max-width:720px}
   .card{padding:18px 16px}
   .step-checklist-card{padding:14px 16px 12px}
-  h3{font-size:.92rem}
-  p{font-size:.95rem}
+  h3{font-size:.96rem}
+  p{font-size:1.06rem;line-height:1.65}
+  ul li{font-size:1.06rem;padding:7px 0 7px 24px}
+  ol li{font-size:1.06rem;padding:7px 0 7px 30px}
+  .box,.box p{font-size:1rem}
+  .box ul li{font-size:.98rem}
+  .acc-bd,.acc-bd p{font-size:1rem}
+  .acc-bd ul li,.acc-bd ol li{font-size:.96rem}
+  #M ul li,#panel-guide ul li{font-size:1.06rem}
+  #M ol li,#panel-guide ol li{font-size:1.06rem}
   .tab-bar{max-width:none}
   .tab-btn .t-ic{font-size:1.2rem}
   .tab-btn .t-lbl{font-size:.62rem}
