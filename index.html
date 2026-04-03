@@ -1628,10 +1628,13 @@ function switchTab(tab){
   $('panel-'+tab)?.classList.add('active');
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   $('tab-'+tab)?.classList.add('active');
+  const isIndia=currentAppMode==='india'||(IS&&IS.step&&IS.step!=='');
   const gn=$('guide-nav');
-  if(gn) gn.classList.toggle('hidden', tab!=='guide');
+  if(gn) gn.classList.toggle('hidden', tab!=='guide'||isIndia);
   const fab=$('pj-fab');
   if(fab) fab.classList.toggle('hidden', !(tab==='guide'&&currentAppMode==='full'));
+  const pjh=$('pj-header-btn');
+  if(pjh) pjh.classList.toggle('hidden', !(tab==='guide'&&currentAppMode==='full'));
   const tc=$('tab-content');
   if(tc) tc.scrollTop=0;
   const hp=$('H-ph');
@@ -2240,7 +2243,7 @@ function loadState(){
 function clearState(){try{localStorage.removeItem(LS_KEY);}catch(e){}}
 
 function startIndia(){IS={step:'storm',evTotal:0,evDone:0,invSuccess:false,isInv:false,lostReg:0,fromStorm:false,_afterLoss:null,stormReg:[],stormIdx:0,curReg:'',crType:''};$('guide-nav').classList.add('hidden');saveState();renderIndia();}
-function renderIndia(){saveState();const v=IV[IS.step];if(!v)return;let html=`<div class="step-badge"><span class="step-num">${v.label||'Indien'}</span><span class="step-phase">Phase VII</span></div><div class="step-title">${v.title}</div>`;if(IS.evTotal>0&&!['summary','storm'].includes(IS.step))html+=`<div class="ev-cnt">Ereignis ${IS.evDone} / ${IS.evTotal}</div>`;html+=`<div class="card">${v.render()}</div>`;$('M').innerHTML=html;$('H-ph').textContent='Phase VII · Indien';const tc=$('tab-content');if(tc)tc.scrollTop=0;switchTab('guide');}
+function renderIndia(){saveState();const v=IV[IS.step];if(!v)return;let html=`<div class="step-badge"><span class="step-num">${v.label||'Indien'}</span><span class="step-phase">Phase VII</span></div><div class="step-title">${v.title}</div>`;if(IS.evTotal>0&&!['summary','storm'].includes(IS.step))html+=`<div class="ev-cnt">Ereignis ${IS.evDone} / ${IS.evTotal}</div>`;html+=`<div class="card">${v.render()}</div>`;$('M').innerHTML=html;$('H-ph').textContent='Phase VII · Indien';const tc=$('tab-content');if(tc)tc.scrollTop=0;if(IS.step==='ev_ausland')setTimeout(auslandUpdate,50);switchTab('guide');}
 function iGo(key,tmp){IS.step=key;if(tmp)IS.temp=tmp;saveState();renderIndia();}
 function tLoss(isInv,after){IS.lostReg=(IS.lostReg||0)+1;IS.isInv=isInv;IS._afterLoss=after||'el_march';IS.step='region_loss';saveState();renderIndia();}
 function afterLoss(){const n=IS._afterLoss||'el_march';IS._afterLoss=null;IS.isInv=false;iGo(n);}
@@ -2476,7 +2479,7 @@ ${bw('<strong>⚠ Kein Sturmsymbol:</strong> Invasion in der Region der obersten
 </select>
 </div>
 <button class="btn btn-r mt" onclick="auslandStart()">⚔ Invasionen starten</button>
-<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onload="auslandUpdate()" style="display:none;">`},
+`},
 fi_loop:{title:'Ausländ. Invasion – Kampf',label:'Invasion · Kampf',render:()=>`
 ${trail('Ausländische Invasion',IS.curReg||'Region')}
 <div class="crisis-badge cr-inv">🛡 INVASION: ${IS.curReg||''}</div>
@@ -2626,7 +2629,8 @@ function render(){
   if(mainLbl)mainLbl.textContent=isLast?'↺ Neustart':'Weiter ▶';
   if(prevTxt)prevTxt.textContent=ns?`${ns.phase} · ${ns.title}`:'Letzte Phase';
 
-  $('guide-nav').classList.remove('hidden');
+  // guide-nav nur einblenden wenn kein India-Ereignis aktiv
+  if(!IS||!IS.step) $('guide-nav').classList.remove('hidden');
 
   // A6: End-of-card Weiter-Button unter JEDEM Karteninhalt
   (function appendEocButton(){
