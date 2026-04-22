@@ -3,7 +3,7 @@
    Offline-first caching strategy
    ════════════════════════════════════════ */
 
-const CACHE_NAME = 'jc2e-v2';
+const CACHE_NAME = 'jc2e-v3';
 const PRECACHE = [
   './',
   './index.html',

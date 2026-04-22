@@ -2192,6 +2192,41 @@ function renderStratContent() {
   }
 }
 
+// ── Presidency block functions (called from data.js s_ph4_pres HTML) ──
+function togglePresBlock(type) {
+  const body  = document.getElementById('pbbody-' + type);
+  const block = document.getElementById('pcb-'    + type);
+  if (!body) return;
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (block) block.classList.toggle('open', !isOpen);
+  const arrow = block ? block.querySelector('.pres-cb-arrow') : null;
+  if (arrow) arrow.style.transform = isOpen ? '' : 'rotate(90deg)';
+}
+
+function tPresSlot(type) {
+  const btn = document.getElementById('pslot-' + type);
+  if (!btn) return;
+  const done = btn.textContent.trim() === '●';
+  btn.textContent = done ? '○' : '●';
+  btn.style.color  = done ? '' : 'var(--accent, #2e7d32)';
+  const block = document.getElementById('pcb-' + type);
+  if (block) block.classList.toggle('pres-cb-done-state', !done);
+}
+
+function resetPresOrder() {
+  ['president','commander','governor'].forEach(type => {
+    const body  = document.getElementById('pbbody-' + type);
+    const block = document.getElementById('pcb-'    + type);
+    const btn   = document.getElementById('pslot-' + type);
+    const arrow = block ? block.querySelector('.pres-cb-arrow') : null;
+    if (body)  { body.style.display = 'none'; }
+    if (block) { block.classList.remove('open','pres-cb-done-state'); }
+    if (arrow) { arrow.style.transform = ''; }
+    if (btn)   { btn.textContent = '○'; btn.style.color = ''; }
+  });
+}
+
 // ── India assistant helper functions (called from data.js rendered HTML) ──
 function backToMenu() {
   switchTab('menu');

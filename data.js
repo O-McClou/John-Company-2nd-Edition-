@@ -3,10 +3,10 @@
 /* ══════════════════════ HILFSFUNKTIONEN ══════════════════════ */
 const $ = id => document.getElementById(id);
 const box  = (cls,h) => `<div class="box ${cls}">${h}</div>`;
-const bi   = h => box(‘box-i’,h);
-const bw   = h => box(‘box-w’,h);
-const bg   = h => box(‘box-g’,h);
-const bb   = h => box(‘box-b’,h);
+const bi   = h => box('box-i',h);
+const bw   = h => box('box-w',h);
+const bg   = h => box('box-g',h);
+const bb   = h => box('box-b',h);
 const bAction = h => `<div class="box-action"><span class="box-action-lbl">✅ AKTION</span>${h}</div>`;
 const bRule   = h => `<div class="box-rule"><span class="box-rule-lbl">📌 REGELDETAIL</span>${h}</div>`;
 const bExcept = h => `<div class="box-except"><span class="box-except-lbl">⚠️ AUSNAHME</span>${h}</div>`;
@@ -14,19 +14,19 @@ const dt = rows => `<div class="dt">${rows.map(r=>`<div class="dt-row"><div clas
 const acc = (id,t,body,open=false) => `<div class="acc${open?' open':''}" id="acc-${id}"><div class="acc-hd" onclick="tAcc('acc-${id}')"><span>${t}</span><span class="ic">▼</span></div><div class="acc-bd">${body}</div></div>`;
 const cl  = items => `<ul class="cl">${items.map(i=>`<li><input type="checkbox" onchange="this.closest('li').classList.toggle('done',this.checked)"> <span>${i}</span></li>`).join('')}</ul>`;
 const chbtn = (ic,t,s,fn) => `<button class="chbtn" onclick="${fn}"><div class="chbtn-ic">${ic}</div><div class="chbtn-body"><div class="chbtn-t">${t}</div>${s?`<div class="chbtn-s">${s}</div>`:''}</div><div class="chbtn-ar">▶</div></button>`;
-const trail = (…p) => `<div class="trail">${p.map((t,i)=>`<span class="trail-i">${t}</span>${i<p.length-1?’<span class="trail-sep">›</span>’:’’}`).join('')}</div>`;
+const trail = (...p) => `<div class="trail">${p.map((t,i)=>`<span class="trail-i">${t}</span>${i<p.length-1?'<span class="trail-sep">›</span>':''}`).join('')}</div>`;
 const cb = (atk,def,tie) => `<div class="cb"><div class="cb-row"><div class="cb-lbl">⚔ Angreifer</div><div class="cb-val">${atk}</div></div><hr class="cb-div"><div class="cb-row"><div class="cb-lbl">🛡 Verteidiger</div><div class="cb-val">${def}</div></div>${tie?`<div class="cb-tie">🔸 Gleichstand: ${tie}</div>`:''}</div>`;
 
-function tAcc(id){$(id)?.classList.toggle(‘open’)}
+function tAcc(id){$(id)?.classList.toggle('open')}
 
 function stratBox(id, histOnly){
 const s      = id ? STRATEGY_TIPS[id] : null;
 const tip    = s?.tip    || null;
 const hist   = histOnly  || s?.hist || null;
-if(!tip && !hist) return ‘’;
-const uid    = id ? ‘strat-’ + id : ‘sacc-’ + Math.random().toString(36).substr(2, 8);
-const tipHtml  = tip  ? `<p>${tip}</p>`               : ‘’;
-const histHtml = hist ? `<div class="hist">${hist}</div>` : ‘’;
+if(!tip && !hist) return '';
+const uid    = id ? 'strat-' + id : 'sacc-' + Math.random().toString(36).substr(2, 8);
+const tipHtml  = tip  ? `<p>${tip}</p>`               : '';
+const histHtml = hist ? `<div class="hist">${hist}</div>` : '';
 return `<div class="acc strat-acc kompakt-hide" id="${uid}">`
 + `<div class="acc-hd" onclick="tAcc('${uid}')">`
 +   `<span>💡 Strategie &amp; Historie</span>`
@@ -38,86 +38,86 @@ return `<div class="acc strat-acc kompakt-hide" id="${uid}">`
 
 /* ══════════════════════ STRATEGY_TIPS ══════════════════════ */
 const STRATEGY_TIPS={
-‘ph1-attrition’:{tip:‘Ämter mit Ermattungs-Markern sind riskant. Rechtzeitig befördern, bevor +2/+3 Ruhestand fast sicher macht.’,hist:‘Viele EIC-Angestellte blieben nur wenige Jahre in Indien. Krankheiten und Intrigen sorgten für hohe Fluktuation.’},
-‘ph1-retire’:{tip:‘Die Höhe der Ausgaben bestimmt die Zugreihenfolge. Manchmal lohnt Mehrausgabe für eine wertvolle Karte (Ehegatte, Unternehmen).’,hist:‘John Johnstone erwarb nach seiner Rückkehr 1765 die Güter Alva, Hangingshaw und Denovan in Schottland und ließ Alva House von Robert Adam umbauen. Warren Hastings blieb trotz seiner Verdienste verschuldet – der Unterhalt von Anwesen und Titeln ruin…’},
-‘ph1-prestige’:{tip:‘Erpressungskarten darf man vor der Entscheidung ansehen. Ehegatten bieten dauerhafte Rabatte – besonders wertvoll bei mehreren Ruhestandsplänen.’,hist:‘Die „Nabobs” nutzten ihr Vermögen, um in die britische Elite aufzusteigen.’},
-‘ph2-family’:{tip:‘Betriebe (£5): sichere £1/Runde + 2 Parlamentsstimmen. Werften (£2): günstiger, aber Bonus hängt vom Flottenverwalter ab.’,hist:‘Der „private trade” war für EIC-Angestellte eine Haupteinnahmequelle. Offiziere und Gouverneure nutzten ihre Position, um auf Kompanie-Schiffen eigene Waren zu transportieren. John Johnstone wurde 1764 entlassen, weil er private Geschäfte mit den Nawabs von Bengalen betrieben hatte – ein klassischer Interessenkonflikt.’},
-‘ph2-shares’:{tip:‘Anteile aktivieren sich, wenn die Kompanie Schulden hat. Wer darauf spekuliert, kann günstig kaufen und profitiert früh von Dividenden.’,hist:‘EIC-Anteile brachten nicht nur Dividenden, sondern auch politischen Einfluss. John Johnstone nutzte seine 1767, um Strafverfahren zu verhindern.’},
-‘firms’:{tip:‘Firmengründung kostet einen Anteil oder Betrieb. Droht die Kompanie zu scheitern (Anteile = –1 SP), wird ein Anteil für eine Firma opfern attraktiv.’,hist:‘Die Charter Act von 1813 öffnete Indien für private Handelshäuser und untergrub die Kompanie von innen.’},
-‘ph3-hiring’:{tip:‘Wer einen Rivalen befördern lässt, kann im Gegenzug etwas verlangen. Manchmal ist der Aufstieg des Gegners taktisch klug.’,hist:‘Die Familie Johnstone kontrollierte so viele EIC-Positionen, dass Historiker sie in „every major event in the British Empire” sehen.’},
-‘ph4-chairman’:{tip:‘Der Vorsitzende kann Ämter durch Mittelkürzung schwächen. Ein Rivale mit £0 kann kaum handeln. Verbündete bevorzugen, Gegner aushungern.’,hist:‘Warren Hastings nahm 1780 Schulden auf, um den Krieg gegen Hyder Ali zu finanzieren – eine Entscheidung, die später zu seinem Impeachment beitrug. Die Schuldenaufnahme war die Lebensader der Kompanie: 1813 betrugen die Schulden der EIC über £30 Millionen. Der Vorsitzende konnte durch die Budgetverteilung Rivalen aushungern und Verbündete bevorzugen – ein mächtiges politisches Instrument.’},
-‘ph4-director’:{tip:‘China-Handel früh eröffnen und das Amt selbst besetzen. Jede kontrollierte Region = £1/Runde für den Superintendent.’,hist:‘Der Opiumhandel nach China finanzierte zwischen 1760 und 1834 praktisch die gesamte Indien-Administration.’},
-‘ph4-shipping’:{tip:‘Der Flottenverwalter kann private Werften (eigene oder verbündete) auf Kompanie-Kosten ausrüsten – eine legale Direktsubvention!’,hist:‘John Johnstone transportierte auf Kompanie-Schiffen eigene Waren, bevor er 1764 entlassen wurde.’},
-‘ph4-mil’:{tip:‘Wer die meisten Figuren in einer Armee hat, stellt den Kommandanten (+1 Macht/Trophäe). Gezielte Bewegungen können die Kommandantenschaft wechseln.’,hist:‘Nach Plassey 1757 begann der Aufstieg der Kompanie zur Militärmacht.’},
-‘ph4-bombay’:{tip:‘Präsident legt die Reihenfolge fest – taktischer Vorteil! Schreiber auf hohen Auftragswerten maximieren persönliche Einnahmen.’,hist:‘Die Präsidentschaften waren faktisch eigenständige Kolonialverwaltungen. Ihre Rivalität war Hauptgrund für EIC-Ineffizienz.’},
-‘ph4-madras’:{tip:‘Schreiber anderer Familien auf Aufträge zu bringen schafft Verbündete – ignoriert man sie, schafft man Feinde.’,hist:‘Madras war das älteste britische Fort in Indien (Fort St. George, 1644).’},
-‘ph4-bengal’:{tip:‘Bengalen ist die reichste Präsidentschaft – hohe Auftragswerte, viele Exportsymbole. Der China-Superintendent verdient direkt von hier.’,hist:‘Nach der Plünderung Bengalens 1757 erhielt Robert Clive allein £234.000 aus der Schatzkammer des Nawab.’},
-‘ph4-china’:{tip:‘Jedes Exportsymbol bringt £4 → Kompanie UND £1 → Superintendent persönlich. Je mehr Expansion, desto profitabler das Amt.’,hist:‘Der Superintendent war der „Opiumzar” der Kompanie. Der Opiumkrieg (1839–42) war direkte Folge.’},
-‘ph5-bonus’:{tip:‘Regelmäßiges Basiseinkommen – Grundlage aller langfristigen Ausgaben. Wer viele Betriebe hat, ist unabhängiger von Amtserfolgen.’,hist:‘John Johnstone finanzierte seinen Lebensstil aus Investitionserträgen – nicht aus offiziellem Gehalt.’},
-‘ph6-expenses’:{tip:‘Formel: £1/Schuld + £1/Regiment + £1/Offizier + £1/Schiff. Diese Zahl VOR Phase IV kennen – damit man weiß, wie viel Ertrag die Kompanie braucht.’,hist:‘1813 betrugen allein die EIC-Zinsen über £5 Millionen. Chronische Unterkapitalisierung war Hauptgrund für staatliche Eingriffe.’},
-‘ph6-dividends’:{tip:‘Dividenden sind EINZIGER Weg, Ansehen zu erhöhen (Öffentliche Euphorie). Anteilsinhaber setzen den Vorsitzenden unter Druck!’,hist:‘Zwischen 1793 und 1813 wurden EIC-Dividenden aus Schulden finanziert – ein frühes Beispiel für „financial engineering”.’},
-‘ph8-parli’:{tip:‘Als PM: Gesetz wählen, das Rivalen besteuert. Als Opposition: Stimmenkauf dosiert – eine glaubwürdige Drohung reicht oft.’,hist:‘Stimmenkauf war im 18. Jahrhundert in Großbritannien allgegenwärtig. John Johnstone sicherte sich seinen Parlamentssitz 1774 durch Bestechung der Delegierten von Burntisland und Kinghorn. Der Regulating Act (1773) und Pitts India Act (1784) unterwarfen die Kompanie immer stärker staatlicher Kontrolle – jede Abstimmung war damals wie heute ein Handel aus Eigeninteressen.’},
-‘ph9-upkeep’:{tip:‘Kurz vor Spielende Belohnungen kaufen? Nur wenn keine weitere Unterhaltsphase folgt. Genau zählen: letzte Runde = kein Unterhalt mehr.’,hist:‘Warren Hastings wurde durch die Kosten seines Impeachment-Verfahrens (1787–1795) finanziell ruiniert.’},
-‘ph10-scoring’:{tip:‘Macht-Prämie kann entscheidend sein: Trophäen früh sammeln. PM-Position (+2 Macht) wird oft unterschätzt.’,hist:‘Die Schlusswertung spiegelt das Lebenswerk der „Nabobs” wider: Robert Clive, John Johnstone, Warren Hastings. Wer die Mechanismen des Systems zu seinen Gunsten nutzte – Ämter, Dividenden, politische Macht – kehrte als Gewinner heim. Die EIC wurde 1874 endgültig aufgelöst, nachdem die Meuterei von 1857 zur Verstaatlichung geführt hatte. Das Spiel gibt keine moralische Bewertung vor – die Mechanismen sprechen für sich.’}
+'ph1-attrition':{tip:'Ämter mit Ermattungs-Markern sind riskant. Rechtzeitig befördern, bevor +2/+3 Ruhestand fast sicher macht.',hist:'Viele EIC-Angestellte blieben nur wenige Jahre in Indien. Krankheiten und Intrigen sorgten für hohe Fluktuation.'},
+'ph1-retire':{tip:'Die Höhe der Ausgaben bestimmt die Zugreihenfolge. Manchmal lohnt Mehrausgabe für eine wertvolle Karte (Ehegatte, Unternehmen).',hist:'John Johnstone erwarb nach seiner Rückkehr 1765 die Güter Alva, Hangingshaw und Denovan in Schottland und ließ Alva House von Robert Adam umbauen. Warren Hastings blieb trotz seiner Verdienste verschuldet – der Unterhalt von Anwesen und Titeln ruin…'},
+'ph1-prestige':{tip:'Erpressungskarten darf man vor der Entscheidung ansehen. Ehegatten bieten dauerhafte Rabatte – besonders wertvoll bei mehreren Ruhestandsplänen.',hist:'Die „Nabobs" nutzten ihr Vermögen, um in die britische Elite aufzusteigen.'},
+'ph2-family':{tip:'Betriebe (£5): sichere £1/Runde + 2 Parlamentsstimmen. Werften (£2): günstiger, aber Bonus hängt vom Flottenverwalter ab.',hist:'Der „private trade" war für EIC-Angestellte eine Haupteinnahmequelle. Offiziere und Gouverneure nutzten ihre Position, um auf Kompanie-Schiffen eigene Waren zu transportieren. John Johnstone wurde 1764 entlassen, weil er private Geschäfte mit den Nawabs von Bengalen betrieben hatte – ein klassischer Interessenkonflikt.'},
+'ph2-shares':{tip:'Anteile aktivieren sich, wenn die Kompanie Schulden hat. Wer darauf spekuliert, kann günstig kaufen und profitiert früh von Dividenden.',hist:'EIC-Anteile brachten nicht nur Dividenden, sondern auch politischen Einfluss. John Johnstone nutzte seine 1767, um Strafverfahren zu verhindern.'},
+'firms':{tip:'Firmengründung kostet einen Anteil oder Betrieb. Droht die Kompanie zu scheitern (Anteile = –1 SP), wird ein Anteil für eine Firma opfern attraktiv.',hist:'Die Charter Act von 1813 öffnete Indien für private Handelshäuser und untergrub die Kompanie von innen.'},
+'ph3-hiring':{tip:'Wer einen Rivalen befördern lässt, kann im Gegenzug etwas verlangen. Manchmal ist der Aufstieg des Gegners taktisch klug.',hist:'Die Familie Johnstone kontrollierte so viele EIC-Positionen, dass Historiker sie in „every major event in the British Empire" sehen.'},
+'ph4-chairman':{tip:'Der Vorsitzende kann Ämter durch Mittelkürzung schwächen. Ein Rivale mit £0 kann kaum handeln. Verbündete bevorzugen, Gegner aushungern.',hist:'Warren Hastings nahm 1780 Schulden auf, um den Krieg gegen Hyder Ali zu finanzieren – eine Entscheidung, die später zu seinem Impeachment beitrug. Die Schuldenaufnahme war die Lebensader der Kompanie: 1813 betrugen die Schulden der EIC über £30 Millionen. Der Vorsitzende konnte durch die Budgetverteilung Rivalen aushungern und Verbündete bevorzugen – ein mächtiges politisches Instrument.'},
+'ph4-director':{tip:'China-Handel früh eröffnen und das Amt selbst besetzen. Jede kontrollierte Region = £1/Runde für den Superintendent.',hist:'Der Opiumhandel nach China finanzierte zwischen 1760 und 1834 praktisch die gesamte Indien-Administration.'},
+'ph4-shipping':{tip:'Der Flottenverwalter kann private Werften (eigene oder verbündete) auf Kompanie-Kosten ausrüsten – eine legale Direktsubvention!',hist:'John Johnstone transportierte auf Kompanie-Schiffen eigene Waren, bevor er 1764 entlassen wurde.'},
+'ph4-mil':{tip:'Wer die meisten Figuren in einer Armee hat, stellt den Kommandanten (+1 Macht/Trophäe). Gezielte Bewegungen können die Kommandantenschaft wechseln.',hist:'Nach Plassey 1757 begann der Aufstieg der Kompanie zur Militärmacht.'},
+'ph4-bombay':{tip:'Präsident legt die Reihenfolge fest – taktischer Vorteil! Schreiber auf hohen Auftragswerten maximieren persönliche Einnahmen.',hist:'Die Präsidentschaften waren faktisch eigenständige Kolonialverwaltungen. Ihre Rivalität war Hauptgrund für EIC-Ineffizienz.'},
+'ph4-madras':{tip:'Schreiber anderer Familien auf Aufträge zu bringen schafft Verbündete – ignoriert man sie, schafft man Feinde.',hist:'Madras war das älteste britische Fort in Indien (Fort St. George, 1644).'},
+'ph4-bengal':{tip:'Bengalen ist die reichste Präsidentschaft – hohe Auftragswerte, viele Exportsymbole. Der China-Superintendent verdient direkt von hier.',hist:'Nach der Plünderung Bengalens 1757 erhielt Robert Clive allein £234.000 aus der Schatzkammer des Nawab.'},
+'ph4-china':{tip:'Jedes Exportsymbol bringt £4 → Kompanie UND £1 → Superintendent persönlich. Je mehr Expansion, desto profitabler das Amt.',hist:'Der Superintendent war der „Opiumzar" der Kompanie. Der Opiumkrieg (1839–42) war direkte Folge.'},
+'ph5-bonus':{tip:'Regelmäßiges Basiseinkommen – Grundlage aller langfristigen Ausgaben. Wer viele Betriebe hat, ist unabhängiger von Amtserfolgen.',hist:'John Johnstone finanzierte seinen Lebensstil aus Investitionserträgen – nicht aus offiziellem Gehalt.'},
+'ph6-expenses':{tip:'Formel: £1/Schuld + £1/Regiment + £1/Offizier + £1/Schiff. Diese Zahl VOR Phase IV kennen – damit man weiß, wie viel Ertrag die Kompanie braucht.',hist:'1813 betrugen allein die EIC-Zinsen über £5 Millionen. Chronische Unterkapitalisierung war Hauptgrund für staatliche Eingriffe.'},
+'ph6-dividends':{tip:'Dividenden sind EINZIGER Weg, Ansehen zu erhöhen (Öffentliche Euphorie). Anteilsinhaber setzen den Vorsitzenden unter Druck!',hist:'Zwischen 1793 und 1813 wurden EIC-Dividenden aus Schulden finanziert – ein frühes Beispiel für „financial engineering".'},
+'ph8-parli':{tip:'Als PM: Gesetz wählen, das Rivalen besteuert. Als Opposition: Stimmenkauf dosiert – eine glaubwürdige Drohung reicht oft.',hist:'Stimmenkauf war im 18. Jahrhundert in Großbritannien allgegenwärtig. John Johnstone sicherte sich seinen Parlamentssitz 1774 durch Bestechung der Delegierten von Burntisland und Kinghorn. Der Regulating Act (1773) und Pitts India Act (1784) unterwarfen die Kompanie immer stärker staatlicher Kontrolle – jede Abstimmung war damals wie heute ein Handel aus Eigeninteressen.'},
+'ph9-upkeep':{tip:'Kurz vor Spielende Belohnungen kaufen? Nur wenn keine weitere Unterhaltsphase folgt. Genau zählen: letzte Runde = kein Unterhalt mehr.',hist:'Warren Hastings wurde durch die Kosten seines Impeachment-Verfahrens (1787–1795) finanziell ruiniert.'},
+'ph10-scoring':{tip:'Macht-Prämie kann entscheidend sein: Trophäen früh sammeln. PM-Position (+2 Macht) wird oft unterschätzt.',hist:'Die Schlusswertung spiegelt das Lebenswerk der „Nabobs" wider: Robert Clive, John Johnstone, Warren Hastings. Wer die Mechanismen des Systems zu seinen Gunsten nutzte – Ämter, Dividenden, politische Macht – kehrte als Gewinner heim. Die EIC wurde 1874 endgültig aufgelöst, nachdem die Meuterei von 1857 zur Verstaatlichung geführt hatte. Das Spiel gibt keine moralische Bewertung vor – die Mechanismen sprechen für sich.'}
 };
 
 /* ══════════════════════ CHECKLISTS ══════════════════════ */
 const CHECKLISTS={
-‘ph1-attrition’:[’<strong>Alle gleichzeitig würfeln:</strong> 1 W6 pro besetztem Amt’,‘Ermattungs-Marker auf Ämterkarte? → Ergebnis <strong>+1</strong> pro Marker’,‘Vorsitzender würfelt? → Ergebnis immer <strong>zusätzlich +1</strong>’,‘1–2: Nichts · 3–4: Ermattungs-Marker · <strong>5+: Ruhestand</strong>’],
-‘ph1-retire’:[’<strong>Reihenfolge:</strong> Vorsitzender zuerst, dann im Uhrzeigersinn’,‘Belohnung wählen · Kosten zahlen · Figur auf Belohnung’,’<strong>SP sofort eintragen</strong>’,‘Restliche Ruheständler-Marker → zurück in Familienvorrat’],
-‘ph1-prestige’:[‘Berechtigt: <strong>Familien mit mind. 1 Ruheständler</strong> dieser Phase’,‘Reihenfolge: Höchste Ruhestand-Ausgaben zuerst’,‘Karte nehmen oder passen’,’<strong>Auslage immer auf 3 Karten auffüllen</strong>’],
-‘ph2-family’:[’<strong>Vorsitzender zuerst</strong>, dann im Uhrzeigersinn’,‘Chancen-Marker auf Aktion · Bereits dort? → Aktion <strong>2× ausführen</strong>’,‘1 Familienaktion: Schreiber · Offizier · Werft · Luxusgut · Betrieb · Anteil’],
-‘ph2-shares’:[‘Kompanie hat <strong>Schulden?</strong> → Rechtestes Mitglied → Kollegium · Schulden –1’,‘Wiederholen bis Schulden getilgt’,‘Keine Schulden: Mitglieder <strong>so weit rechts wie möglich</strong>’],
-‘firms’:[’<strong>Schritt 1:</strong> Firma gründen · investieren · Schiffe · Übernahme · Fusion’,’<strong>Schritt 2:</strong> Alle gleichzeitig & geheim: Seeregion + Heimathafen + Einsatz’],
-‘ph3-hiring’:[‘Freie Ämter in <strong>aufsteigender Nummerfolge</strong>’,’<strong>Vorsitz:</strong> Kollegium-Mehrheit · kein Konsens → alter Vorsitzender wählt’,‘Ernennungs-Hierarchie beachten’,’<strong>⚠ Alle Ämter MÜSSEN besetzt werden!</strong>’],
-‘ph4-chairman’:[‘Optional: <strong>Schulden erhöhen</strong> (max. 3× ohne Abstimmung) → je +£5’,’<strong>Pflicht:</strong> Gesamtes Kompanie-Vermögen vollständig auf Amtsschatullen verteilen’],
-‘ph4-director’:[‘Aktion A (opt.): <strong>Sondergesandter</strong> – £1/Würfel · Erfolg: Auftrag öffnen oder China’,‘Aktion B (immer): <strong>Bis zu 2 Bewegungen</strong> (Schreiber oder Schiff)’],
-‘ph4-shipping’:[’<strong>⚠ Pflicht:</strong> Ausgeben bis max. <strong>£2</strong> übrig!’,‘Charter £2 · Privat £3 · Kompanie-Schiff £5 (nur wenn kein blaues Schiff auf Werft!)’],
-‘ph4-mil’:[‘Schritt 1 (opt.): <strong>Bis zu 2 Bewegungen</strong> zwischen Armeen’,‘Schritt 2 (Pflicht): <strong>Alle Offiziersanwärter</strong> zuweisen’,‘Schritt 3: Kommandanten prüfen’],
-‘ph4-bombay’:[‘Präsident legt <strong>Reihenfolge</strong> fest’,’<strong>Handel</strong> (1×/Runde): £1/Würfel · –1W/Fremd-Region’,’<strong>Einsatz</strong> (opt.): 1W/erschöpftem Offizier/Regiment’,’<strong>Verwalten</strong> (opt.): Würfelvorrat sinkt je Versuch’],
-‘ph4-madras’:[‘Präsident legt <strong>Reihenfolge</strong> fest’,’<strong>Handel</strong> (1×/Runde): £1/Würfel · –1W/Fremd-Region’,’<strong>Einsatz</strong> (opt.): 1W/erschöpftem Offizier/Regiment’,’<strong>Verwalten</strong> (opt.): Würfelvorrat sinkt je Versuch’],
-‘ph4-bengal’:[‘Präsident legt <strong>Reihenfolge</strong> fest’,’<strong>Handel</strong> (1×/Runde): £1/Würfel · –1W/Fremd-Region’,’<strong>Einsatz</strong> (opt.): 1W/erschöpftem Offizier/Regiment’,’<strong>Verwalten</strong> (opt.): Würfelvorrat sinkt je Versuch’],
-‘ph4-china’:[’<strong>Voraussetzung:</strong> mind. 1 Schiff in China-Schatulle + mind. 1 Exportsymbol’,’<strong>Handel</strong> (1×/Runde): 1W/Schiff · kein Abzug’,‘Erfolg: +£4/Export → Kompanie · Superintendent +£1/Export’],
-‘ph5-bonus’:[‘Jede Familie: <strong>£1/Werft</strong> mit ausgerüstetem Schiff’,‘Jede Familie: <strong>£1/Betrieb</strong> (Familienversion, nicht investierte DEREG-Betriebe)’],
-‘ph6-expenses’:[’<strong>Ausgaben:</strong> £1/Schuld + £1/Regiment + £1/Offizier (kein Kommandant!) + £1/Schiff’,‘Notkredite: +1 Schuld · +£5 → wiederholen → <strong>Vermögen auf 0!</strong>’,‘1–2 Notkredite → –1 Ansehen · 3+ → –2 Ansehen’,’<strong>⚠ Ansehen ganz links = Kompanie gescheitert!</strong>’],
-‘ph6-dividends’:[‘Vermögen < Erwartungswert? → <strong>Ansehen –1</strong>’,‘Optional: <strong>Dividenden zahlen</strong> (£1/Anteil inkl. Vorsitzender)’,‘Dividende > Erwartungswert? → <strong>Öffentliche Euphorie: Ansehen +1!</strong>’,’<strong>⚠ Ansehen ganz links = Kompanie gescheitert!</strong>’],
-‘ph7-india’:[‘Sturmwürfel · Stürme für <strong>blaue Schiffe</strong> abhandeln’,‘Ereigniskarten festlegen · ziehen · abhandeln’,‘Nach jedem Ereignis: <strong>Marsch des Elefanten</strong>’],
-‘ph8-parli’:[‘PM zieht Karten (max. 3) · <strong>Dilemma</strong> stoppt sofort · wählen’,‘PM-Scheibe drehen’,‘Abstimmung: £1 = 1 Stimme · Für oder Gegen’,‘≥0 → <strong>Beschlossen</strong> · <0 → <strong>Abgelehnt</strong> (neuer PM)’],
-‘ph9-upkeep’:[‘Unterhalt zahlen: weiße Zahl · nicht zahlen = Figur + SP verlieren’,’<strong>Letzte Runde?</strong> → Schlusswertung (Phase X)’,‘Schreiber/Erfüllt-Marker/Teiler/Charter → zurück’,‘Erschöpfte Offiziere & Regimenter aktivieren · <strong>Rundenmarker vorrücken</strong>’],
-‘ph10-scoring’:[’<strong>1.</strong> SP auf Punkte-Leiste’,’<strong>2.</strong> Anteile/Betriebe laut Tabelle’,’<strong>3.</strong> Macht: Trophäen/PM/Gesetze/Karten’,’<strong>4.</strong> Macht-Prämie: Top-2 SP laut Spielplan-Tabelle’]
+'ph1-attrition':['<strong>Alle gleichzeitig würfeln:</strong> 1 W6 pro besetztem Amt','Ermattungs-Marker auf Ämterkarte? → Ergebnis <strong>+1</strong> pro Marker','Vorsitzender würfelt? → Ergebnis immer <strong>zusätzlich +1</strong>','1–2: Nichts · 3–4: Ermattungs-Marker · <strong>5+: Ruhestand</strong>'],
+'ph1-retire':['<strong>Reihenfolge:</strong> Vorsitzender zuerst, dann im Uhrzeigersinn','Belohnung wählen · Kosten zahlen · Figur auf Belohnung','<strong>SP sofort eintragen</strong>','Restliche Ruheständler-Marker → zurück in Familienvorrat'],
+'ph1-prestige':['Berechtigt: <strong>Familien mit mind. 1 Ruheständler</strong> dieser Phase','Reihenfolge: Höchste Ruhestand-Ausgaben zuerst','Karte nehmen oder passen','<strong>Auslage immer auf 3 Karten auffüllen</strong>'],
+'ph2-family':['<strong>Vorsitzender zuerst</strong>, dann im Uhrzeigersinn','Chancen-Marker auf Aktion · Bereits dort? → Aktion <strong>2× ausführen</strong>','1 Familienaktion: Schreiber · Offizier · Werft · Luxusgut · Betrieb · Anteil'],
+'ph2-shares':['Kompanie hat <strong>Schulden?</strong> → Rechtestes Mitglied → Kollegium · Schulden –1','Wiederholen bis Schulden getilgt','Keine Schulden: Mitglieder <strong>so weit rechts wie möglich</strong>'],
+'firms':['<strong>Schritt 1:</strong> Firma gründen · investieren · Schiffe · Übernahme · Fusion','<strong>Schritt 2:</strong> Alle gleichzeitig & geheim: Seeregion + Heimathafen + Einsatz'],
+'ph3-hiring':['Freie Ämter in <strong>aufsteigender Nummerfolge</strong>','<strong>Vorsitz:</strong> Kollegium-Mehrheit · kein Konsens → alter Vorsitzender wählt','Ernennungs-Hierarchie beachten','<strong>⚠ Alle Ämter MÜSSEN besetzt werden!</strong>'],
+'ph4-chairman':['Optional: <strong>Schulden erhöhen</strong> (max. 3× ohne Abstimmung) → je +£5','<strong>Pflicht:</strong> Gesamtes Kompanie-Vermögen vollständig auf Amtsschatullen verteilen'],
+'ph4-director':['Aktion A (opt.): <strong>Sondergesandter</strong> – £1/Würfel · Erfolg: Auftrag öffnen oder China','Aktion B (immer): <strong>Bis zu 2 Bewegungen</strong> (Schreiber oder Schiff)'],
+'ph4-shipping':['<strong>⚠ Pflicht:</strong> Ausgeben bis max. <strong>£2</strong> übrig!','Charter £2 · Privat £3 · Kompanie-Schiff £5 (nur wenn kein blaues Schiff auf Werft!)'],
+'ph4-mil':['Schritt 1 (opt.): <strong>Bis zu 2 Bewegungen</strong> zwischen Armeen','Schritt 2 (Pflicht): <strong>Alle Offiziersanwärter</strong> zuweisen','Schritt 3: Kommandanten prüfen'],
+'ph4-bombay':['Präsident legt <strong>Reihenfolge</strong> fest','<strong>Handel</strong> (1×/Runde): £1/Würfel · –1W/Fremd-Region','<strong>Einsatz</strong> (opt.): 1W/erschöpftem Offizier/Regiment','<strong>Verwalten</strong> (opt.): Würfelvorrat sinkt je Versuch'],
+'ph4-madras':['Präsident legt <strong>Reihenfolge</strong> fest','<strong>Handel</strong> (1×/Runde): £1/Würfel · –1W/Fremd-Region','<strong>Einsatz</strong> (opt.): 1W/erschöpftem Offizier/Regiment','<strong>Verwalten</strong> (opt.): Würfelvorrat sinkt je Versuch'],
+'ph4-bengal':['Präsident legt <strong>Reihenfolge</strong> fest','<strong>Handel</strong> (1×/Runde): £1/Würfel · –1W/Fremd-Region','<strong>Einsatz</strong> (opt.): 1W/erschöpftem Offizier/Regiment','<strong>Verwalten</strong> (opt.): Würfelvorrat sinkt je Versuch'],
+'ph4-china':['<strong>Voraussetzung:</strong> mind. 1 Schiff in China-Schatulle + mind. 1 Exportsymbol','<strong>Handel</strong> (1×/Runde): 1W/Schiff · kein Abzug','Erfolg: +£4/Export → Kompanie · Superintendent +£1/Export'],
+'ph5-bonus':['Jede Familie: <strong>£1/Werft</strong> mit ausgerüstetem Schiff','Jede Familie: <strong>£1/Betrieb</strong> (Familienversion, nicht investierte DEREG-Betriebe)'],
+'ph6-expenses':['<strong>Ausgaben:</strong> £1/Schuld + £1/Regiment + £1/Offizier (kein Kommandant!) + £1/Schiff','Notkredite: +1 Schuld · +£5 → wiederholen → <strong>Vermögen auf 0!</strong>','1–2 Notkredite → –1 Ansehen · 3+ → –2 Ansehen','<strong>⚠ Ansehen ganz links = Kompanie gescheitert!</strong>'],
+'ph6-dividends':['Vermögen < Erwartungswert? → <strong>Ansehen –1</strong>','Optional: <strong>Dividenden zahlen</strong> (£1/Anteil inkl. Vorsitzender)','Dividende > Erwartungswert? → <strong>Öffentliche Euphorie: Ansehen +1!</strong>','<strong>⚠ Ansehen ganz links = Kompanie gescheitert!</strong>'],
+'ph7-india':['Sturmwürfel · Stürme für <strong>blaue Schiffe</strong> abhandeln','Ereigniskarten festlegen · ziehen · abhandeln','Nach jedem Ereignis: <strong>Marsch des Elefanten</strong>'],
+'ph8-parli':['PM zieht Karten (max. 3) · <strong>Dilemma</strong> stoppt sofort · wählen','PM-Scheibe drehen','Abstimmung: £1 = 1 Stimme · Für oder Gegen','≥0 → <strong>Beschlossen</strong> · <0 → <strong>Abgelehnt</strong> (neuer PM)'],
+'ph9-upkeep':['Unterhalt zahlen: weiße Zahl · nicht zahlen = Figur + SP verlieren','<strong>Letzte Runde?</strong> → Schlusswertung (Phase X)','Schreiber/Erfüllt-Marker/Teiler/Charter → zurück','Erschöpfte Offiziere & Regimenter aktivieren · <strong>Rundenmarker vorrücken</strong>'],
+'ph10-scoring':['<strong>1.</strong> SP auf Punkte-Leiste','<strong>2.</strong> Anteile/Betriebe laut Tabelle','<strong>3.</strong> Macht: Trophäen/PM/Gesetze/Karten','<strong>4.</strong> Macht-Prämie: Top-2 SP laut Spielplan-Tabelle']
 };
 
-const GUIDED_PHASES=new Set([‘ph4-chairman’,‘ph4-director’,‘ph4-shipping’,‘ph4-mil’,‘ph4-bombay’,‘ph4-madras’,‘ph4-bengal’,‘ph4-china’,‘ph6-expenses’,‘ph6-dividends’,‘ph8-parli’,‘ph9-upkeep’]);
+const GUIDED_PHASES=new Set(['ph4-chairman','ph4-director','ph4-shipping','ph4-mil','ph4-bombay','ph4-madras','ph4-bengal','ph4-china','ph6-expenses','ph6-dividends','ph8-parli','ph9-upkeep']);
 
 /* ══════════════════════ STEPS (buildSteps) ══════════════════════ */
 // STEPS[] wird dynamisch via buildSteps() erzeugt – hier die vollständige Funktion:
 let steps=[],cur=0;
 
 function buildSteps(){
-const r1=$(‘tog-r1’).checked,dr=$(‘tog-dr’).checked,gg=$(‘tog-gg’).checked,cn=$(‘tog-cn’).checked;
+const r1=$('tog-r1').checked,dr=$('tog-dr').checked,gg=$('tog-gg').checked,cn=$('tog-cn').checked;
 const all=[
-{id:‘ph1-attrition’,phase:‘Phase I’,  title:‘Personalabbau’,            skip:r1, render:()=>s_ph1_attrition()},
-{id:‘ph1-retire’,   phase:‘Phase I’,  title:‘Ruhestand’,                skip:r1, render:()=>s_ph1_retire()},
-{id:‘ph1-prestige’, phase:‘Phase I’,  title:‘Prestige-Karten’,          skip:r1, render:()=>s_ph1_prestige()},
-{id:‘ph2-family’,   phase:‘Phase II’, title:‘Familienaktionen’,         skip:false,render:()=>s_ph2_family()},
-{id:‘ph2-shares’,   phase:‘Phase II’, title:‘Neue Anteile’,             skip:false,render:()=>s_ph2_shares()},
-{id:‘firms’,        phase:‘Firmen’,   title:‘Firmen-Phase’,             skip:!dr, render:()=>s_firms()},
-{id:‘ph3-hiring’,   phase:‘Phase III’,title:‘Ämter besetzen’,           skip:r1, render:()=>s_ph3_hiring()},
-{id:‘ph4-chairman’, phase:‘Phase IV’, title:‘Vorsitz’,                  skip:false,render:()=>s_ph4_chairman()},
-{id:‘ph4-director’, phase:‘Phase IV’, title:gg?‘General-Gouverneur’:‘Direktor des Handels’, skip:false,render:()=>s_ph4_director(gg)},
-{id:‘ph4-shipping’, phase:‘Phase IV’, title:‘Flottenverwalter’,         skip:false,render:()=>s_ph4_shipping()},
-{id:‘ph4-mil’,      phase:‘Phase IV’, title:‘Militärische Belange’,     skip:false,render:()=>s_ph4_mil()},
-{id:‘ph4-bombay’,   phase:‘Phase IV’, title:‘Bombay’,                   skip:false,render:()=>s_ph4_pres(‘Bombay’,‘Westindischer Ozean’)},
-{id:‘ph4-madras’,   phase:‘Phase IV’, title:‘Madras’,                   skip:false,render:()=>s_ph4_pres(‘Madras’,‘Südindischer Ozean’)},
-{id:‘ph4-bengal’,   phase:‘Phase IV’, title:‘Bengalen’,                 skip:false,render:()=>s_ph4_pres(‘Bengalen’,‘Ostindischer Ozean’)},
-{id:‘ph4-china’,    phase:‘Phase IV’, title:‘Superintendent China’,     skip:!cn, render:()=>s_ph4_china()},
-{id:‘ph5-bonus’,    phase:‘Phase V’,  title:‘Familien-Boni’,            skip:false,render:()=>s_ph5()},
-{id:‘ph6-expenses’, phase:‘Phase VI’, title:‘Ausgaben & Notkredite’,    skip:false,render:()=>s_ph6_expenses()},
-{id:‘ph6-dividends’,phase:‘Phase VI’, title:‘Erwartungen & Dividenden’, skip:false,render:()=>s_ph6_dividends()},
-{id:‘ph7-india’,    phase:‘Phase VII’,title:‘Ereignisse in Indien’,     skip:false,render:()=>s_ph7()},
-{id:‘ph8-parli’,    phase:‘Phase VIII’,title:‘Parlamentssitzung’,       skip:false,render:()=>s_ph8()},
-{id:‘ph9-upkeep’,   phase:‘Phase IX’, title:‘Unterhalt & Auffrischung’, skip:false,render:()=>s_ph9()},
-{id:‘ph10-scoring’, phase:‘Phase X’,  title:‘Spielende & Schlusswertung’,skip:false,render:()=>s_ph10()},
+{id:'ph1-attrition',phase:'Phase I',  title:'Personalabbau',            skip:r1, render:()=>s_ph1_attrition()},
+{id:'ph1-retire',   phase:'Phase I',  title:'Ruhestand',                skip:r1, render:()=>s_ph1_retire()},
+{id:'ph1-prestige', phase:'Phase I',  title:'Prestige-Karten',          skip:r1, render:()=>s_ph1_prestige()},
+{id:'ph2-family',   phase:'Phase II', title:'Familienaktionen',         skip:false,render:()=>s_ph2_family()},
+{id:'ph2-shares',   phase:'Phase II', title:'Neue Anteile',             skip:false,render:()=>s_ph2_shares()},
+{id:'firms',        phase:'Firmen',   title:'Firmen-Phase',             skip:!dr, render:()=>s_firms()},
+{id:'ph3-hiring',   phase:'Phase III',title:'Ämter besetzen',           skip:r1, render:()=>s_ph3_hiring()},
+{id:'ph4-chairman', phase:'Phase IV', title:'Vorsitz',                  skip:false,render:()=>s_ph4_chairman()},
+{id:'ph4-director', phase:'Phase IV', title:gg?'General-Gouverneur':'Direktor des Handels', skip:false,render:()=>s_ph4_director(gg)},
+{id:'ph4-shipping', phase:'Phase IV', title:'Flottenverwalter',         skip:false,render:()=>s_ph4_shipping()},
+{id:'ph4-mil',      phase:'Phase IV', title:'Militärische Belange',     skip:false,render:()=>s_ph4_mil()},
+{id:'ph4-bombay',   phase:'Phase IV', title:'Bombay',                   skip:false,render:()=>s_ph4_pres('Bombay','Westindischer Ozean')},
+{id:'ph4-madras',   phase:'Phase IV', title:'Madras',                   skip:false,render:()=>s_ph4_pres('Madras','Südindischer Ozean')},
+{id:'ph4-bengal',   phase:'Phase IV', title:'Bengalen',                 skip:false,render:()=>s_ph4_pres('Bengalen','Ostindischer Ozean')},
+{id:'ph4-china',    phase:'Phase IV', title:'Superintendent China',     skip:!cn, render:()=>s_ph4_china()},
+{id:'ph5-bonus',    phase:'Phase V',  title:'Familien-Boni',            skip:false,render:()=>s_ph5()},
+{id:'ph6-expenses', phase:'Phase VI', title:'Ausgaben & Notkredite',    skip:false,render:()=>s_ph6_expenses()},
+{id:'ph6-dividends',phase:'Phase VI', title:'Erwartungen & Dividenden', skip:false,render:()=>s_ph6_dividends()},
+{id:'ph7-india',    phase:'Phase VII',title:'Ereignisse in Indien',     skip:false,render:()=>s_ph7()},
+{id:'ph8-parli',    phase:'Phase VIII',title:'Parlamentssitzung',       skip:false,render:()=>s_ph8()},
+{id:'ph9-upkeep',   phase:'Phase IX', title:'Unterhalt & Auffrischung', skip:false,render:()=>s_ph9()},
+{id:'ph10-scoring', phase:'Phase X',  title:'Spielende & Schlusswertung',skip:false,render:()=>s_ph10()},
 ];
 steps=all.filter(s=>!s.skip);
 }
@@ -509,21 +509,21 @@ ${bRule('<strong>Gleichstand Gesamt:</strong> Fenster-Symbole → PM-Reihenfolge
 /* ══════════════════════ INDIEN STATE MACHINE ══════════════════════ */
 let IS={};
 let indiaStandalone=false;
-const LS_KEY=‘jc2e_state_v1’;
-let currentAppMode=‘menu’;
+const LS_KEY='jc2e_state_v1';
+let currentAppMode='menu';
 
-function startIndia(){IS={step:‘storm’,evTotal:0,evDone:0,invSuccess:false,isInv:false,lostReg:0,fromStorm:false,_afterLoss:null,stormReg:[],stormIdx:0,curReg:’’,crType:’’};$(‘guide-nav’).classList.add(‘hidden’);saveState();renderIndia();}
-function renderIndia(){saveState();const v=IV[IS.step];if(!v)return;let html=`<div class="step-badge"><span class="step-num">${v.label||'Indien'}</span><span class="step-phase">Phase VII</span></div><div class="step-title">${v.title}</div>`;if(IS.evTotal>0&&![‘summary’,‘storm’].includes(IS.step))html+=`<div class="ev-cnt">Ereignis ${IS.evDone} / ${IS.evTotal}</div>`;html+=`<div class="card">${v.render()}</div>`;$(‘M’).innerHTML=html;$(‘H-ph’).textContent=‘Phase VII · Indien’;const tc=$(‘tab-content’);if(tc)tc.scrollTop=0;if(IS.step===‘ev_ausland’)setTimeout(auslandUpdate,50);switchTab(‘guide’);}
+function startIndia(){IS={step:'storm',evTotal:0,evDone:0,invSuccess:false,isInv:false,lostReg:0,fromStorm:false,_afterLoss:null,stormReg:[],stormIdx:0,curReg:'',crType:''};$('guide-nav').classList.add('hidden');saveState();renderIndia();}
+function renderIndia(){saveState();const v=IV[IS.step];if(!v)return;let html=`<div class="step-badge"><span class="step-num">${v.label||'Indien'}</span><span class="step-phase">Phase VII</span></div><div class="step-title">${v.title}</div>`;if(IS.evTotal>0&&!['summary','storm'].includes(IS.step))html+=`<div class="ev-cnt">Ereignis ${IS.evDone} / ${IS.evTotal}</div>`;html+=`<div class="card">${v.render()}</div>`;$('M').innerHTML=html;$('H-ph').textContent='Phase VII · Indien';const tc=$('tab-content');if(tc)tc.scrollTop=0;if(IS.step==='ev_ausland')setTimeout(auslandUpdate,50);switchTab('guide');}
 function iGo(key,tmp){IS.step=key;if(tmp)IS.temp=tmp;saveState();renderIndia();}
-function tLoss(isInv,after){IS.lostReg=(IS.lostReg||0)+1;IS.isInv=isInv;IS._afterLoss=after||‘el_march’;IS.step=‘region_loss’;saveState();renderIndia();}
-function afterLoss(){const n=IS._afterLoss||‘el_march’;IS._afterLoss=null;IS.isInv=false;iGo(n);}
-function getStormReg(pfx){const r=[];if($(pfx+‘b’)?.checked)r.push(‘Bombay’);if($(pfx+‘m’)?.checked)r.push(‘Madras’);if($(pfx+‘e’)?.checked)r.push(‘Bengalen’);return r.length?r:[‘Region der Ereignisscheibe’];}
-function startStormInv(regs){IS.stormReg=regs;IS.stormIdx=0;IS.curReg=regs[0];iGo(‘fi_loop’);}
-function nextStormReg(){IS.stormIdx++;if(IS.stormReg&&IS.stormIdx<IS.stormReg.length){IS.curReg=IS.stormReg[IS.stormIdx];iGo(‘fi_loop’);}else{IS.invSuccess=false;IS.stormReg=[];IS.stormIdx=0;IS.curReg=’’;if(IS.fromStorm){IS.fromStorm=false;IS.evDone=1;IS.step=‘draw’;renderIndia();}else{finishEvent();}}}
-function finishEvent(){IS.invSuccess=false;IS.crType=’’;IS.temp={};if(IS.evDone<IS.evTotal){IS.evDone++;IS.step=‘draw’;}else{IS.step=‘summary’;}renderIndia();}
-function endIndiaPhase(){$(‘guide-nav’).classList.remove(‘hidden’);if(indiaStandalone){backToMenu();}else{IS={};saveState();nav(1);}}
+function tLoss(isInv,after){IS.lostReg=(IS.lostReg||0)+1;IS.isInv=isInv;IS._afterLoss=after||'el_march';IS.step='region_loss';saveState();renderIndia();}
+function afterLoss(){const n=IS._afterLoss||'el_march';IS._afterLoss=null;IS.isInv=false;iGo(n);}
+function getStormReg(pfx){const r=[];if($(pfx+'b')?.checked)r.push('Bombay');if($(pfx+'m')?.checked)r.push('Madras');if($(pfx+'e')?.checked)r.push('Bengalen');return r.length?r:['Region der Ereignisscheibe'];}
+function startStormInv(regs){IS.stormReg=regs;IS.stormIdx=0;IS.curReg=regs[0];iGo('fi_loop');}
+function nextStormReg(){IS.stormIdx++;if(IS.stormReg&&IS.stormIdx<IS.stormReg.length){IS.curReg=IS.stormReg[IS.stormIdx];iGo('fi_loop');}else{IS.invSuccess=false;IS.stormReg=[];IS.stormIdx=0;IS.curReg='';if(IS.fromStorm){IS.fromStorm=false;IS.evDone=1;IS.step='draw';renderIndia();}else{finishEvent();}}}
+function finishEvent(){IS.invSuccess=false;IS.crType='';IS.temp={};if(IS.evDone<IS.evTotal){IS.evDone++;IS.step='draw';}else{IS.step='summary';}renderIndia();}
+function endIndiaPhase(){$('guide-nav').classList.remove('hidden');if(indiaStandalone){backToMenu();}else{IS={};saveState();nav(1);}}
 function evOverview(){return `<div class="ev-grid"><div class="ev-tile" onclick="iGo('ev_tumulte')"><div class="ev-tile-ic">🌪</div><div class="ev-tile-n">Tumulte</div><div class="ev-tile-d">Aufträge schließen</div></div><div class="ev-tile" onclick="iGo('ev_geldregen')"><div class="ev-tile-ic">💰</div><div class="ev-tile-n">Geldregen</div><div class="ev-tile-d">£1/Schreiber</div></div><div class="ev-tile" onclick="iGo('ev_anfuehrer')"><div class="ev-tile-ic">👑</div><div class="ev-tile-n">Anführer</div><div class="ev-tile-d">Turm +1 oder Rebellion</div></div><div class="ev-tile" onclick="iGo('ev_frieden')"><div class="ev-tile-ic">🕊</div><div class="ev-tile-n">Frieden</div><div class="ev-tile-d">Aufträge öffnen</div></div><div class="ev-tile" onclick="IS.invSuccess=false;IS.crType='';iGo('ev_krise')"><div class="ev-tile-ic">⚔</div><div class="ev-tile-n">Krise</div><div class="ev-tile-d">Kampf laut Elefant</div></div><div class="ev-tile" onclick="IS.fromStorm=false;iGo('ev_ausland')"><div class="ev-tile-ic">🛡</div><div class="ev-tile-n">Ausländ. Invasion</div><div class="ev-tile-d">Angriff von außen</div></div><div class="ev-tile" onclick="iGo('ev_mischen')"><div class="ev-tile-ic">♻</div><div class="ev-tile-n">Neu Mischen</div><div class="ev-tile-d">Stapel mischen</div></div></div>`;}
-function kssText(){return bi(‘Kein Kommandant besetzt? → Militärische Belange übernimmt. Kein MA? → Vorsitzender.’);}
+function kssText(){return bi('Kein Kommandant besetzt? → Militärische Belange übernimmt. Kein MA? → Vorsitzender.');}
 function cascadeBox(suf){const body=`<p>Eine <strong>Kettenreaktion</strong> tritt auf, wenn alle Aufträge einer Region geschlossen sind und noch einer geschlossen werden müsste.</p><ol><li>Nachbar-Aufträge schließen, die verbunden sind. Schreiber → Familienvorrat.</li><li>Verbundener Auftrag bereits geschlossen? → Nördlichsten offenen Auftrag der Nachbarregion schließen.</li><li>Alle Nachbar-Aufträge geschlossen? → Diese löst ihrerseits Kettenreaktion aus.</li></ol>${bw('Jede Region kann pro Ereignis nur 1× eine Kettenreaktion <em>auslösen</em>.')}`;return `<div class="xref-acc">${acc('casc-'+suf,'🔗 Kettenreaktion – Regeldetails',body)}</div>`;}
 function branchBox(frage, ja_ziel, nein_ziel, weiter_ziel){
 const wz = weiter_ziel || nein_ziel;
@@ -541,7 +541,7 @@ function regionLossRuleBox(suf){const body=`<p>Wenn eine Kompanie-Region verlore
 
 /* ══════════════════════ IV – INDIEN EVENT HANDLERS ══════════════════════ */
 const IV={
-storm:{title:‘Sturmwürfel & Stürme’,label:‘Schritt 1’,render:()=>`
+storm:{title:'Sturmwürfel & Stürme',label:'Schritt 1',render:()=>`
 ${evOverview()}
 
 <h3>Sturmwürfel werfen</h3>
@@ -815,19 +815,19 @@ ${indiaStandalone?`<button class="btn btn-d" onclick="backToMenu()">← Zurück 
 
 /* ══ ausland helpers ══ */
 function auslandUpdate(){
-const any=$(‘ausb’)?.checked||$(‘ausm’)?.checked||$(‘ause’)?.checked;
-const ns=$(‘ausland-no-storm’);
-if(ns)ns.style.display=any?‘none’:‘block’;
+const any=$('ausb')?.checked||$('ausm')?.checked||$('ause')?.checked;
+const ns=$('ausland-no-storm');
+if(ns)ns.style.display=any?'none':'block';
 }
 function auslandStart(){
 IS.fromStorm=false;
 const r=[];
-if($(‘ausb’)?.checked)r.push(‘Bombay’);
-if($(‘ausm’)?.checked)r.push(‘Madras’);
-if($(‘ause’)?.checked)r.push(‘Bengalen’);
+if($('ausb')?.checked)r.push('Bombay');
+if($('ausm')?.checked)r.push('Madras');
+if($('ause')?.checked)r.push('Bengalen');
 if(r.length){startStormInv(r);return;}
-const sel=$(‘aus-region-sel’),chosen=sel?sel.value:’’;
-if(!chosen){alert(‘Bitte eine Region auswählen!’);return;}
+const sel=$('aus-region-sel'),chosen=sel?sel.value:'';
+if(!chosen){alert('Bitte eine Region auswählen!');return;}
 startStormInv([chosen]);
 }
 
@@ -962,7 +962,12 @@ const reftab_literatur = `
     <li><strong>Benedict Anderson</strong> – <em>Imagined Communities</em> (1983). Theoretische Grundlagen zu Kolonialismus und Nation.</li>
   </ul>
   <div class="box box-i" style="margin-top:10px"><em>John Company ist ein Werk historischer Fiktion. Es enthüllt sein Sujet und ermutigt Spieler, tiefer zu graben.</em></div>
-</div>`;
+</div>
+
+// reftab_ereignisse: Combines tests, verhandlungen and indien reference content
+const reftab_ereignisse = reftab_tests + reftab_verhandlungen + reftab_indien;
+
+`;
 
 /* ══════════════════════ STRATEGIE-TAB HTML (Template-Literal-String) ══════════════════════ */
 
@@ -1030,35 +1035,35 @@ const panel_strategy = `
 // Die Indien-State-Machine verwendet das IV-Objekt oben (kein separates INDIA_STEPS[]-Array).
 // Die logische Abfolge der Schritte ist:
 const INDIA_STEPS = [
-‘storm’,        // Schritt 1: Sturmwürfel & Stürme + Anzahl Ereignisse wählen
-‘draw’,         // Karte ziehen
+'storm',        // Schritt 1: Sturmwürfel & Stürme + Anzahl Ereignisse wählen
+'draw',         // Karte ziehen
 // Ereignis-Zweige:
-‘ev_tumulte’,‘ev_geldregen’,‘ev_anfuehrer’,‘ev_anf_sov’,‘ev_anf_reb’,
-‘ev_anf_reb_win’,‘ev_anf_reb_lose’,‘ev_frieden’,‘ev_frie_center’,
-‘ev_frie_border’,‘ev_krise’,
+'ev_tumulte','ev_geldregen','ev_anfuehrer','ev_anf_sov','ev_anf_reb',
+'ev_anf_reb_win','ev_anf_reb_lose','ev_frieden','ev_frie_center',
+'ev_frie_border','ev_krise',
 // Krisen-Zweige:
-‘k_co_reb’,‘k_co_reb_win’,‘k_co_inv’,‘k_co_inv_win’,
-‘k_nat_q’,‘k_nat_dom’,‘k_nat_dom_win’,‘k_nat_sov’,‘k_nat_sov_win’,
-‘k_follow’,‘k_follow_combat’,‘k_follow_win’,‘k_post’,
+'k_co_reb','k_co_reb_win','k_co_inv','k_co_inv_win',
+'k_nat_q','k_nat_dom','k_nat_dom_win','k_nat_sov','k_nat_sov_win',
+'k_follow','k_follow_combat','k_follow_win','k_post',
 // Ausländische Invasion:
-‘ev_ausland’,‘fi_loop’,‘fi_win’,‘fi_follow’,
+'ev_ausland','fi_loop','fi_win','fi_follow',
 // Sonstiges:
-‘ev_mischen’,‘region_loss’,‘el_march’,‘summary’
+'ev_mischen','region_loss','el_march','summary'
 ];
 
 /* ══════════════════════ SETUP_STEPS (renderSetup) ══════════════════════ */
 // SETUP_STEPS[] ist kein separates Array – Setup wird durch renderSetup() gerendert.
 // Die Schritte der Spielvorbereitung als Array:
 const SETUP_STEPS = [
-{id:‘sc-1710’,   label:‘🕰 1710 – Die frühe Kompanie’,    note:‘Empfohlen zum Lernen. Keine Schulden. DEREG- und GG-Toggles ausschalten.’},
-{id:‘sc-1758’,   label:‘⚔ 1758 – Gefährliche Zeiten’,     note:‘Mittlere Komplexität. Schulden vorhanden, Krieg in Indien.’},
-{id:‘sc-1813’,   label:‘🏭 1813 – Das Zeitalter der Firmen’,note:‘Erfahrene Spieler. Deregulierung aktiv. DEREG-Toggle aktivieren.’},
-{id:‘sc-long1710’,label:‘🕰 Langes 1710 – Die volle Geschichte’,note:‘Erfahrene Spieler · bis zu 8 Runden. Wie 1710, aber mit DEREG-Werkzeugen.’},
+{id:'sc-1710',   label:'🕰 1710 – Die frühe Kompanie',    note:'Empfohlen zum Lernen. Keine Schulden. DEREG- und GG-Toggles ausschalten.'},
+{id:'sc-1758',   label:'⚔ 1758 – Gefährliche Zeiten',     note:'Mittlere Komplexität. Schulden vorhanden, Krieg in Indien.'},
+{id:'sc-1813',   label:'🏭 1813 – Das Zeitalter der Firmen',note:'Erfahrene Spieler. Deregulierung aktiv. DEREG-Toggle aktivieren.'},
+{id:'sc-long1710',label:'🕰 Langes 1710 – Die volle Geschichte',note:'Erfahrene Spieler · bis zu 8 Runden. Wie 1710, aber mit DEREG-Werkzeugen.'},
 ];
 // Setup-Aufbaureihenfolge:
 const SETUP_SEQUENCE = [
-{step:1, title:‘Spielplan’,        items:[‘Spielplan · Marker auf Startfelder laut Szenariokarte.’,‘Ansehen · Schulden · Rundenmarker auf Startfelder.’,‘Kompanie-Vermögen auf 0 · PM-Scheibe · PM-Marker setzen.’,‘Macht-Marker · Gesetzesstapel mischen.’]},
-{step:2, title:‘Präsidentschaften’,items:[‘Tableaus aufbauen.’,‘Schreiber · Offiziere · Regimenter · Amtskarten laut Szenario.’]},
-{step:3, title:‘Indien’,           items:[‘Türme · Kuppeln · Flaggen laut Szenario.’,‘Elefant auf Startregion · Ereignisstapel mischen.’,‘Beute-Token: Jeden Beute-Token in die entsprechende Region legen – £-Seite nach oben! [ERRATA]’]},
-{step:4, title:‘Familien’,         items:[‘Setup-Karten gleichzeitig abhandeln.’,‘Familienmitglieder in Ämter · Versprechen-Karten (5 Stück) · Startgeld.’]},
+{step:1, title:'Spielplan',        items:['Spielplan · Marker auf Startfelder laut Szenariokarte.','Ansehen · Schulden · Rundenmarker auf Startfelder.','Kompanie-Vermögen auf 0 · PM-Scheibe · PM-Marker setzen.','Macht-Marker · Gesetzesstapel mischen.']},
+{step:2, title:'Präsidentschaften',items:['Tableaus aufbauen.','Schreiber · Offiziere · Regimenter · Amtskarten laut Szenario.']},
+{step:3, title:'Indien',           items:['Türme · Kuppeln · Flaggen laut Szenario.','Elefant auf Startregion · Ereignisstapel mischen.','Beute-Token: Jeden Beute-Token in die entsprechende Region legen – £-Seite nach oben! [ERRATA]']},
+{step:4, title:'Familien',         items:['Setup-Karten gleichzeitig abhandeln.','Familienmitglieder in Ämter · Versprechen-Karten (5 Stück) · Startgeld.']},
 ];
